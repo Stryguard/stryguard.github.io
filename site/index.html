@@ -969,6 +969,22 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
   function shelves() {
     const enemy = state.enemy;
     return [
+      { name: "Battle", icon: "⚔️", blurb: "Blood, honour and a great many small animals.", awards: [
+        { stats: ["Total deaths from opposite faction"], title: "Favourite Target", icon: "🎯", say: n => ["slain by the " + enemy + " ", times(n)] },
+        { stats: ["Total Honorable Kills"], title: "Thorn in Their Side", icon: "🛡️", say: n => per(n, " honorable kill", " honorable kills") },
+        { stats: ["Total Killing Blows"], title: "Finishing Touch", icon: "🗡️", say: n => per(n, " killing blow", " killing blows") },
+        { stats: ["Creatures killed"], title: "Menace to Wildlife", icon: "🐺", say: n => per(n, " creature slain", " creatures slain") },
+        { stats: ["Critters killed"], title: "Bane of Squirrels", icon: "🐿️", say: n => per(n, " innocent critter", " innocent critters") },
+        { stats: ["Duels won"], title: "Duel Champion", icon: "🏆", say: n => per(n, " duel won", " duels won") },
+        { stats: ["Duels lost"], title: "Gracious Loser", icon: "🤺", say: n => per(n, " duel lost", " duels lost") },
+        { stats: ["Battlegrounds played"], title: "Battleground Regular", icon: "🚩", say: n => per(n, " battleground fought", " battlegrounds fought") },
+        { stats: ["Deaths in Arathi Basin", "Deaths in Warsong Gulch"], title: "Cannon Fodder", icon: "🪦", say: n => ["fell in battlegrounds ", times(n)] },
+        { stats: ["Battlegrounds won"], title: "Victory Lap", icon: "🥇", say: n => per(n, " battleground won", " battlegrounds won") },
+        { value: m => stat(m, "Battlegrounds played") - stat(m, "Battlegrounds won"), title: "Glutton for Punishment", icon: "😵", say: n => ["went back for more after losing ", times(n)] },
+        { stats: ["Arathi Basin bases assaulted"], title: "Farm Raider", icon: "🌾", say: n => ["stormed a base in Arathi Basin ", times(n)] },
+        { value: m => stat(m, "Total kills") - stat(m, "Total kills that grant experience or honor"), title: "Picks on the Little Guys", icon: "👊", say: n => per(n, " kill worth nothing at all", " kills worth nothing at all") },
+        { stats: ["Different creature types killed"], title: "Equal-Opportunity Slayer", icon: "🐉", say: n => per(n, " kind of creature slain", " kinds of creature slain") }
+      ] },
       { name: "Ways to die", icon: "💀", blurb: "Azeroth is dangerous. Some of us prove it daily.", awards: [
         { stats: ["Deaths from falling"], title: "Gravity’s Favourite", icon: "🪂", say: n => ["fell to their doom ", times(n)] },
         { stats: ["Deaths from drowning"], title: "Sleeps with the Fishes", icon: "🫧", say: n => ["drowned ", times(n)] },
@@ -979,13 +995,13 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
         { stats: RAISED, title: "Back from the Dead", icon: "✨", say: n => ["raised by friends ", times(n)] },
         { stats: ["Total deaths"], low: true, eligible: m => lvl(m) >= 25, title: "The Cockroach", icon: "🪳", say: n => ["level 25 or more, and only ", plural(n, "death", "deaths")] }
       ] },
-      { name: "Appetites", icon: "🍗", blurb: "An army marches on its stomach. Ours mostly sits on it.", awards: [
-        { stats: ["Food eaten"], title: "Bottomless Stomach", icon: "🍗", say: n => per(n, " meal eaten", " meals eaten") },
-        { stats: ["Beverages consumed"], title: "Always Thirsty", icon: "🍺", say: n => per(n, " drink downed", " drinks downed") },
-        { stats: ["Health potions consumed", "Mana potions consumed"], title: "Potion Sommelier", icon: "🧪", say: n => per(n, " potion quaffed", " potions quaffed") },
-        { stats: ["Elixirs consumed"], title: "Elixir Enthusiast", icon: "⚗️", say: n => per(n, " elixir gulped", " elixirs gulped") },
-        { stats: ["Healthstones used"], title: "Cookie Monster", icon: "🍪", say: n => per(n, " healthstone munched", " healthstones munched") },
-        { stats: ["Bandages used"], title: "Field Medic", icon: "🩹", say: n => per(n, " bandage tied", " bandages tied") }
+      { name: "Loot and quests", icon: "💰", blurb: "Need, greed and the quest log of shame.", awards: [
+        { stats: ["Greed rolls made on loot"], title: "Greedy Goblin", icon: "💰", say: n => per(n, " greed roll", " greed rolls") },
+        { stats: ["Need rolls made on loot"], title: "Needs It More", icon: "🙏", say: n => per(n, " need roll", " need rolls") },
+        { stats: ["Quests completed"], title: "Questaholic", icon: "📖", say: n => per(n, " quest completed", " quests completed") },
+        { stats: ["Quests abandoned"], title: "Commitment Issues", icon: "📜", say: n => per(n, " quest abandoned", " quests abandoned") },
+        { stats: ["Items disenchanted"], title: "Disenchanted with Everything", icon: "💎", say: n => per(n, " item disenchanted", " items disenchanted") },
+        { value: m => ((m.fun && m.fun.gear) || []).filter(g => str(g.quality).toLowerCase() === "poor").length, title: "Dressed in Rags", icon: "🧦", say: n => per(n, " piece of grey junk worn", " pieces of grey junk worn") }
       ] },
       { name: "Travels", icon: "🧭", blurb: "Long roads, short attention spans.", awards: [
         { stats: ["Flight paths taken"], title: "Frequent Flyer", icon: "🦅", say: n => per(n, " flight taken", " flights taken") },
@@ -996,32 +1012,23 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
         { value: m => ((m.fun && m.fun.bosses) || []).length, title: "Dungeon Tourist", icon: "🗝️", say: n => per(n, " different boss slain", " different bosses slain") },
         { stats: ["Summons accepted"], title: "Too Lazy to Walk", icon: "🌀", say: n => ["accepted a summons ", times(n)] }
       ] },
+      { name: "Appetites", icon: "🍗", blurb: "An army marches on its stomach. Ours mostly sits on it.", awards: [
+        { stats: ["Food eaten"], title: "Bottomless Stomach", icon: "🍗", say: n => per(n, " meal eaten", " meals eaten") },
+        { stats: ["Beverages consumed"], title: "Always Thirsty", icon: "🍺", say: n => per(n, " drink downed", " drinks downed") },
+        { stats: ["Health potions consumed", "Mana potions consumed"], title: "Potion Sommelier", icon: "🧪", say: n => per(n, " potion quaffed", " potions quaffed") },
+        { stats: ["Elixirs consumed"], title: "Elixir Enthusiast", icon: "⚗️", say: n => per(n, " elixir gulped", " elixirs gulped") },
+        { stats: ["Healthstones used"], title: "Cookie Monster", icon: "🍪", say: n => per(n, " healthstone munched", " healthstones munched") },
+        { stats: ["Bandages used"], title: "Field Medic", icon: "🩹", say: n => per(n, " bandage tied", " bandages tied") }
+      ] },
       { name: "Manners", icon: "🤝", blurb: "The finest emotes in the realm, counted.", awards: [
         { stats: ["Number of hugs"], title: "Free Hugs", icon: "🤗", say: n => per(n, " hug given", " hugs given") },
         { stats: ["Total waves"], title: "Friendly Wave", icon: "👋", say: n => ["waved ", times(n)] },
         { stats: ["Total cheers"], title: "Head Cheerleader", icon: "📣", say: n => ["cheered ", times(n)] },
         { stats: ["Total times LOL'd"], title: "Laughs at Everything", icon: "😂", say: n => ["LOL’d ", times(n)] },
         { stats: ["Total facepalms"], title: "Deeply Disappointed", icon: "🤦", say: n => ["facepalmed ", times(n)] },
-        { value: m => ((m.fun && m.fun.reputations) || []).filter(r => num(r.tier) >= 5).length, title: "Social Butterfly", icon: "🦋", say: n => per(n, " faction at Honored or better", " factions at Honored or better") }
-      ] },
-      { name: "Loot and quests", icon: "💰", blurb: "Need, greed and the quest log of shame.", awards: [
-        { stats: ["Greed rolls made on loot"], title: "Greedy Goblin", icon: "💰", say: n => per(n, " greed roll", " greed rolls") },
-        { stats: ["Need rolls made on loot"], title: "Needs It More", icon: "🙏", say: n => per(n, " need roll", " need rolls") },
-        { stats: ["Quests completed"], title: "Questaholic", icon: "📖", say: n => per(n, " quest completed", " quests completed") },
-        { stats: ["Quests abandoned"], title: "Commitment Issues", icon: "📜", say: n => per(n, " quest abandoned", " quests abandoned") },
-        { stats: ["Items disenchanted"], title: "Disenchanted with Everything", icon: "💎", say: n => per(n, " item disenchanted", " items disenchanted") },
-        { value: m => ((m.fun && m.fun.gear) || []).filter(g => str(g.quality).toLowerCase() === "poor").length, title: "Dressed in Rags", icon: "🧦", say: n => per(n, " piece of grey junk worn", " pieces of grey junk worn") }
-      ] },
-      { name: "Battle", icon: "⚔️", blurb: "Blood, honour and a great many small animals.", awards: [
-        { stats: ["Total deaths from opposite faction"], title: "Favourite Target", icon: "🎯", say: n => ["slain by the " + enemy + " ", times(n)] },
-        { stats: ["Total Honorable Kills"], title: "Thorn in Their Side", icon: "🛡️", say: n => per(n, " honorable kill", " honorable kills") },
-        { stats: ["Total Killing Blows"], title: "Finishing Touch", icon: "🗡️", say: n => per(n, " killing blow", " killing blows") },
-        { stats: ["Creatures killed"], title: "Menace to Wildlife", icon: "🐺", say: n => per(n, " creature slain", " creatures slain") },
-        { stats: ["Critters killed"], title: "Bane of Squirrels", icon: "🐿️", say: n => per(n, " innocent critter", " innocent critters") },
-        { stats: ["Duels won"], title: "Duel Champion", icon: "🏆", say: n => per(n, " duel won", " duels won") },
-        { stats: ["Duels lost"], title: "Gracious Loser", icon: "🤺", say: n => per(n, " duel lost", " duels lost") },
-        { stats: ["Battlegrounds played"], title: "Battleground Regular", icon: "🚩", say: n => per(n, " battleground fought", " battlegrounds fought") },
-        { stats: ["Deaths in Arathi Basin", "Deaths in Warsong Gulch"], title: "Cannon Fodder", icon: "🪦", say: n => ["fell in battlegrounds ", times(n)] }
+        { value: m => ((m.fun && m.fun.reputations) || []).filter(r => num(r.tier) >= 5).length, title: "Social Butterfly", icon: "🦋", say: n => per(n, " faction at Honored or better", " factions at Honored or better") },
+        { stats: ["Total factions encountered"], title: "Knows Everybody", icon: "📇", say: n => per(n, " faction met", " factions met") },
+        { value: m => ((m.fun && m.fun.reputations) || []).filter(r => r.tier != null && num(r.tier) <= 2).length, title: "Persona Non Grata", icon: "🚫", say: n => per(n, " faction that can’t stand them", " factions that can’t stand them") }
       ] },
       { name: "Curiosities", icon: "🔮", blurb: "Records nobody asked for, kept anyway.", awards: [
         { stats: ["Fish caught"], title: "Master Angler", icon: "🎣", say: n => per(n, " fish landed", " fish landed") },
@@ -1030,7 +1037,10 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
         { value: m => Math.max(stat(m, "Mounts owned"), ((m.fun && m.fun.mounts) || []).length), title: "Stable Master", icon: "🐎", say: n => per(n, " mount", " mounts") },
         { stats: ["Cooking Recipes known"], title: "Cookbook Collector", icon: "📚", say: n => per(n, " recipe known", " recipes known") },
         { value: m => deeds(m).length, title: "Overachiever", icon: "🏅", say: n => per(n, " achievement", " achievements") },
-        { value: letters, title: "Hardest to Spell", icon: "✍️", say: n => [fmt.format(n), " letters to spell"] }
+        { value: letters, title: "Hardest to Spell", icon: "✍️", say: n => [fmt.format(n), " letters to spell"] },
+        { value: letters, low: true, title: "Short and Sweet", icon: "🤏", say: n => ["just ", plural(n, "letter", "letters")] },
+        { stats: ["Alchemy Recipes learned", "Blacksmithing Plans learned", "Enchanting formulae learned", "Engineering Schematics learned", "Leatherworking Patterns learned", "Tailoring Patterns learned", "Smelting Recipes learned", "First Aid Manuals learned"],
+          title: "Bookworm", icon: "📜", say: n => per(n, " recipe or pattern learned", " recipes and patterns learned") }
       ] }
     ];
   }
