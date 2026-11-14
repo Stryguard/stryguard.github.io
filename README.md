@@ -1,6 +1,8 @@
 # Stryguard
 
 A self-updating website for **Stryguard**, an Alliance guild on World of Warcraft: Forever (EU, RP-PvP).
+Live at **<https://stryguard.github.io>**.
+
 It shows the roster, raid readiness and a hall of oddities: who fell to their doom the most, who eats the most,
 who the Horde loves to kill, which bosses we have humbled, and more.
 
@@ -28,7 +30,7 @@ GitHub Actions (every hour)          GitHub Pages
 1. **Secret:** repository *Settings → Secrets and variables → Actions → New repository secret*.
    Name `BLIZZARD_CLIENT_SECRET`, value = the client secret from <https://develop.battle.net/access/clients>.
 2. **Pages:** *Settings → Pages → Build and deployment → Source: GitHub Actions*.
-3. Run the workflow once from the Actions tab. The site appears at `https://<user>.github.io/<repo>/`.
+3. Run the workflow once from the Actions tab. The site appears at <https://stryguard.github.io>.
 
 ## Running it locally
 

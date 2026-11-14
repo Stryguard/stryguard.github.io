@@ -8,7 +8,7 @@ Rules for this project:
 - **Windows:** the user is on Windows, so run Python with `py`.
 - **Fun first:** the user wants fun, whimsical stats for the guild, not meta stuff like item level, stats or talents, unless they ask for it.
 - **The script:** keep `fetch_roster.py` standard-library only.
-- **The website (main product now):** `site/index.html` + `site/guild.json`, deployed hourly to GitHub Pages by `.github/workflows/update.yml` (repo github.com/Trygve-HT/wow_guild_project). One self-contained page that fetches only its own `data/stryguard-roster.json` and `guild.json`; data values via `textContent`. See README.md.
+- **The website (main product now):** `site/index.html` + `site/guild.json`, deployed hourly to GitHub Pages by `.github/workflows/update.yml` (repo github.com/Stryguard/stryguard.github.io, live at https://stryguard.github.io). One self-contained page that fetches only its own `data/stryguard-roster.json` and `guild.json`; data values via `textContent`. See README.md.
 - **The old claude.ai page:**
   - `stryguard-roster.html` is the source of a live claude.ai artifact. Keep it one self-contained file.
   - The page makes no network calls. Data values are set with `textContent`, never `innerHTML`.
