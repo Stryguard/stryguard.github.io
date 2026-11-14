@@ -21,6 +21,8 @@ Add --no-fun to skip the fun data (much faster).
 Add --out FOLDER to write the files somewhere other than the current folder.
 Add --ledger site/firsts.json --milestones site/milestones.json to record the
 first member to cross each milestone (the hourly job does this).
+Add --history site/history.json to keep one snapshot a day (the last 15 days)
+for the weekly Town Crier, stolen crowns and the levelling graph.
 
 Scouting mode:  python fetch_roster.py --probe "Old Iron"
 asks Blizzard for every kind of data about one character (titles, mounts,
@@ -459,6 +461,36 @@ def update_ledger(members, ledger_path, milestones_path):
         log(f"Firsts ledger: {claimed} milestone(s) newly claimed.")
 
 
+# ---------- History: one snapshot a day, for weekly news and the levelling graph ----------
+def update_history(members, path, keep_days=15):
+    """Add today's snapshot (UTC date) if there isn't one yet, and keep the last `keep_days`.
+    The first run after midnight writes it, so each day's entry shows where everyone started that day."""
+    try:
+        with open(path, encoding="utf-8") as f:
+            history = json.load(f)
+    except FileNotFoundError:
+        history = {}
+    days = history.setdefault("days", [])
+    today = time.strftime("%Y-%m-%d", time.gmtime())
+    if days and days[-1].get("date") == today:
+        return
+    snap = {}
+    for r in members:
+        fun = r.get("fun") or {}
+        snap[f"{r['first']} {r['last']}".strip()] = {
+            "level": r.get("level"), "xp": r.get("experience"), "hk": r.get("honorable_kills"),
+            "stats": fun.get("stats") or {}, "skills": {name: s for name, s in r.get("professions") or [] if s},
+            "pets": len(fun.get("pets") or []), "mounts": len(fun.get("mounts") or []),
+            "deeds": len(fun.get("deeds") or []),
+        }
+    days.append({"date": today, "at": int(time.time() * 1000), "members": snap})
+    del days[:-keep_days]
+    with open(path, "w", encoding="utf-8", newline="\n") as f:
+        json.dump(history, f, ensure_ascii=False, separators=(",", ":"))
+        f.write("\n")
+    log(f"History: saved the snapshot for {today} ({len(days)} day(s) kept).")
+
+
 def main():
     region = ask_region()
     secret = os.environ.get("BLIZZARD_CLIENT_SECRET")
@@ -526,6 +558,7 @@ def main():
                 rec["last"] = rec["last"] or text(profile.get("surname"))
                 rec["id"] = profile.get("id", rec["id"])
                 rec["last_login"] = profile.get("last_login_timestamp")
+                rec["experience"] = profile.get("experience")
             prof_data = api.get(base + "/professions")
             pvp = api.get(base + "/pvp-summary")
             rec["professions"] = professions(prof_data)
@@ -556,6 +589,9 @@ def main():
     ledger_path, milestones_path = arg_value("--ledger"), arg_value("--milestones")
     if ledger_path and milestones_path and FETCH_FUN:
         update_ledger(members, ledger_path, milestones_path)
+    history_path = arg_value("--history")
+    if history_path and FETCH_FUN:
+        update_history(members, history_path)
 
     with open(os.path.join(OUT, "stryguard-paste.txt"), "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")

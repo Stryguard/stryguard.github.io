@@ -35,6 +35,7 @@
   --st-hated: #A12C2C; --st-unfriendly: #B4560A; --st-neutral: #8A6A00; --st-friendly: #2E7D32;
   --st-honored: #1C7A5A; --st-revered: #1F5FA8; --st-exalted: #6B3FB5;
   --live: #2E8B3E; --stale: #B4560A;
+  --series-1: #2a78d6; --series-2: #eb6834; --series-3: #1baf7a;
   box-sizing: border-box;
 }
 :root[data-faction="alliance"] { --banner: #1E3A7B; --trim: #C9A227; }
@@ -50,6 +51,7 @@
     --st-hated: #F07070; --st-unfriendly: #F0A050; --st-neutral: #E2C24A; --st-friendly: #6CCB5F;
     --st-honored: #4FD1A5; --st-revered: #6FA8FF; --st-exalted: #C39BFF;
     --live: #5FD06F; --stale: #F0A050;
+    --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70;
   }
 }
 :root[data-theme="dark"] {
@@ -62,6 +64,7 @@
   --st-hated: #F07070; --st-unfriendly: #F0A050; --st-neutral: #E2C24A; --st-friendly: #6CCB5F;
   --st-honored: #4FD1A5; --st-revered: #6FA8FF; --st-exalted: #C39BFF;
   --live: #5FD06F; --stale: #F0A050;
+  --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70;
 }
 *, *::before, *::after { box-sizing: inherit; }
 [hidden] { display: none !important; }
@@ -217,6 +220,56 @@ h3 { font-size: 15px; font-weight: 700; margin: 0 0 12px; letter-spacing: .09em;
 .zones li b { display: block; }
 .uncharted { margin: 16px 0 0; color: var(--muted); }
 .uncharted b { color: var(--ink); }
+
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- Stolen crowns ---------- */
+.steals { margin-bottom: 28px; }
+.steals .feed time { font-size: 15px; }
+.award-crown { font-size: 16px; font-weight: 700; color: var(--accent); }
+
+/* ---------- Town Crier ---------- */
+.crier { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; box-shadow: var(--shadow); padding: 26px 30px 28px; }
+.masthead { text-align: center; border-bottom: 3px double var(--ink); padding-bottom: 10px; }
+.mast-title { font-family: var(--display); font-size: clamp(40px, 7vw, 68px); font-weight: 700; line-height: 1; }
+.mast-line { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px 16px; margin-top: 10px; padding-top: 6px; border-top: 1px solid var(--ink); font-size: 15px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.crier-headline { font-family: var(--display); font-size: clamp(30px, 4.6vw, 46px); line-height: 1.05; font-weight: 700; margin: 18px 0 6px; text-transform: none; letter-spacing: 0; color: var(--ink); text-align: center; }
+.crier-headline::first-letter { text-transform: uppercase; }
+.crier-dek { text-align: center; font-style: italic; color: var(--muted); margin: 0 0 18px; }
+.crier-cols { columns: 3 260px; column-gap: 32px; column-rule: 1px solid var(--rule); border-top: 1px solid var(--rule); padding-top: 16px; }
+.crier-col { break-inside: avoid; margin-bottom: 18px; }
+.crier-col h4 { font-family: var(--display); font-size: 24px; margin: 0 0 6px; }
+.crier-col ul { margin: 0; padding-left: 18px; }
+.crier-col li { margin: 3px 0; }
+.crier-col p { margin: 0; }
+.crier-numbers { list-style: none; padding: 0 !important; }
+.crier-numbers b { font-family: var(--display); font-size: 24px; font-weight: 500; color: var(--accent); }
+
+/* ---------- Levelling race ---------- */
+.race-legend { list-style: none; margin: 0 0 10px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 16px; }
+.race-legend li { display: inline-flex; align-items: center; gap: 8px; }
+.race-legend .key { width: 18px; height: 3px; border-radius: 2px; display: inline-block; }
+.race-legend .key.grey { background: color-mix(in srgb, var(--muted) 45%, transparent); }
+.race-wrap { position: relative; }
+.race-svg { width: 100%; height: auto; display: block; touch-action: pan-y; }
+.race-grid { stroke: var(--rule); stroke-width: 1; }
+.race-axis { fill: var(--muted); font-size: 14px; font-family: var(--body); }
+.race-line { fill: none; stroke: color-mix(in srgb, var(--muted) 38%, transparent); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
+.race-line.star { stroke-width: 2.5; }
+.race-line.lit { stroke: var(--ink); stroke-width: 3; }
+.race-end { stroke: var(--surface); stroke-width: 2; }
+.race-label { fill: var(--ink); font-size: 15px; font-weight: 700; font-family: var(--body); }
+.race-cross { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 4; }
+.race-dot { fill: var(--ink); stroke: var(--surface); stroke-width: 2; }
+.race-tip { position: absolute; transform: translate(12px, -50%); pointer-events: none; background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; box-shadow: var(--shadow); padding: 6px 10px; display: grid; font-size: 15px; white-space: nowrap; }
+.race-details { margin-top: 12px; }
+.race-details summary { cursor: pointer; color: var(--muted); font-weight: 500; }
+.race-table { min-width: 0; margin-top: 10px; }
+.race-table td, .race-table th { padding: 6px 10px; }
+.spark { width: 100%; height: auto; display: block; }
+.spark-line { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linejoin: round; }
+.spark-dot { fill: var(--accent); stroke: var(--surface); stroke-width: 2; }
+@media (max-width: 640px) { .crier { padding: 18px 16px; } #race-body { padding: 14px 12px; } }
 
 /* ---------- Guild totals ---------- */
 .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin: 0; }
@@ -419,7 +472,9 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
   <div class="jump-inner">
     <a class="home" href="#top">Stryguard</a>
     <a href="#oddities">Oddities</a>
+    <a href="#crier" hidden>Crier</a>
     <a href="#firsts">Firsts</a>
+    <a href="#race">Race</a>
     <a href="#deeds">Deeds</a>
     <a href="#trophies">Trophies</a>
     <a href="#friends">Friends</a>
@@ -438,10 +493,21 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
     <div id="awards"></div>
   </section>
 
+  <section id="crier" aria-labelledby="crier-h" hidden>
+    <h2 id="crier-h" class="sr-only">The Stryguard Town Crier</h2>
+    <div class="crier" id="crier-body"></div>
+  </section>
+
   <section id="firsts" aria-labelledby="firsts-h" hidden>
     <h2 id="firsts-h">Guild firsts</h2>
     <p class="lede">Who got there before anyone else in Stryguard. Achievements carry their exact dates; the odder milestones are watched every hour and written down for good.</p>
     <div id="firsts-body"></div>
+  </section>
+
+  <section id="race" aria-labelledby="race-h" hidden>
+    <h2 id="race-h">The levelling race</h2>
+    <p class="lede">Everyone’s level at the start of each day, with XP as the decimal. The week’s three biggest climbers get colour; hover a line to see who it is.</p>
+    <div class="panel" id="race-body"></div>
   </section>
 
   <section id="totals" aria-labelledby="totals-h" hidden>
@@ -591,7 +657,7 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
   /* ---------- State ---------- */
   const state = {
     members: [], guild: {}, fetchedAt: null, faction: "", enemy: "Horde",
-    catalog: [], milestones: {}, ledger: {},
+    catalog: [], milestones: {}, ledger: {}, history: {}, crowns: [], firstsLog: [],
     sort: { key: "level", dir: "desc" },
     filter: { q: "", cls: "", role: "", mainsOnly: false }
   };
@@ -611,7 +677,7 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
       const m = {
         first: r.first, last: r.last, race: r.race, cls: r["class"], level: r.level,
         rankNumber: typeof r.rank_number === "number" ? r.rank_number : 99,
-        hks: r.honorable_kills, lastLogin: r.last_login, fun: r.fun || null,
+        hks: r.honorable_kills, lastLogin: r.last_login, fun: r.fun || null, xp: r.experience,
         profs: (r.professions || []).filter(p => Array.isArray(p) && p[0]).map(([name, skill]) => ({ name, skill: num(skill) }))
       };
       m.rank = str(ranks[String(m.rankNumber)]) || (m.rankNumber === 0 ? "Guild Master" : m.rankNumber === 99 ? "" : "Rank " + m.rankNumber);
@@ -627,11 +693,12 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
   async function load() {
     let roster, guild = {};
     try {
-      [roster, guild, state.milestones, state.ledger] = await Promise.all([
+      [roster, guild, state.milestones, state.ledger, state.history] = await Promise.all([
         getJson("data/stryguard-roster.json"),
         getJson("guild.json").catch(() => ({})),
         getJson("milestones.json").catch(() => ({})),
-        getJson("firsts.json").catch(() => ({}))
+        getJson("firsts.json").catch(() => ({})),
+        getJson("history.json").catch(() => ({}))
       ]);
     } catch (e) {
       const st = $("status");
@@ -652,7 +719,10 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
 
   /* ---------- Rendering ---------- */
   function render() {
-    renderFaction(); renderStatus(); renderHero(); renderAwards(); renderFirsts(); renderTotals(); renderDeeds();
+    renderFaction(); renderStatus(); renderHero();
+    byName.clear(); state.members.forEach(m => byName.set(fullName(m).toLowerCase(), m));
+    state.crowns = crownHistory();
+    renderAwards(); renderFirsts(); renderCrier(); renderRace(); renderTotals(); renderDeeds();
     renderTrophies(); renderFriends(); renderMakeup(); renderBoards(); renderRoster(); renderFooter();
   }
 
@@ -772,12 +842,18 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
     ];
   }
 
-  function ranking(a) {
-    let rows = state.members.filter(m => !a.eligible || a.eligible(m))
+  function ranking(a, members = state.members) {
+    let rows = members.filter(m => !a.eligible || a.eligible(m))
       .map(m => ({ m, n: a.value ? num(a.value(m)) : statSum(m, a.stats) }));
     rows = a.low ? rows.filter(x => !a.stats || a.stats.some(s => hasStat(x.m, s))) : rows.filter(x => x.n > 0);
     const dir = a.low ? 1 : -1;
     return rows.sort((x, y) => (x.n - y.n) * dir || fullName(x.m).localeCompare(fullName(y.m)));
+  }
+
+  function crownNote(a) {
+    const e = (state.crowns || []).find(x => x.award === a.title);
+    return e ? h("div", { class: "award-crown", title: new Date(e.at).toLocaleDateString("en-GB", { day: "numeric", month: "long" }) },
+      "👑 Seized from " + e.from.join(" and ") + " " + ago(e.at)) : null;
   }
 
   function awardCard(a) {
@@ -801,11 +877,14 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
     return h("article", { class: "award" },
       h("div", { class: "award-head" }, h("span", { class: "seal", "aria-hidden": "true", text: a.icon }), h("div", { class: "award-title", text: a.title })),
       who, feat,
+      crownNote(a),
       rest.length ? h("div", { class: "award-rest", text: "Close behind: " + rest.map(x => fullName(x.m) + " (" + fmt.format(x.n) + ")").join(", ") }) : null);
   }
 
   function renderAwards() {
     const box = $("awards"); box.replaceChildren();
+    const recent = (state.crowns || []).filter(e => e.at > Date.now() - 7 * DAY).slice(0, 6);
+    if (recent.length) box.append(h("div", { class: "panel steals" }, h("h3", { text: "Crowns stolen this week" }), h("ul", { class: "feed" }, recent.map(stealLine))));
     let count = 0;
     shelves().forEach(s => {
       const cards = s.awards.map(awardCard).filter(Boolean);
@@ -879,6 +958,7 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
   // One milestone card: claimed shows who and when, open shows the race to get there.
   function firstCard(spec) {
     const f = spec.first;
+    if (f) state.firstsLog.push({ ...f, say: spec.say });
     const card = h("article", { class: "fcard" + (f ? "" : " open") },
       h("div", { class: "fc-head" }, h("span", { class: "fc-icon", "aria-hidden": "true", text: spec.icon }),
         h("div", null, h("div", { class: "fc-title", text: spec.title }), h("div", { class: "fc-say", text: "First to " + spec.say }))));
@@ -924,8 +1004,9 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
       ...kids);
   }
 
-  function tableCell(f) {
+  function tableCell(f, say) {
     if (!f) return h("td", { class: "dash", text: "–" });
+    state.firstsLog.push({ ...f, say });
     const m = f.who[0];
     if (!m) return h("td", { class: "small", text: (f.names || []).join(", ") || "–" });
     return h("td", null, h("span", { class: "winner" }, swatch(m.cls), " ", nameButton(m)),
@@ -934,8 +1015,7 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
   }
 
   function renderFirsts() {
-    byName.clear();
-    state.members.forEach(m => byName.set(fullName(m).toLowerCase(), m));
+    state.firstsLog = [];
     const defs = (state.milestones && state.milestones.milestones) || [];
     const ledgerSpecs = shelfId => defs.filter(d => d.shelf === shelfId).map(d => {
       const f = ledgerFirst(d);
@@ -955,7 +1035,7 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
     }).concat(ledgerSpecs("age")).sort((a, b) => a.level - b.level);
     const classRows = CLASSES.filter(c => TIERS.some(([t]) => inCatalog(t + " " + c.id))).map(c =>
       h("tr", null, h("th", { scope: "row" }, h("span", { class: "cls" }, swatch(c.id), c.id)),
-        ...TIERS.map(([tier, level]) => tableCell(firstOf(tier + " " + c.id, m => m.cls === c.id && lvl(m) >= level)))));
+        ...TIERS.map(([tier, level]) => tableCell(firstOf(tier + " " + c.id, m => m.cls === c.id && lvl(m) >= level), "reach level " + level + " as a " + c.id))));
     body.append(shelf("Coming of age", "🎂", "The first of us to each level, and the first of each class.",
       ...cardGroup(levelSpecs, 2),
       h("div", { class: "table-scroll ftable-wrap" }, h("table", { class: "ftable" },
@@ -968,7 +1048,7 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
     const craftRows = Object.keys(CRAFTERS).concat(["Mining", "Herbalism", "Skinning", "Cooking", "Fishing", "First Aid"]).map(prof =>
       h("tr", null, h("th", { scope: "row", text: prof }), ...CRAFT_TIERS.map(([tier, skill]) => tableCell(CRAFTERS[prof]
         ? firstOf(tier + " " + CRAFTERS[prof], m => skillOf(m, prof) >= skill)
-        : ledgerCraft[prof + "|" + skill]))));
+        : ledgerCraft[prof + "|" + skill], "reach " + skill + " " + prof))));
     body.append(shelf("Masters of craft", "⚒️", "The first to reach 150, 225 and 300 in every profession.",
       h("div", { class: "table-scroll ftable-wrap" }, h("table", { class: "ftable" },
         h("thead", null, h("tr", null, h("th", { scope: "col", text: "Profession" }), ...CRAFT_TIERS.map(([t, s]) => h("th", { scope: "col", text: t + " (" + s + ")" })))),
@@ -979,6 +1059,7 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
     const claimedZones = [], uncharted = [];
     zones.forEach(n => { const f = firstOf(n); (f ? claimedZones : uncharted).push({ zone: n.replace(/^Explore /, ""), f }); });
     claimedZones.sort((a, b) => a.f.at - b.f.at);
+    claimedZones.forEach(z => state.firstsLog.push({ ...z.f, say: "explore " + z.zone }));
     const big = BIG_EXPLORES.filter(inCatalog).map(n => ({ title: n.replace("Explore ", "Explorer of "), icon: n === "Explore Azeroth" ? "🌍" : "🧭", say: n.replace("Explore", "explore all of"), first: firstOf(n) }));
     const zoneList = h("ul", { class: "zones" });
     claimedZones.forEach(z => zoneList.append(h("li", null, h("b", { text: z.zone }), " ",
@@ -1012,6 +1093,300 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
     const odd = ledgerSpecs("odd");
     if (odd.length) body.append(shelf("Odd milestones", "🎲", "Strange lines in the sand. The first to cross one is remembered forever. The closest races are shown; hover the rest to see who leads.",
       ...cardGroup(odd, 8)));
+  }
+
+  /* ---------- History: daily snapshots from history.json ---------- */
+  // XP needed to finish each level (classic curve). With the Armory's "experience" (XP into the
+  // current level) this turns 34 + 58,561 XP into 34.93.
+  const XP_TO_LEVEL = [0, 400, 900, 1400, 2100, 2800, 3600, 4500, 5400, 6500, 7600, 8800, 10100, 11400, 12900, 14400,
+    16000, 17700, 19400, 21300, 23200, 25200, 27300, 29400, 31700, 34000, 36400, 38900, 41400, 44300, 47400, 50800,
+    54500, 58600, 62800, 67100, 71600, 76100, 80800, 85700, 90700, 95800, 101000, 106300, 111800, 117500, 123200,
+    129100, 135100, 141200, 147500, 153900, 160400, 167100, 173900, 180800, 187900, 195000, 202300, 209800];
+  function fracLevel(level, xp) {
+    const l = Math.round(num(level));
+    if (l < 1 || l >= 60) return l;
+    return l + Math.min(0.999, Math.max(0, num(xp) / XP_TO_LEVEL[l]));
+  }
+  const DAY = 86400000;
+  const dayMs = s => Date.parse(s + "T00:00:00Z");
+  const utcDay = ms => new Date(ms).toISOString().slice(0, 10);
+  const dayLabel = ms => new Date(ms).toLocaleDateString("en-GB", { weekday: "short", day: "numeric", timeZone: "UTC" });
+  const histDays = () => ((state.history && state.history.days) || []).filter(d => d && d.date && d.members);
+
+  // A snapshot member dressed like a live one, so the award maths works on old days too.
+  function snapMembers(day) {
+    return Object.entries(day.members).map(([name, s]) => {
+      const live = byName.get(name.toLowerCase());
+      return { first: name, last: "", cls: live ? live.cls : "", level: s.level, xp: s.xp, hks: s.hk, live,
+               fun: { stats: s.stats || {} }, skills: s.skills || {}, pets: s.pets || 0, deedCount: s.deeds || 0 };
+    });
+  }
+  const liveOf = m => m.live || m;
+
+  /* ---------- Stolen crowns ---------- */
+  // Walk the Hall of oddities leaders day by day (plus right now); a crown is stolen when nobody
+  // who held it yesterday holds it today. Awards worked out from gear, pets and so on are skipped.
+  function crownHistory() {
+    const points = histDays().map(d => ({ at: dayMs(d.date), members: snapMembers(d) }));
+    if (!points.length) return [];
+    points.push({ at: state.fetchedAt || Date.now(), members: state.members });
+    const events = [];
+    shelves().forEach(s => s.awards.filter(a => !a.value).forEach(a => {
+      let prev = null;
+      points.forEach(p => {
+        const r = ranking(a, p.members);
+        const top = r.length ? r.filter(x => x.n === r[0].n).map(x => fullName(x.m)) : [];
+        if (prev && top.length && !top.some(n => prev.includes(n)))
+          events.push({ award: a.title, icon: a.icon, from: prev, to: top, at: p.at });
+        if (top.length) prev = top;
+      });
+    }));
+    return events.sort((x, y) => y.at - x.at);
+  }
+  const memberLink = name => { const m = byName.get(name.toLowerCase()); return m ? nameButton(m) : h("b", { text: name }); };
+  function stealLine(e) {
+    return h("li", null, h("span", { class: "ico", "aria-hidden": "true", text: "👑" }),
+      h("span", null, ...e.to.flatMap((n, i) => [i ? " and " : "", memberLink(n)]), " seized ",
+        h("b", { text: e.award }), " from ", e.from.join(" and ")),
+      h("time", { datetime: new Date(e.at).toISOString(), text: ago(e.at) }));
+  }
+
+  /* ---------- The Stryguard Town Crier ---------- */
+  // Comes out every Sunday from 22 November 2026, comparing that Sunday's snapshot with the one
+  // a week before. Each edition stays up until the next Sunday's replaces it.
+  const CRIER_FIRST = dayMs("2026-11-22");
+  function crierEdition() {
+    const days = histDays();
+    const near = target => days.find(d => d.date === utcDay(target)) || days.find(d => Math.abs(dayMs(d.date) - target) <= DAY);
+    const today = dayMs(utcDay(Date.now()));
+    for (let sun = today - new Date(today).getUTCDay() * DAY; sun >= CRIER_FIRST; sun -= 7 * DAY) {
+      const end = near(sun), start = near(sun - 7 * DAY);
+      if (end && start && end !== start) return { sunday: sun, start, end };
+    }
+    return null;
+  }
+
+  // Stories the Crier can run, from the biggest weekly changes. Score = change / bar, so a
+  // headline needs to clear its bar handily.
+  const HOOKS = [
+    { stat: "Total deaths", bar: 6, head: (w, n) => w + " dies " + n + " times; spirit healer asks for rent", brief: (w, n) => w + " died " + n + " times." },
+    { stat: "Deaths from falling", bar: 2, head: (w, n) => w + " falls off " + n + " cliffs, blames gravity", brief: (w, n) => w + " fell to their doom " + times(n) + "." },
+    { stat: "Deaths from drowning", bar: 2, head: (w, n) => w + " drowns " + n + " times; locals urge swimming lessons", brief: (w, n) => w + " drowned " + times(n) + "." },
+    { stat: "Deaths from fire and lava", bar: 2, head: (w, n) => w + " catches fire " + n + " times, insists it's fine", brief: (w, n) => w + " burned to a crisp " + times(n) + "." },
+    { stat: "Total deaths from opposite faction", bar: 6, head: (w, n) => "Horde claims " + w + " " + n + " times; Alliance demands answers", brief: (w, n) => "The Horde slew " + w + " " + times(n) + "." },
+    { stat: "Food eaten", bar: 25, head: (w, n) => w + " eats " + n + " meals in seven days; innkeepers rejoice", brief: (w, n) => w + " ate " + n + " meals." },
+    { stat: "Beverages consumed", bar: 25, head: (w, n) => w + " downs " + n + " drinks; barkeep calls for backup", brief: (w, n) => w + " downed " + n + " drinks." },
+    { stat: "Critters killed", bar: 12, head: (w, n) => "Squirrel numbers plummet as " + w + " slays " + n + " critters", brief: (w, n) => w + " slew " + n + " innocent critters." },
+    { stat: "Number of hugs", bar: 3, head: (w, n) => w + " hugs " + n + " strangers; nobody knows why", brief: (w, n) => w + " gave out " + n + " hugs." },
+    { stat: "Total cheers", bar: 6, head: (w, n) => w + " cheers " + n + " times, voice gone", brief: (w, n) => w + " cheered " + times(n) + "." },
+    { stat: "Total times LOL'd", bar: 4, head: (w, n) => w + " laughs " + n + " times; jokes reportedly not that good", brief: (w, n) => w + " LOL'd " + times(n) + "." },
+    { stat: "Quests abandoned", bar: 6, head: (w, n) => w + " abandons " + n + " quests; quest givers in tears", brief: (w, n) => w + " abandoned " + n + " quests." },
+    { stat: "Quests completed", bar: 40, head: (w, n) => w + " completes " + n + " quests, exhausts every notice board", brief: (w, n) => w + " finished " + n + " quests." },
+    { stat: "Fish caught", bar: 40, head: (w, n) => w + " hauls " + n + " fish from Azeroth's waters", brief: (w, n) => w + " landed " + n + " fish." },
+    { stat: "Flight paths taken", bar: 12, head: (w, n) => w + " takes " + n + " flights; gryphons file complaint", brief: (w, n) => w + " took " + n + " flights." },
+    { stat: "Greed rolls made on loot", bar: 25, head: (w, n) => w + " rolls greed " + n + " times, regrets nothing", brief: (w, n) => w + " rolled greed " + n + " times." },
+    { stat: "Total Honorable Kills", bar: 30, head: (w, n) => w + " claims " + n + " honorable kills; Horde in retreat", brief: (w, n) => w + " earned " + n + " honorable kills." }
+  ];
+
+  function renderCrier() {
+    const ed = crierEdition();
+    $("crier").hidden = !ed;
+    document.querySelectorAll('a[href="#crier"]').forEach(a => { a.hidden = !ed; });
+    if (!ed) return;
+    const startAt = dayMs(ed.start.date), endAt = dayMs(ed.end.date);
+    const before = new Map(snapMembers(ed.start).map(m => [m.first, m]));
+    const after = snapMembers(ed.end);
+    const stat = (m, k) => num(m.fun.stats[k]);
+
+    // The week's best story for each hook, scored against its bar.
+    const stories = [];
+    HOOKS.forEach(hk => {
+      let best = null;
+      after.forEach(m => {
+        const b = before.get(m.first); if (!b) return;
+        const n = stat(m, hk.stat) - stat(b, hk.stat);
+        if (n > 0 && (!best || n > best.n)) best = { m, n };
+      });
+      if (best && best.n >= hk.bar / 2) stories.push({ hk, ...best, score: best.n / hk.bar });
+    });
+    stories.sort((a, b) => b.score - a.score);
+    const climbs = after.map(m => { const b = before.get(m.first); return b ? { m, from: fracLevel(b.level, b.xp), to: fracLevel(m.level, m.xp), fromL: num(b.level), toL: num(m.level) } : null; })
+      .filter(x => x && x.to > x.from).sort((a, b) => (b.to - b.from) - (a.to - a.from));
+    const top = climbs[0];
+    const levelStory = top && top.to - top.from >= 1.5 ? { head: fullName(top.m) + " climbs " + (top.to - top.from).toFixed(1) + " levels in a week", score: (top.to - top.from) / 1.5 } : null;
+    let headline = stories[0] ? { head: stories[0].hk.head(fullName(stories[0].m), fmt.format(stories[0].n)), score: stories[0].score } : null;
+    if (levelStory && (!headline || levelStory.score > headline.score)) headline = levelStory;
+    const briefs = stories.slice(headline === levelStory ? 0 : 1, 9).map(s => s.hk.brief(fullName(s.m), fmt.format(s.n)));
+
+    const box = $("crier-body"); box.replaceChildren();
+    const range = new Date(startAt).toLocaleDateString("en-GB", { day: "numeric", month: "long", timeZone: "UTC" }) + " to " +
+      new Date(endAt - DAY).toLocaleDateString("en-GB", { day: "numeric", month: "long", timeZone: "UTC" });
+    const issue = Math.round((ed.sunday - CRIER_FIRST) / (7 * DAY)) + 1;
+    box.append(h("header", { class: "masthead" },
+      h("div", { class: "mast-title", text: "The Stryguard Town Crier" }),
+      h("div", { class: "mast-line" },
+        h("span", { text: "No. " + issue }),
+        h("span", { text: new Date(ed.sunday).toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }) }),
+        h("span", { text: "Price: one copper" }))));
+    box.append(h("h3", { class: "crier-headline", text: headline ? headline.head : "A quiet week in Stryguard; bards struggle for material" }));
+    box.append(h("p", { class: "crier-dek", text: "News from " + range + ", as reported by the Armory." }));
+
+    const cols = h("div", { class: "crier-cols" });
+    const column = (title, ...kids) => cols.append(h("div", { class: "crier-col" }, h("h4", { text: title }), ...kids));
+    if (briefs.length) column("In brief", h("ul", null, briefs.map(b => h("li", { text: b }))));
+    const levelers = climbs.filter(c => c.toL > c.fromL);
+    if (levelers.length) column("Level-ups", h("ul", null, levelers.slice(0, 10).map(c =>
+      h("li", null, swatch(liveOf(c.m).cls), " ", memberLink(c.m.first), " " + c.fromL + " → " + c.toL))));
+    const weekFirsts = (state.firstsLog || []).filter(f => !f.before && f.at > startAt && f.at <= endAt).sort((a, b) => a.at - b.at);
+    if (weekFirsts.length) column("Guild firsts", h("ul", null, weekFirsts.slice(0, 10).map(f =>
+      h("li", null, f.who.map(fullName).join(" and ") + ": first to " + f.say + "."))));
+    const steals = (state.crowns || []).filter(e => e.at > startAt && e.at <= endAt);
+    if (steals.length) column("Crowns changing hands", h("ul", null, steals.slice(0, 8).map(e =>
+      h("li", { text: e.to.join(" and ") + " took " + e.award + " from " + e.from.join(" and ") + "." }))));
+    const joined = after.filter(m => !before.has(m.first)).map(m => m.first);
+    const left = [...before.keys()].filter(n => !after.some(m => m.first === n));
+    if (joined.length || left.length) column("Comings and goings", h("ul", null,
+      joined.map(n => h("li", { text: "Welcome, " + n + "!" })), left.map(n => h("li", { text: n + " has left the guild. Safe travels." }))));
+    const sum = k => after.reduce((s, m) => s + Math.max(0, stat(m, k) - (before.get(m.first) ? stat(before.get(m.first), k) : stat(m, k))), 0);
+    const numbers = [["Total deaths", "deaths"], ["Food eaten", "meals"], ["Quests completed", "quests"], ["Critters killed", "critters"], ["Flight paths taken", "flights"], ["Number of hugs", "hugs"]]
+      .map(([k, l]) => [sum(k), l]).filter(([n]) => n > 0);
+    if (numbers.length) column("The week in numbers", h("ul", { class: "crier-numbers" }, numbers.map(([n, l]) => h("li", null, h("b", { text: fmt.format(n) }), " " + l))));
+    const missing = state.members.filter(m => m.lastLogin && m.lastLogin < startAt).map(fullName);
+    if (missing.length) column("Missing persons", h("p", { text: "Not seen all week: " + joinWords(missing.slice(0, 8)) + (missing.length > 8 ? " and others" : "") + ". Presumed eaten by murlocs." }));
+    box.append(cols);
+  }
+
+  /* ---------- The levelling race ---------- */
+  // Every character's level (with XP as the decimal) at the start of each day, plus right now.
+  // The three biggest climbers of the window get colour and a label; everyone else stays grey.
+  function raceSeries() {
+    const days = histDays().slice(-8);
+    const stamps = days.map(d => dayMs(d.date)).concat([state.fetchedAt || Date.now()]);
+    const series = state.members.map(m => {
+      const key = fullName(m);
+      const pts = days.map((d, i) => { const s = d.members[key]; return s ? { t: stamps[i], v: fracLevel(s.level, s.xp) } : null; })
+        .concat([{ t: stamps[stamps.length - 1], v: fracLevel(m.level, m.xp) }]).filter(Boolean);
+      return { m, pts, gain: pts.length > 1 ? pts[pts.length - 1].v - pts[0].v : 0 };
+    }).filter(s => s.pts.length);
+    return { stamps, series };
+  }
+
+  function renderRace() {
+    const { stamps, series } = raceSeries();
+    const box = $("race-body"); box.replaceChildren();
+    if (!histDays().length) { $("race").hidden = true; return; }
+    $("race").hidden = false;
+    const pad = getComputedStyle(box), avail = Math.round(box.clientWidth - parseFloat(pad.paddingLeft) - parseFloat(pad.paddingRight)) || 1000;
+    const W = Math.max(300, Math.min(1100, avail)), narrow = W < 600;
+    const H = narrow ? 300 : 360, L = 34, R = narrow ? 124 : 150, T = 14, B = 34;
+    const t0 = stamps[0], t1 = Math.max(stamps[stamps.length - 1], t0 + 1);
+    const vals = series.flatMap(s => s.pts.map(p => p.v));
+    const lo = Math.max(1, Math.floor(Math.min(...vals) / 5) * 5), hi = Math.min(60, Math.ceil(Math.max(...vals) / 5) * 5 || 5);
+    const x = t => L + (t - t0) / (t1 - t0) * (W - L - R);
+    const y = v => T + (1 - (v - lo) / Math.max(1, hi - lo)) * (H - T - B);
+    const ns = "http://www.w3.org/2000/svg";
+    const s = (tag, attrs, text) => { const el = document.createElementNS(ns, tag); for (const k in attrs) el.setAttribute(k, attrs[k]); if (text != null) el.textContent = text; return el; };
+    const svg = s("svg", { viewBox: "0 0 " + W + " " + H, class: "race-svg", role: "img",
+      "aria-label": "Levels of every character over the last " + (stamps.length - 1) + " days. The table below has the numbers." });
+    for (let v = lo; v <= hi; v += 5) {
+      svg.append(s("line", { x1: L, x2: W - R, y1: y(v), y2: y(v), class: "race-grid" }));
+      svg.append(s("text", { x: L - 8, y: y(v) + 5, "text-anchor": "end", class: "race-axis" }, String(v)));
+    }
+    const nowX = x(stamps[stamps.length - 1]);
+    stamps.forEach((t, i) => {
+      const last = i === stamps.length - 1;
+      if (!last && nowX - x(t) < 70) return;
+      if (!last && narrow && i % 2) return;
+      svg.append(s("text", { x: x(t), y: H - 10, "text-anchor": last ? "end" : "middle", class: "race-axis" }, last ? "Now" : dayLabel(t)));
+    });
+    const ranked = series.slice().sort((a, b) => b.gain - a.gain);
+    const stars = ranked.filter(s => s.gain > 0.05).slice(0, 3);
+    const path = pts => pts.map((p, i) => (i ? "L" : "M") + x(p.t).toFixed(1) + " " + y(p.v).toFixed(1)).join(" ");
+    const lines = new Map();
+    series.filter(sr => !stars.includes(sr)).forEach(sr => {
+      const el = s("path", { d: path(sr.pts), class: "race-line" }); svg.append(el); lines.set(sr, el);
+    });
+    // Labels sit at each star's last point, nudged apart so they never overlap.
+    const labelY = stars.map(sr => y(sr.pts[sr.pts.length - 1].v)).map((v, i, a) => v);
+    for (let pass = 0; pass < 3; pass++) for (let i = 1; i < labelY.length; i++)
+      for (let j = 0; j < i; j++) if (Math.abs(labelY[i] - labelY[j]) < 20) labelY[i] = labelY[j] + (labelY[i] >= labelY[j] ? 20 : -20);
+    stars.forEach((sr, i) => {
+      const el = s("path", { d: path(sr.pts), class: "race-line star", style: "stroke:var(--series-" + (i + 1) + ")" });
+      svg.append(el); lines.set(sr, el);
+      const last = sr.pts[sr.pts.length - 1];
+      svg.append(s("circle", { cx: x(last.t), cy: y(last.v), r: 5, class: "race-end", style: "fill:var(--series-" + (i + 1) + ")" }));
+      svg.append(s("text", { x: x(last.t) + 12, y: labelY[i] + 5, class: "race-label" }, str(sr.m.first) + " +" + sr.gain.toFixed(1)));
+    });
+    // Hover: the line nearest the pointer lights up, with its level on that day.
+    const cross = s("line", { y1: T, y2: H - B, class: "race-cross", visibility: "hidden" });
+    const dot = s("circle", { r: 6, class: "race-dot", visibility: "hidden" });
+    svg.append(cross, dot);
+    const tip = h("div", { class: "race-tip", hidden: true });
+    const wrap = h("div", { class: "race-wrap" }, svg, tip);
+    let lit = null;
+    svg.addEventListener("pointermove", ev => {
+      const r = svg.getBoundingClientRect(), px = (ev.clientX - r.left) / r.width * W, py = (ev.clientY - r.top) / r.height * H;
+      let i = 0; stamps.forEach((t, k) => { if (Math.abs(x(t) - px) < Math.abs(x(stamps[i]) - px)) i = k; });
+      let best = null;
+      series.forEach(sr => { const p = sr.pts.find(q => q.t === stamps[i]); if (p && (!best || Math.abs(y(p.v) - py) < Math.abs(y(best.p.v) - py))) best = { sr, p }; });
+      if (!best) return;
+      if (lit) lit.classList.remove("lit");
+      lit = lines.get(best.sr); if (lit) lit.classList.add("lit");
+      cross.setAttribute("x1", x(stamps[i])); cross.setAttribute("x2", x(stamps[i])); cross.setAttribute("visibility", "visible");
+      dot.setAttribute("cx", x(best.p.t)); dot.setAttribute("cy", y(best.p.v)); dot.setAttribute("visibility", "visible");
+      tip.hidden = false;
+      tip.replaceChildren(h("b", { text: fullName(best.sr.m) }), h("span", { text: "Level " + best.p.v.toFixed(1) + " · " + (i === stamps.length - 1 ? "now" : dayLabel(stamps[i])) }));
+      const left = x(stamps[i]) / W * 100;
+      tip.style.left = Math.min(left, 78) + "%"; tip.style.top = (y(best.p.v) / H * 100) + "%";
+    });
+    svg.addEventListener("pointerleave", () => {
+      tip.hidden = true; cross.setAttribute("visibility", "hidden"); dot.setAttribute("visibility", "hidden");
+      if (lit) lit.classList.remove("lit"); lit = null;
+    });
+    const legend = h("ul", { class: "race-legend" },
+      stars.map((sr, i) => h("li", null, h("span", { class: "key", style: "background:var(--series-" + (i + 1) + ")" }), fullName(sr.m) + " +" + sr.gain.toFixed(1) + " levels")),
+      h("li", null, h("span", { class: "key grey" }), stars.length ? "Everyone else" : "Everyone"));
+    const span = (stamps[stamps.length - 1] - stamps[0]) / DAY;
+    const note = span < 6.5 ? h("p", { class: "small", text: "Collecting since " + new Date(stamps[0]).toLocaleDateString("en-GB", { day: "numeric", month: "long", timeZone: "UTC" }) +
+      ". The chart grows a point every day until it shows a full week." } ) : null;
+    // The same numbers as a table, for screen readers and anyone who prefers rows.
+    const table = h("table", { class: "ftable race-table" },
+      h("thead", null, h("tr", null, h("th", { scope: "col", text: "Character" }), stamps.map((t, i) => h("th", { scope: "col", class: "num", text: i === stamps.length - 1 ? "Now" : dayLabel(t) })), h("th", { scope: "col", class: "num", text: "Change" }))),
+      h("tbody", null, ranked.map(sr => h("tr", null, h("th", { scope: "row" }, h("span", { class: "winner" }, swatch(sr.m.cls), " ", nameButton(sr.m))),
+        stamps.map(t => { const p = sr.pts.find(q => q.t === t); return h("td", { class: "num", text: p ? p.v.toFixed(1) : "–" }); }),
+        h("td", { class: "num", text: (sr.gain >= 0 ? "+" : "") + sr.gain.toFixed(1) })))));
+    box.append(legend, wrap, note || "", h("details", { class: "race-details" }, h("summary", { text: "Show as a table" }), h("div", { class: "table-scroll" }, table)));
+  }
+
+  let raceWidth = 0;
+  window.addEventListener("resize", () => {
+    const w = $("race-body").clientWidth;
+    if (state.members.length && Math.abs(w - raceWidth) > 40) { raceWidth = w; renderRace(); }
+  });
+
+  // A small graph of one character's week for their card.
+  function levelSparkline(m) {
+    const sr = raceSeries().series.find(x => x.m === m);
+    if (!sr || sr.pts.length < 2) return null;
+    const W = 600, H = 110, P = 14;
+    const vs = sr.pts.map(p => p.v), lo = Math.min(...vs), hi = Math.max(...vs, lo + 0.5);
+    const t0 = sr.pts[0].t, t1 = sr.pts[sr.pts.length - 1].t;
+    const x = t => P + (t - t0) / Math.max(1, t1 - t0) * (W - 2 * P), y = v => P + (1 - (v - lo) / (hi - lo)) * (H - 2 * P);
+    const ns = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(ns, "svg");
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H); svg.setAttribute("class", "spark"); svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", "Level from " + vs[0].toFixed(1) + " to " + vs[vs.length - 1].toFixed(1) + " over the last " + Math.round((t1 - t0) / DAY) + " days");
+    const path = document.createElementNS(ns, "path");
+    path.setAttribute("d", sr.pts.map((p, i) => (i ? "L" : "M") + x(p.t).toFixed(1) + " " + y(p.v).toFixed(1)).join(" "));
+    path.setAttribute("class", "spark-line"); svg.append(path);
+    sr.pts.forEach((p, i) => {
+      const c = document.createElementNS(ns, "circle");
+      c.setAttribute("cx", x(p.t)); c.setAttribute("cy", y(p.v)); c.setAttribute("r", 5); c.setAttribute("class", "spark-dot");
+      const tt = document.createElementNS(ns, "title"); tt.textContent = (i === sr.pts.length - 1 ? "Now" : dayLabel(p.t)) + ": level " + p.v.toFixed(1);
+      c.append(tt); svg.append(c);
+    });
+    return h("div", null, svg, h("p", { class: "small", style: "margin:4px 0 0",
+      text: vs[0].toFixed(1) + " → " + vs[vs.length - 1].toFixed(1) + " (" + (sr.gain >= 0 ? "+" : "") + sr.gain.toFixed(1) + " levels)" }));
   }
 
   /* ---------- Guild totals ---------- */
@@ -1346,6 +1721,8 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
     if (details["Creature type killed the most"]) facts.append(h("div", null, h("dt", { text: "favourite prey" }), h("dd", { class: "word", text: details["Creature type killed the most"] })));
     if (details["Bandage used most"]) facts.append(h("div", null, h("dt", { text: "bandage of choice" }), h("dd", { class: "word", text: details["Bandage used most"] })));
     if (facts.children.length) section("By the numbers", facts);
+    const spark = levelSparkline(m);
+    if (spark) section("Levelling, past week", spark);
 
     const bosses = (f.bosses || []).slice().sort((a, b) => num(b.kills) - num(a.kills));
     if (bosses.length) {

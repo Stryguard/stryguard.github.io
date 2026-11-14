@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write   # to save newly claimed guild firsts in site/firsts.json
+  contents: write   # to save guild firsts (site/firsts.json) and daily snapshots (site/history.json)
   pages: write
   id-token: write
 
@@ -30,18 +30,18 @@ jobs:
         env:
           BLIZZARD_CLIENT_SECRET: ${{ secrets.BLIZZARD_CLIENT_SECRET }}
           WOW_REGION: eu
-        run: python3 fetch_roster.py --out site/data --ledger site/firsts.json --milestones site/milestones.json > /dev/null
+        run: python3 fetch_roster.py --out site/data --ledger site/firsts.json --milestones site/milestones.json --history site/history.json > /dev/null
 
-      # Only commits when someone has claimed a milestone. Pushes made with the workflow's own
-      # token don't start another run. If saving fails, the site still deploys.
-      - name: Save newly claimed guild firsts
+      # Commits when someone claims a milestone or a new day's snapshot is taken (about once a day).
+      # Pushes made with the workflow's own token don't start another run. If saving fails, the site still deploys.
+      - name: Save guild firsts and daily history
         continue-on-error: true
         run: |
-          if ! git diff --quiet -- site/firsts.json; then
+          if ! git diff --quiet -- site/firsts.json site/history.json || [ -n "$(git status --porcelain -- site/history.json)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add site/firsts.json
-            git commit -q -m "Record new guild firsts"
+            git add site/firsts.json site/history.json
+            git commit -q -m "Update guild firsts and history"
             git pull -q --rebase origin main
             git push -q origin HEAD:main
           fi
