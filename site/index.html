@@ -1,15 +1,15 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-look="codex">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Stryguard</title>
 <meta name="description" content="The Stryguard guild of World of Warcraft: Forever: roster, hall of oddities, trophies and more.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 2h24v28l-12-7-12 7z' fill='%231E3A7B'/%3E%3Cpath d='M7 2v23l9-5 9 5V2' fill='none' stroke='%23C9A227' stroke-width='2'/%3E%3C/svg%3E">
-<script>try { document.documentElement.setAttribute("data-look", localStorage.getItem("stryguard-look") || "warcamp"); var t = localStorage.getItem("stryguard-theme"); if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t); } catch (e) {}</script>
+<script>try { var t = localStorage.getItem("stryguard-theme"); if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t); } catch (e) {}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Grenze+Gotisch:wght@700&family=Cinzel:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Marcellus&family=Nunito+Sans:ital,wght@0,400;0,600;0,800;1,400&family=Oswald:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,700;1,400&family=Playfair+Display:wght@700;800&family=Libre+Franklin:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Grenze+Gotisch:wght@700&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
 <style>
 :root {
   color-scheme: light;
@@ -96,10 +96,7 @@ a { color: inherit; }
 .wrap { max-width: 1200px; margin: 0 auto; padding: 8px 24px 80px; }
 .wrap:focus { outline: none; }
 .chrome { display: contents; }
-main.wrap { display: flex; flex-direction: column; }
-.col-main, .col-side { display: contents; }
-#status { order: 0; } #oddities { order: 1; } #crier { order: 2; } #firsts { order: 3; } #race { order: 4; } #totals { order: 5; } #deeds { order: 6; }
-#trophies { order: 7; } #friends { order: 8; } #makeup { order: 9; } #boards { order: 10; } #roster { order: 11; } #footer { order: 12; }
+.row, .row-side { display: contents; }
 
 /* ---------- Hero band ---------- */
 .band {
@@ -477,24 +474,17 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
 @media (min-width: 641px) { .status.fresh { display: none; } }
 
 /* ======================================================================
-   LOOKS: five designs to choose from (temporary picker at the bottom).
-   Each look sets its own palette and fonts; from 1100px wide each also
-   gets its own layout. Narrower screens keep the single column.
+   CODEX: parchment and oxblood, laid out like the pages of a ledger.
+   Narrow screens keep one column; from 1100px wide the sections sit in
+   rows that follow the nav, with two short sections side by side.
    ====================================================================== */
-
-/* Shared status colours for the dark and light looks */
-:root[data-look="warcamp"], :root[data-look="moonglade"], :root[data-look="forge"] {
-  color-scheme: dark;
-  --focus: #8AB4FF; --danger: #F07070; --swatch-edge: rgba(255,255,255,.3);
-  --q-poor: #9D9D9D; --q-uncommon: #3BD92A; --q-rare: #4C9DFF; --q-epic: #B56CFF; --q-legendary: #FF9A3C;
-  --st-hated: #F07070; --st-unfriendly: #F0A050; --st-neutral: #E2C24A; --st-friendly: #6CCB5F;
-  --st-honored: #4FD1A5; --st-revered: #6FA8FF; --st-exalted: #C39BFF;
-  --live: #5FD06F; --stale: #F0A050;
-  --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70;
-  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 24px -14px rgba(0,0,0,.8);
-}
-:root[data-look="codex"], :root[data-look="herald"] {
+:root[data-look="codex"] {
   color-scheme: light;
+  --bg: #EDE3CC; --surface: #F8F2E3; --surface-2: #EFE6D1; --ink: #2A1F14; --muted: #665339;
+  --rule: #D2C19D; --track: #E2D5B8; --accent: #8C2A1C; --on-accent: #FFF7E8;
+  --banner: #5A1D14; --trim: #C49A3C; --band-ink: #F8EEDB; --band-muted: rgba(248,238,219,.85);
+  --display: "Grenze Gotisch", Georgia, serif; --heading: "Cormorant Garamond", Georgia, serif; --body: "Alegreya", Georgia, serif;
+  --radius: 4px; --shadow: none;
   --focus: #1D4ED8; --danger: #9E2525; --swatch-edge: rgba(0,0,0,.35);
   --q-poor: #6B7280; --q-uncommon: #17800A; --q-rare: #0B5CC2; --q-epic: #7B2FC9; --q-legendary: #B4560A;
   --st-hated: #A12C2C; --st-unfriendly: #B4560A; --st-neutral: #806200; --st-friendly: #2E7D32;
@@ -502,233 +492,41 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
   --live: #2E8B3E; --stale: #B4560A;
   --series-1: #2a78d6; --series-2: #eb6834; --series-3: #1baf7a;
 }
+/* One palette for now, so the light/dark switch has nothing to do. */
 :root[data-look] .theme-btn { display: none; }
-
-/* ---------- 1. Warcamp: dark slate and gold, sidebar dashboard ---------- */
-:root[data-look="warcamp"] {
-  --bg: #0D1117; --surface: #151B23; --surface-2: #1C2430; --ink: #E8E3D6; --muted: #A7A193;
-  --rule: #283140; --track: #232C39; --accent: #E3B34C; --on-accent: #1A1408;
-  --banner: #101823; --trim: #E3B34C; --band-ink: #E8E3D6; --band-muted: #B8B2A4; --side: #0A0E13;
-  --display: "Cinzel", Georgia, serif; --heading: "Cinzel", Georgia, serif; --body: "Source Sans 3", "Segoe UI", sans-serif;
-  --radius: 12px;
-}
-[data-look="warcamp"] h2 { font-size: 30px; letter-spacing: .02em; }
-[data-look="warcamp"] .award-title, [data-look="warcamp"] .fc-title, [data-look="warcamp"] .plaque .boss { font-size: 18px; letter-spacing: .01em; }
-[data-look="warcamp"] .band { background: linear-gradient(180deg, #131C2A, #0D1117); }
-[data-look="warcamp"] .seal, [data-look="warcamp"] .fc-icon { border-radius: 50%; }
-@media (min-width: 1100px) {
-  [data-look="warcamp"] body { display: grid; grid-template-columns: 290px minmax(0, 1fr); }
-  [data-look="warcamp"] .chrome { display: flex; flex-direction: column; position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--side); border-right: 1px solid var(--rule); }
-  [data-look="warcamp"] .band { background: none; border-bottom: 1px solid var(--rule); }
-  [data-look="warcamp"] .band-inner { grid-template-columns: 1fr; justify-items: center; text-align: center; padding: 22px 20px 20px; gap: 10px; }
-  [data-look="warcamp"] .banner { width: 64px; }
-  [data-look="warcamp"] .band-text { padding-top: 0; width: 100%; }
-  [data-look="warcamp"] h1 { font-size: 40px; text-shadow: none; }
-  [data-look="warcamp"] .sub { font-size: 14px; }
-  [data-look="warcamp"] .motto q { font-size: 17px; }
-  [data-look="warcamp"] .tally { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; text-align: left; border: 0; padding: 0; margin-top: 16px; }
-  [data-look="warcamp"] .tally div { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 8px 10px; }
-  [data-look="warcamp"] .tally dd { font-size: 24px; color: var(--accent); }
-  [data-look="warcamp"] .tally dt { font-size: 13px; }
-  [data-look="warcamp"] .jump { position: static; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; border: 0; flex: 1; }
-  [data-look="warcamp"] .jump-inner { flex-direction: column; align-items: stretch; padding: 14px 12px 90px; gap: 14px; height: 100%; }
-  [data-look="warcamp"] .jump a.home { display: none; }
-  [data-look="warcamp"] .jump-links { flex-direction: column; align-items: stretch; overflow: visible; flex: 0 0 auto; gap: 2px; }
-  [data-look="warcamp"] .jump a { padding: 9px 14px; border-bottom: 0; border-left: 3px solid transparent; border-radius: 0 8px 8px 0; }
-  [data-look="warcamp"] .jump a:hover { background: var(--surface); }
-  [data-look="warcamp"] .jump a[aria-current="true"] { border-left-color: var(--accent); background: var(--surface); }
-  [data-look="warcamp"] .live { padding: 0 14px; }
-  [data-look="warcamp"] main.wrap { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 22px; align-items: start; max-width: 1640px; padding: 26px 30px 100px; }
-  [data-look="warcamp"] main section, [data-look="warcamp"] #status { margin: 0; min-width: 0; }
-  [data-look="warcamp"] #status, [data-look="warcamp"] #crier, [data-look="warcamp"] #totals, [data-look="warcamp"] #roster, [data-look="warcamp"] #footer { grid-column: span 12; }
-  [data-look="warcamp"] #makeup .grid-3 { grid-template-columns: 1fr; }
-  [data-look="warcamp"] .trophies { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
-  [data-look="warcamp"] #oddities { grid-column: span 8; order: 2; } [data-look="warcamp"] #deeds { grid-column: span 4; order: 3; }
-  [data-look="warcamp"] #race { grid-column: span 12; order: 4; }
-  [data-look="warcamp"] #firsts { grid-column: span 7; order: 5; } [data-look="warcamp"] #trophies { grid-column: span 5; order: 6; }
-  [data-look="warcamp"] #totals { order: 7; }
-  [data-look="warcamp"] #friends { grid-column: span 7; order: 8; } [data-look="warcamp"] #makeup { grid-column: span 5; order: 9; }
-  [data-look="warcamp"] #boards { grid-column: span 12; order: 10; }
-  [data-look="warcamp"] #crier { order: 1; } [data-look="warcamp"] #roster { order: 11; } [data-look="warcamp"] #footer { order: 12; margin-top: 20px; }
-  /* Every section is a card on the dashboard; things inside sit one shade lighter. */
-  [data-look="warcamp"] main section { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 22px 24px; }
-  [data-look="warcamp"] main section .panel, [data-look="warcamp"] .award, [data-look="warcamp"] .fcard:not(.open), [data-look="warcamp"] .plaque,
-  [data-look="warcamp"] .tiles div, [data-look="warcamp"] main section .crier, [data-look="warcamp"] .table-scroll { background: var(--surface-2); box-shadow: none; }
-  [data-look="warcamp"] .lede { font-size: 16px; margin-bottom: 16px; }
-  [data-look="warcamp"] .feed li { grid-template-columns: auto 1fr; } [data-look="warcamp"] .feed time { grid-column: 2; }
-}
-
-/* ---------- 2. Codex: parchment and oxblood, an open book ---------- */
-:root[data-look="codex"] {
-  --bg: #EDE3CC; --surface: #F8F2E3; --surface-2: #EFE6D1; --ink: #2A1F14; --muted: #665339;
-  --rule: #D2C19D; --track: #E2D5B8; --accent: #8C2A1C; --on-accent: #FFF7E8;
-  --banner: #5A1D14; --trim: #C49A3C; --band-ink: #F8EEDB; --band-muted: rgba(248,238,219,.85);
-  --display: "Grenze Gotisch", Georgia, serif; --heading: "Cormorant Garamond", Georgia, serif; --body: "Alegreya", Georgia, serif;
-  --radius: 4px; --shadow: none;
-}
 [data-look="codex"] body { background: radial-gradient(1200px 800px at 50% -10%, #F6EEDB, transparent 70%), var(--bg); }
-[data-look="codex"] h2 { font-size: 44px; font-weight: 700; font-style: italic; }
-[data-look="codex"] h2::before { content: "✦ "; color: var(--accent); font-style: normal; font-size: .6em; vertical-align: .25em; }
+[data-look="codex"] h2 { font-size: 40px; font-weight: 700; font-style: italic; }
+[data-look="codex"] h2::before { content: "✦ "; color: var(--accent); font-style: normal; font-size: .55em; vertical-align: .3em; }
 [data-look="codex"] .lede { font-style: italic; }
-[data-look="codex"] .award-title, [data-look="codex"] .fc-title, [data-look="codex"] .plaque .boss { font-size: 24px; }
-[data-look="codex"] .panel, [data-look="codex"] .award, [data-look="codex"] .fcard:not(.open), [data-look="codex"] .plaque, [data-look="codex"] .tiles div, [data-look="codex"] .crier, [data-look="codex"] .table-scroll {
-  border: 1px solid var(--rule); outline: 1px solid var(--rule); outline-offset: 3px; }
+[data-look="codex"] .award-title, [data-look="codex"] .fc-title, [data-look="codex"] .plaque .boss { font-size: 23px; }
+[data-look="codex"] .seal, [data-look="codex"] .fc-icon { border-radius: 50%; background: var(--surface-2); }
 [data-look="codex"] .tab { border-radius: 0; border: 0; border-bottom: 2px solid transparent; background: none; padding: 8px 6px; font-style: italic; }
 [data-look="codex"] .tab[aria-selected="true"] { background: none; color: var(--accent); border-bottom-color: var(--accent); }
-[data-look="codex"] .seal, [data-look="codex"] .fc-icon { border-radius: 50%; background: var(--surface-2); }
+/* Plain cards: one hairline, no second frame, no coloured caps. */
+[data-look="codex"] .plaque { border-top-width: 1px; border-top-color: var(--rule); }
+/* Guild totals read as a ledger, not a wall of boxes. */
+[data-look="codex"] .tiles { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0 24px; }
+[data-look="codex"] .tiles div { background: none; border: 0; border-top: 1px solid var(--rule); border-radius: 0; padding: 10px 0 12px; }
+[data-look="codex"] .tiles dd { font-size: 28px; }
+[data-look="codex"] .tiles dt { font-size: 15px; }
+
 @media (min-width: 1100px) {
-  [data-look="codex"] .band-inner, [data-look="codex"] .jump-inner { max-width: 1560px; }
+  [data-look="codex"] .band-inner, [data-look="codex"] .jump-inner { max-width: 1480px; }
   [data-look="codex"] .band-text { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 48px; align-items: center; }
   [data-look="codex"] .band-text > :not(.tally) { grid-column: 1; }
   [data-look="codex"] .tally { grid-column: 2; grid-row: 1 / span 4; display: grid; grid-template-columns: repeat(2, auto); gap: 12px 40px; margin: 0; padding: 0 0 0 40px; border-top: 0; border-left: 1px solid color-mix(in srgb, var(--trim) 60%, transparent); }
-  [data-look="codex"] main.wrap { display: block; columns: 2; column-gap: 64px; column-rule: 1px solid var(--rule); max-width: 1560px; padding-top: 24px; }
-  [data-look="codex"] main section { break-inside: avoid; margin: 0 0 56px; }
-  [data-look="codex"] #status, [data-look="codex"] #crier, [data-look="codex"] #roster, [data-look="codex"] #footer { column-span: all; }
-  [data-look="codex"] #status { margin-bottom: 32px; }
-  [data-look="codex"] #crier { margin-bottom: 56px; }
+  [data-look="codex"] main.wrap { display: flex; flex-direction: column; gap: 80px; max-width: 1480px; padding-top: 32px; }
+  [data-look="codex"] main section, [data-look="codex"] #status, [data-look="codex"] #footer { margin: 0; min-width: 0; }
+  /* Two short sections share a row: the race beside who rides with us and the guild totals,
+     the recent deeds beside the honor boards. */
+  [data-look="codex"] .row { display: grid; column-gap: 56px; align-items: start; }
+  [data-look="codex"] .row-race { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+  [data-look="codex"] .row-deeds { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  [data-look="codex"] .row-side { display: flex; flex-direction: column; gap: 80px; min-width: 0; }
+  [data-look="codex"] #makeup .grid-3 { grid-template-columns: 1fr; }
+  [data-look="codex"] .trophies { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+  [data-look="codex"] table.roster, [data-look="codex"] .ftable { min-width: 0; }
 }
-
-/* ---------- 3. Moonglade: night-elf indigo, glass, masonry ---------- */
-:root[data-look="moonglade"] {
-  --bg: #0B0E22; --surface: #151935; --surface-2: #1C2142; --ink: #EDEBFB; --muted: #B3AED6;
-  --rule: #2C3160; --track: #262B52; --accent: #6FE3CF; --on-accent: #0B0E22;
-  --banner: #1E1650; --trim: #B6A4FF; --band-ink: #F1EEFF; --band-muted: #C9C2F0;
-  --display: "Marcellus", Georgia, serif; --heading: "Marcellus", Georgia, serif; --body: "Nunito Sans", "Segoe UI", sans-serif;
-  --radius: 18px; --series-1: #6FE3CF;
-}
-[data-look="moonglade"] body { background: radial-gradient(900px 600px at 85% 10%, rgba(111,227,207,.10), transparent 70%), radial-gradient(1000px 700px at 10% 40%, rgba(182,164,255,.12), transparent 70%), var(--bg); background-attachment: fixed; }
-[data-look="moonglade"] .band { background: radial-gradient(800px 300px at 20% 0%, rgba(182,164,255,.35), transparent 70%), radial-gradient(600px 260px at 90% 100%, rgba(111,227,207,.22), transparent 70%), #120E36; border-bottom: 1px solid var(--rule); }
-[data-look="moonglade"] h1 { text-shadow: 0 0 30px rgba(182,164,255,.5); }
-[data-look="moonglade"] h2 { font-size: 36px; font-weight: 400; background: linear-gradient(90deg, #F1EEFF, #B6A4FF 70%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-[data-look="moonglade"] .panel, [data-look="moonglade"] .award, [data-look="moonglade"] .fcard:not(.open), [data-look="moonglade"] .plaque, [data-look="moonglade"] .tiles div, [data-look="moonglade"] .crier, [data-look="moonglade"] .table-scroll {
-  background: rgba(28,33,66,.72); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border-color: rgba(182,164,255,.22); box-shadow: 0 0 0 1px rgba(111,227,207,.04), 0 18px 40px -24px rgba(0,0,0,.9); }
-[data-look="moonglade"] .seal, [data-look="moonglade"] .fc-icon { border-radius: 50%; background: radial-gradient(circle at 35% 30%, rgba(111,227,207,.35), rgba(182,164,255,.15)); border-color: rgba(182,164,255,.35); }
-[data-look="moonglade"] .jump { background: rgba(11,14,34,.82); }
-[data-look="moonglade"] .jump a[aria-current="true"] { border-bottom-color: var(--accent); }
-@media (min-width: 1100px) {
-  [data-look="moonglade"] .band-inner, [data-look="moonglade"] .jump-inner { max-width: 1640px; }
-  [data-look="moonglade"] .band-text { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 48px; align-items: center; }
-  [data-look="moonglade"] .band-text > :not(.tally) { grid-column: 1; }
-  [data-look="moonglade"] .tally { grid-column: 2; grid-row: 1 / span 4; display: grid; grid-template-columns: repeat(4, auto); gap: 12px; margin: 0; padding: 0; border: 0; }
-  [data-look="moonglade"] .tally div { background: rgba(255,255,255,.06); border: 1px solid rgba(182,164,255,.25); border-radius: 16px; padding: 12px 18px; min-width: 130px; }
-  [data-look="moonglade"] main.wrap { display: block; columns: 3 420px; column-gap: 28px; max-width: 1640px; padding-top: 24px; }
-  [data-look="moonglade"] main section { break-inside: avoid; margin: 0 0 40px; }
-  [data-look="moonglade"] #status, [data-look="moonglade"] #crier, [data-look="moonglade"] #oddities, [data-look="moonglade"] #firsts, [data-look="moonglade"] #roster, [data-look="moonglade"] #footer { column-span: all; }
-  [data-look="moonglade"] #status { margin-bottom: 32px; }
-  [data-look="moonglade"] .awards, [data-look="moonglade"] .fcards { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
-}
-
-/* ---------- 4. Forge: charcoal and ember, a bento grid of plates ---------- */
-:root[data-look="forge"] {
-  --bg: #161311; --surface: #211C18; --surface-2: #2A241F; --ink: #F4ECE1; --muted: #B8AC9C;
-  --rule: #3A322B; --track: #332B25; --accent: #FF7B2E; --on-accent: #1A0E05;
-  --banner: #1E1813; --trim: #FF7B2E; --band-ink: #F4ECE1; --band-muted: #C9BCAB;
-  --display: "Oswald", "Arial Narrow", sans-serif; --heading: "Oswald", "Arial Narrow", sans-serif; --body: "Barlow", "Segoe UI", sans-serif;
-  --num: "Oswald", "Arial Narrow", sans-serif; --radius: 4px; --series-1: #FF7B2E;
-}
-[data-look="forge"] .band { background: repeating-linear-gradient(135deg, rgba(255,255,255,.025) 0 2px, transparent 2px 14px), linear-gradient(180deg, #241C16, #161311); border-bottom: 4px solid var(--accent); }
-[data-look="forge"] h1 { text-transform: uppercase; letter-spacing: .02em; font-weight: 700; }
-[data-look="forge"] h2 { text-transform: uppercase; font-size: 30px; font-weight: 600; letter-spacing: .03em; display: flex; align-items: center; gap: 12px; }
-[data-look="forge"] h2::before { content: ""; width: 14px; height: 14px; background: var(--accent); flex: none; }
-[data-look="forge"] .award-title, [data-look="forge"] .fc-title, [data-look="forge"] .plaque .boss { text-transform: uppercase; font-weight: 600; font-size: 19px; letter-spacing: .02em; }
-[data-look="forge"] .award-feat b, [data-look="forge"] .tiles dd, [data-look="forge"] .plaque .count b, [data-look="forge"] .tally dd { font-family: var(--num); font-weight: 600; }
-[data-look="forge"] .award-feat b { font-size: 36px; }
-[data-look="forge"] .tab { border-radius: 4px; text-transform: uppercase; letter-spacing: .04em; font-size: 15px; }
-[data-look="forge"] .award, [data-look="forge"] .fcard:not(.open), [data-look="forge"] .plaque { border-top: 3px solid var(--accent); }
-@media (min-width: 1100px) {
-  [data-look="forge"] .band-inner, [data-look="forge"] .jump-inner { max-width: 1680px; }
-  [data-look="forge"] .band-text { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 48px; align-items: center; }
-  [data-look="forge"] .band-text > :not(.tally) { grid-column: 1; }
-  [data-look="forge"] .tally { grid-column: 2; grid-row: 1 / span 4; display: grid; grid-template-columns: repeat(4, auto); gap: 0; margin: 0; padding: 0; border: 1px solid var(--rule); }
-  [data-look="forge"] .tally div { padding: 14px 22px; border-left: 1px solid var(--rule); }
-  [data-look="forge"] .tally div:first-child { border-left: 0; }
-  [data-look="forge"] .tally dd { font-size: 40px; color: var(--accent); }
-  [data-look="forge"] main.wrap { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 18px; align-items: start; max-width: 1680px; padding-top: 24px; }
-  [data-look="forge"] main section, [data-look="forge"] #status { margin: 0; min-width: 0; }
-  [data-look="forge"] #status, [data-look="forge"] #crier, [data-look="forge"] #oddities, [data-look="forge"] #roster, [data-look="forge"] #footer { grid-column: span 12; }
-  [data-look="forge"] #crier { order: 1; } [data-look="forge"] #oddities { order: 2; }
-  [data-look="forge"] #firsts { grid-column: span 7; order: 3; } [data-look="forge"] #race { grid-column: span 5; order: 4; }
-  [data-look="forge"] #deeds { grid-column: span 4; order: 5; } [data-look="forge"] #totals { grid-column: span 8; order: 6; }
-  [data-look="forge"] #trophies { grid-column: span 8; order: 7; } [data-look="forge"] #makeup { grid-column: span 4; order: 8; }
-  [data-look="forge"] #friends { grid-column: span 7; order: 9; } [data-look="forge"] #boards { grid-column: span 5; order: 10; }
-  [data-look="forge"] #roster { order: 11; } [data-look="forge"] #footer { order: 12; margin-top: 20px; }
-  [data-look="forge"] main section { background: var(--surface); border: 1px solid var(--rule); border-top: 4px solid var(--accent); padding: 20px 22px; box-shadow: var(--shadow); }
-  [data-look="forge"] main section .panel, [data-look="forge"] .award, [data-look="forge"] .fcard:not(.open), [data-look="forge"] .plaque,
-  [data-look="forge"] .tiles div, [data-look="forge"] main section .crier, [data-look="forge"] .table-scroll { background: var(--surface-2); box-shadow: none; }
-  [data-look="forge"] .lede { font-size: 16px; margin-bottom: 16px; }
-  [data-look="forge"] .awards { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
-  [data-look="forge"] #makeup .grid-3 { grid-template-columns: 1fr; }
-}
-
-/* ---------- 5. Herald: crisp broadsheet, Stormwind blue, with a sidebar ---------- */
-:root[data-look="herald"] {
-  --bg: #F6F7F9; --surface: #FFFFFF; --surface-2: #EEF1F6; --ink: #10172A; --muted: #4A5468;
-  --rule: #DDE2EA; --track: #E6EAF0; --accent: #1B4DB8; --on-accent: #FFFFFF;
-  --banner: #0E2A66; --trim: #C9A227; --band-ink: #10172A; --band-muted: #4A5468;
-  --display: "Grenze Gotisch", Georgia, serif; --heading: "Playfair Display", Georgia, serif; --body: "Libre Franklin", "Segoe UI", sans-serif;
-  --radius: 6px; --shadow: 0 1px 2px rgba(16,23,42,.06);
-}
-[data-look="herald"] body { font-size: 17px; }
-[data-look="herald"] .band { background: var(--surface); border-bottom: 0; }
-[data-look="herald"] .band-inner { grid-template-columns: 1fr; justify-items: center; text-align: center; padding-bottom: 0; }
-[data-look="herald"] .banner { display: none; }
-[data-look="herald"] .band-text { padding-top: 22px; width: 100%; }
-[data-look="herald"] h1 { text-shadow: none; font-size: clamp(56px, 9vw, 120px); }
-[data-look="herald"] .sub { text-transform: uppercase; letter-spacing: .14em; font-size: 13px; }
-[data-look="herald"] .tally { justify-content: center; border-top: 1px solid var(--ink); border-bottom: 4px double var(--ink); padding: 10px 0; margin-top: 16px; gap: 8px 0; }
-[data-look="herald"] .tally div { padding: 0 32px; border-left: 1px solid var(--rule); }
-[data-look="herald"] .tally div:first-child { border-left: 0; }
-[data-look="herald"] .tally dd { font-size: 28px; font-family: var(--heading); }
-[data-look="herald"] .card-head { --band-ink: #F4F6FB; --band-muted: rgba(244,246,251,.82); }
-[data-look="herald"] .jump { background: rgba(255,255,255,.94); border-bottom: 1px solid var(--ink); }
-[data-look="herald"] .jump a { text-transform: uppercase; letter-spacing: .08em; font-size: 14px; font-weight: 600; }
-[data-look="herald"] .jump a.home { text-transform: none; letter-spacing: 0; font-size: 24px; font-weight: 700; }
-[data-look="herald"] h2 { font-size: 36px; font-weight: 800; }
-[data-look="herald"] main section { border-top: 3px solid var(--ink); padding-top: 14px; }
-[data-look="herald"] .award-title, [data-look="herald"] .fc-title, [data-look="herald"] .plaque .boss { font-size: 20px; font-weight: 700; }
-[data-look="herald"] .award-feat b, [data-look="herald"] .tiles dd { font-family: var(--heading); }
-[data-look="herald"] .tab { border-radius: 4px; }
-[data-look="herald"] .seal, [data-look="herald"] .fc-icon { background: var(--surface-2); border-color: var(--rule); }
-@media (min-width: 1100px) {
-  [data-look="herald"] .jump-inner { max-width: 1560px; justify-content: center; }
-  [data-look="herald"] .jump-links { flex: 0 1 auto; }
-  [data-look="herald"] .band-inner { max-width: 1560px; }
-  [data-look="herald"] main.wrap { display: grid; grid-template-columns: minmax(0, 1fr) 360px; column-gap: 48px; align-items: start; max-width: 1560px; }
-  [data-look="herald"] #status, [data-look="herald"] #crier, [data-look="herald"] #roster, [data-look="herald"] #footer { grid-column: 1 / -1; }
-  [data-look="herald"] #crier { order: 1; margin-top: 40px; }
-  [data-look="herald"] .col-main, [data-look="herald"] .col-side { display: block; order: 3; min-width: 0; }
-  [data-look="herald"] .col-main { grid-column: 1; }
-  [data-look="herald"] .col-side { grid-column: 2; border-left: 1px solid var(--rule); padding-left: 32px; }
-  [data-look="herald"] .col-main > section:first-child, [data-look="herald"] .col-side > section:first-child { margin-top: 40px; }
-  [data-look="herald"] .col-side section { margin-top: 44px; }
-  [data-look="herald"] .col-side h2 { font-size: 24px; }
-  [data-look="herald"] .col-side .lede { font-size: 15px; }
-  [data-look="herald"] .col-side .tiles { grid-template-columns: 1fr 1fr; gap: 0; }
-  [data-look="herald"] .col-side .tiles div { border: 0; border-top: 1px solid var(--rule); border-radius: 0; box-shadow: none; padding: 10px 4px; background: none; }
-  [data-look="herald"] .col-side .tiles dd { font-size: 24px; }
-  [data-look="herald"] .col-side .grid-3, [data-look="herald"] .col-side .grid-2 { grid-template-columns: 1fr; }
-  [data-look="herald"] .col-side .panel { padding: 14px 0; border: 0; border-top: 1px solid var(--rule); border-radius: 0; box-shadow: none; background: none; }
-  [data-look="herald"] .col-side .feed li { grid-template-columns: auto 1fr; } [data-look="herald"] .col-side .feed time { grid-column: 2; }
-  [data-look="herald"] #roster { margin-top: 56px; } [data-look="herald"] #footer { order: 12; }
-}
-
-@media (min-width: 1100px) { :root[data-look] table.roster, :root[data-look] .ftable { min-width: 0; } }
-
-/* ---------- The look picker ---------- */
-.look-bar { position: fixed; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 40;
-  display: flex; align-items: center; gap: 6px; padding: 6px; border-radius: 999px; background: rgba(17,20,28,.94); color: #F3F4F6;
-  box-shadow: 0 10px 30px -10px rgba(0,0,0,.6); font-family: "Alegreya Sans", system-ui, sans-serif; font-size: 15px; max-width: calc(100vw - 16px); overflow-x: auto; scrollbar-width: none; }
-.look-label { padding: 0 6px 0 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; font-size: 12px; color: #C7CAD1; white-space: nowrap; }
-.look-btn { flex: none; display: inline-flex; align-items: center; gap: 8px; min-height: 38px; padding: 6px 14px 6px 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,.18); background: transparent; color: inherit; cursor: pointer; font-weight: 500; }
-.look-btn:hover { background: rgba(255,255,255,.1); }
-.look-btn[aria-pressed="true"] { background: #F3F4F6; color: #11141C; font-weight: 700; }
-.look-sw { display: inline-flex; }
-.look-sw i { width: 12px; height: 18px; display: block; border: 1px solid rgba(0,0,0,.25); }
-.look-sw i:first-child { border-radius: 9px 0 0 9px; } .look-sw i:last-child { border-radius: 0 9px 9px 0; }
-.look-btn:focus-visible { outline: 3px solid #8AB4FF; outline-offset: 2px; }
-.to-top, .norsk-exit { bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important; }
-@media (max-width: 640px) { .look-bar { left: 8px; right: 8px; transform: none; border-radius: 14px; } .look-label { display: none; } }
-
 
 /* ---------- Norge-modus: a secret, see the bottom of the script ---------- */
 :root.norsk {
@@ -863,7 +661,6 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
     <a href="#deeds">Deeds</a>
     <a href="#trophies">Trophies</a>
     <a href="#friends">Friends</a>
-    <a href="#makeup">Makeup</a>
     <a href="#roster">Roster</a>
     </div>
     <span class="live" id="live"></span>
@@ -875,70 +672,53 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
 <main class="wrap" id="main" tabindex="-1">
   <div class="status" id="status" role="status" aria-live="polite">Gathering the guild…</div>
 
+  <section id="oddities" aria-labelledby="oddities-h" hidden>
+    <h2 id="oddities-h">Hall of oddities</h2>
+    <p class="lede">The guild’s book of records, kept honestly by the Armory and refreshed every hour. Glory to the winners, condolences to the critters.</p>
+    <div id="awards"></div>
+  </section>
+
   <section id="crier" aria-labelledby="crier-h" hidden>
     <h2 id="crier-h" class="sr-only">The Stryguard Town Crier</h2>
     <div class="crier" id="crier-body"></div>
   </section>
 
-  <div class="col-main">
-    <section id="oddities" aria-labelledby="oddities-h" hidden>
-      <h2 id="oddities-h">Hall of oddities</h2>
-      <p class="lede">The guild’s book of records, kept honestly by the Armory and refreshed every hour. Glory to the winners, condolences to the critters.</p>
-      <div id="awards"></div>
-    </section>
+  <section id="firsts" aria-labelledby="firsts-h" hidden>
+    <h2 id="firsts-h">Guild firsts</h2>
+    <p class="lede">Who got there before anyone else in Stryguard. Achievements carry their exact dates; the odder milestones are watched every hour and written down for good.</p>
+    <div id="firsts-body"></div>
+  </section>
 
-    <section id="firsts" aria-labelledby="firsts-h" hidden>
-      <h2 id="firsts-h">Guild firsts</h2>
-      <p class="lede">Who got there before anyone else in Stryguard. Achievements carry their exact dates; the odder milestones are watched every hour and written down for good.</p>
-      <div id="firsts-body"></div>
-    </section>
-
+  <div class="row row-race">
     <section id="race" aria-labelledby="race-h" hidden>
       <h2 id="race-h">The levelling race</h2>
       <p class="lede">Everyone’s level right now, with XP as the decimal. The bright end of each bar is how far they’ve climbed this past week; hover a bar for the details.</p>
       <div class="panel" id="race-body"></div>
     </section>
-
-    <section id="trophies" aria-labelledby="trophies-h" hidden>
-      <h2 id="trophies-h">Trophy wall</h2>
-      <p class="lede" id="trophies-lede">Dungeon bosses who met Stryguard and regretted it.</p>
-      <div class="trophies" id="trophy-wall"></div>
-    </section>
-
-    <section id="friends" aria-labelledby="friends-h" hidden>
-      <h2 id="friends-h">Friends and companions</h2>
-      <p class="lede">Who the cities love best, and who keeps the finest company.</p>
-      <div class="panel"><h3>Best loved by</h3><div id="rep-board"></div></div>
-      <div class="grid-2" style="margin-top:16px">
-        <div class="panel"><h3>The stables</h3><div id="mount-board"></div></div>
-        <div class="panel"><h3>The menagerie</h3><div id="pet-board"></div></div>
-      </div>
-    </section>
+    <div class="row-side">
+      <section id="makeup" aria-labelledby="makeup-h" hidden>
+        <h2 id="makeup-h">Who rides with us</h2>
+        <p class="lede">Every character on the roster, alts included.</p>
+        <div class="grid-3">
+          <div class="panel"><h3>Classes</h3><div id="class-chart"></div></div>
+          <div class="panel"><h3>Roles</h3><div id="role-chart"></div></div>
+          <div class="panel"><h3>Levels</h3><div id="level-chart"></div></div>
+        </div>
+      </section>
+      <section id="totals" aria-labelledby="totals-h" hidden>
+        <h2 id="totals-h">Between us</h2>
+        <p class="lede">Everything the whole guild has done, added together.</p>
+        <dl class="tiles" id="tiles"></dl>
+      </section>
+    </div>
   </div>
 
-  <div class="col-side">
-    <section id="totals" aria-labelledby="totals-h" hidden>
-      <h2 id="totals-h">Between us</h2>
-      <p class="lede">Everything the whole guild has done, added together.</p>
-      <dl class="tiles" id="tiles"></dl>
-    </section>
-
+  <div class="row row-deeds">
     <section id="deeds" aria-labelledby="deeds-h" hidden>
       <h2 id="deeds-h">Recent deeds</h2>
       <p class="lede">Feats of exploration, craft and daring, newest first.</p>
       <div class="panel"><ul class="feed" id="feed"></ul></div>
     </section>
-
-    <section id="makeup" aria-labelledby="makeup-h" hidden>
-      <h2 id="makeup-h">Who rides with us</h2>
-      <p class="lede">Every character on the roster, alts included.</p>
-      <div class="grid-3">
-        <div class="panel"><h3>Classes</h3><div id="class-chart"></div></div>
-        <div class="panel"><h3>Roles</h3><div id="role-chart"></div></div>
-        <div class="panel"><h3>Levels</h3><div id="level-chart"></div></div>
-      </div>
-    </section>
-
     <section id="boards" aria-labelledby="boards-h" hidden>
       <h2 id="boards-h">Honor and crafts</h2>
       <div class="grid-2">
@@ -947,6 +727,22 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
       </div>
     </section>
   </div>
+
+  <section id="trophies" aria-labelledby="trophies-h" hidden>
+    <h2 id="trophies-h">Trophy wall</h2>
+    <p class="lede" id="trophies-lede">Dungeon bosses who met Stryguard and regretted it.</p>
+    <div class="trophies" id="trophy-wall"></div>
+  </section>
+
+  <section id="friends" aria-labelledby="friends-h" hidden>
+    <h2 id="friends-h">Friends and companions</h2>
+    <p class="lede">Who the cities love best, and who keeps the finest company.</p>
+    <div class="panel"><h3>Best loved by</h3><div id="rep-board"></div></div>
+    <div class="grid-2" style="margin-top:16px">
+      <div class="panel"><h3>The stables</h3><div id="mount-board"></div></div>
+      <div class="panel"><h3>The menagerie</h3><div id="pet-board"></div></div>
+    </div>
+  </section>
 
   <section id="roster" aria-labelledby="roster-h" hidden>
     <h2 id="roster-h">Roster</h2>
@@ -2246,41 +2042,37 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
       if (left < box.scrollLeft || left + a.offsetWidth > box.scrollLeft + box.clientWidth) box.scrollTo({ left: Math.max(0, left - 24) });
     });
   }
-  if ("IntersectionObserver" in window) {
-    const spy = new IntersectionObserver(entries => entries.forEach(en => { if (en.isIntersecting) markNav(en.target.id); }),
-      { rootMargin: "-90px 0px -55% 0px" });
-    navLinks.forEach(a => { const sec = document.querySelector(a.getAttribute("href")); if (sec) spy.observe(sec); });
+  // The current section is the one whose top most recently passed just under the bar.
+  // Measured on scroll, so it holds whether sections stack or sit side by side.
+  const jumpBar = document.querySelector(".jump");
+  function spyNav() {
+    const line = jumpBar.getBoundingClientRect().bottom + 48;
+    let best = null, bestTop = -Infinity;
+    navLinks.forEach(a => {
+      const sec = document.querySelector(a.getAttribute("href"));
+      if (!sec || sec.hidden) return;
+      const top = sec.getBoundingClientRect().top;
+      if (top <= line && top > bestTop) { best = sec.id; bestTop = top; }
+    });
+    markNav(best);
   }
+  // A clicked link stays underlined while the page scrolls to it.
+  let held = false, holdTimer = 0, spyQueued = false;
+  const release = () => { clearTimeout(holdTimer); holdTimer = setTimeout(() => { held = false; }, 250); };
+  navLinks.forEach(a => a.addEventListener("click", () => { held = true; markNav(a.getAttribute("href").slice(1)); release(); }));
+  addEventListener("scroll", () => {
+    if (held) { release(); return; }
+    if (spyQueued) return;
+    spyQueued = true;
+    requestAnimationFrame(() => { spyQueued = false; spyNav(); });
+  }, { passive: true });
+  addEventListener("resize", spyNav, { passive: true });
 
   const toTop = h("button", { class: "to-top", type: "button", hidden: true, "aria-label": "Back to top",
     onclick: () => { scrollTo({ top: 0 }); document.querySelector(".jump a.home").focus({ preventScroll: true }); } },
     h("span", { "aria-hidden": "true", text: "↑" }), h("span", { class: "lbl", "aria-hidden": "true", text: "Back to top" }));
   document.body.append(toTop);
   addEventListener("scroll", () => { toTop.hidden = scrollY < 1400; }, { passive: true });
-
-  /* ---------- Look picker (temporary, while choosing a design) ---------- */
-  const LOOKS = [
-    ["warcamp", "Warcamp", ["#0D1117", "#E3B34C", "#E8E3D6"]],
-    ["codex", "Codex", ["#EDE3CC", "#8C2A1C", "#C49A3C"]],
-    ["moonglade", "Moonglade", ["#0B0E22", "#6FE3CF", "#B6A4FF"]],
-    ["forge", "Forge", ["#161311", "#FF7B2E", "#F4ECE1"]],
-    ["herald", "Herald", ["#FFFFFF", "#1B4DB8", "#C9A227"]]
-  ];
-  const lookBar = h("div", { class: "look-bar", role: "group", "aria-label": "Try a look" }, h("span", { class: "look-label", text: "Look" }));
-  const lookBtns = LOOKS.map(([id, name, sw]) => {
-    const b = h("button", { type: "button", class: "look-btn", "data-look": id, onclick: () => setLook(id) },
-      h("span", { class: "look-sw", "aria-hidden": "true" }, sw.map(c => h("i", { style: "background:" + c }))), name);
-    lookBar.append(b);
-    return b;
-  });
-  function setLook(id) {
-    const look = LOOKS.some(l => l[0] === id) ? id : LOOKS[0][0];
-    document.documentElement.setAttribute("data-look", look);
-    lookBtns.forEach(b => b.setAttribute("aria-pressed", String(b.dataset.look === look)));
-    try { localStorage.setItem("stryguard-look", look); } catch (e) { /* private window */ }
-  }
-  document.body.append(lookBar);
-  setLook(document.documentElement.getAttribute("data-look"));
 
   /* ---------- Norge-modus (a secret) ---------- */
   // Tap the guild banner 17 times (for 17. mai) or type "uffda" anywhere: the whole site goes
