@@ -19,6 +19,8 @@ Add --debug to also save the raw API answers for the first member to
 stryguard-debug.json. That file holds public game data only, never your secret.
 Add --no-fun to skip the fun data (much faster).
 Add --out FOLDER to write the files somewhere other than the current folder.
+Add --ledger site/firsts.json --milestones site/milestones.json to record the
+first member to cross each milestone (the hourly job does this).
 
 Scouting mode:  python fetch_roster.py --probe "Old Iron"
 asks Blizzard for every kind of data about one character (titles, mounts,
@@ -394,6 +396,69 @@ def probe(api, member):
     log("\nAttach stryguard-probe.json in the chat with Claude.")
 
 
+# ---------- Guild firsts: who crossed each milestone line first ----------
+def arg_value(flag):
+    """The word after `flag` on the command line, or None."""
+    if flag in sys.argv:
+        i = sys.argv.index(flag)
+        if i + 1 < len(sys.argv) and not sys.argv[i + 1].startswith("--"):
+            return sys.argv[i + 1]
+        sys.exit(f"{flag} needs a file name")
+    return None
+
+
+def achievement_catalog(api):
+    """Every achievement name in Forever (each appears twice in the index, so dedupe)."""
+    idx = api.get("/data/wow/achievement/index", namespace="static", strict=False) or {}
+    return sorted({text(a) for a in idx.get("achievements") or [] if text(a)})
+
+
+def milestone_value(rec, ms):
+    fun = rec.get("fun") or {}
+    if ms.get("level"):
+        return rec.get("level") or 0
+    if ms.get("skill"):
+        return max([s or 0 for name, s in rec.get("professions") or [] if name == ms["skill"]] or [0])
+    if ms.get("pets"):
+        return len(fun.get("pets") or [])
+    stats = fun.get("stats") or {}
+    return sum(stats.get(name, 0) for name in ms.get("stats") or [])
+
+
+def update_ledger(members, ledger_path, milestones_path):
+    """Write down the first member to reach each milestone. Entries are never rewritten once claimed.
+    A milestone seen for the first time that people have already passed is marked before_records,
+    because the Armory doesn't say when they crossed the line."""
+    with open(milestones_path, encoding="utf-8") as f:
+        defs = json.load(f)["milestones"]
+    try:
+        with open(ledger_path, encoding="utf-8") as f:
+            ledger = json.load(f)
+    except FileNotFoundError:
+        ledger = {}
+    now = int(time.time() * 1000)
+    ledger.setdefault("started", now)
+    book = ledger.setdefault("milestones", {})
+    scored = [r for r in members if r.get("fun")]
+    claimed = 0
+    for ms in defs:
+        entry = book.get(ms["id"])
+        if entry and entry.get("state") == "claimed":
+            continue
+        hits = sorted(((milestone_value(r, ms), f"{r['first']} {r['last']}".strip()) for r in scored), reverse=True)
+        who = [name for value, name in hits if value >= ms["at_least"]]
+        if not who:
+            book[ms["id"]] = {"state": "open"}
+        else:
+            book[ms["id"]] = {"state": "claimed", "who": who, "at": now, "before_records": entry is None}
+            claimed += 1
+    with open(ledger_path, "w", encoding="utf-8", newline="\n") as f:
+        json.dump(ledger, f, ensure_ascii=False, indent=1)
+        f.write("\n")
+    if claimed:
+        log(f"Firsts ledger: {claimed} milestone(s) newly claimed.")
+
+
 def main():
     region = ask_region()
     secret = os.environ.get("BLIZZARD_CLIENT_SECRET")
@@ -487,11 +552,16 @@ def main():
             fields.append(f"{r['honorable_kills']} HK")
         lines.append(", ".join(f for f in fields if f))
 
+    catalog = achievement_catalog(api) if FETCH_FUN else []
+    ledger_path, milestones_path = arg_value("--ledger"), arg_value("--milestones")
+    if ledger_path and milestones_path and FETCH_FUN:
+        update_ledger(members, ledger_path, milestones_path)
+
     with open(os.path.join(OUT, "stryguard-paste.txt"), "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
     with open(os.path.join(OUT, "stryguard-roster.json"), "w", encoding="utf-8") as f:
         json.dump({"guild": GUILD, "region": region, "fetched_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-                   "members": members}, f, ensure_ascii=False, indent=2)
+                   "achievement_catalog": catalog, "members": members}, f, ensure_ascii=False, indent=2)
     if debug is not None:
         with open(os.path.join(OUT, "stryguard-debug.json"), "w", encoding="utf-8") as f:
             json.dump(debug, f, ensure_ascii=False, indent=2)

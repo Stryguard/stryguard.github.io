@@ -187,6 +187,37 @@ h3 { font-size: 15px; font-weight: 700; margin: 0 0 12px; letter-spacing: .09em;
 .shelf-title { font-family: var(--display); font-size: 32px; font-weight: 700; line-height: 1; margin: 0; letter-spacing: 0; text-transform: none; color: var(--ink); }
 .shelf-blurb { margin: 4px 0 0; color: var(--muted); }
 
+/* ---------- Guild firsts ---------- */
+.fcards { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 14px; }
+.fcard { background: var(--surface); border: 1px solid var(--rule); border-left: 4px solid var(--trim); border-radius: 8px; box-shadow: var(--shadow); padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
+.fcard.open { background: transparent; border-style: dashed; border-left-style: solid; border-left-color: var(--rule); box-shadow: none; }
+.fc-head { display: flex; gap: 12px; align-items: center; }
+.fc-icon { flex: none; width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; font-size: 21px; background: var(--surface-2); border: 1px solid var(--rule); }
+.fcard:not(.open) .fc-icon { background: radial-gradient(circle at 34% 28%, color-mix(in srgb, var(--banner) 65%, white), var(--banner) 70%); box-shadow: inset 0 0 0 2px var(--trim); border: 0; }
+.fcard.open .fc-icon { filter: grayscale(1); opacity: .7; }
+.fc-title { font-family: var(--display); font-size: 24px; font-weight: 700; line-height: 1.05; }
+.fc-say { color: var(--muted); font-size: 16px; line-height: 1.3; }
+.fc-who { font-weight: 700; display: flex; flex-wrap: wrap; align-items: center; gap: 2px 8px; }
+.fc-who .winner, .zones .winner, .ftable .winner { white-space: nowrap; }
+.fc-when { color: var(--accent); font-weight: 700; font-size: 16px; margin-top: auto; }
+.fc-open { --c: var(--muted); align-self: flex-start; }
+.fc-race { display: grid; gap: 6px; margin-top: auto; }
+.fc-race .track { height: 8px; background: var(--rule); }
+.grabs-wrap { margin-top: 14px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 12px; }
+.grabs-label { font-size: 15px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.grabs { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.grabs li { border: 1px dashed var(--rule); border-radius: 999px; padding: 3px 12px; font-size: 16px; color: var(--muted); cursor: help; }
+.fc-date { display: block; color: var(--muted); font-size: 15px; font-weight: 400; }
+.ftable-wrap { margin-top: 16px; }
+.ftable { min-width: 640px; }
+.ftable th[scope="row"] { text-align: left; font-weight: 700; color: var(--ink); text-transform: none; letter-spacing: 0; font-size: 17px; background: transparent; padding: 10px 12px; border-bottom: 1px solid var(--rule); }
+.ftable td { white-space: normal; }
+.zones { list-style: none; margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0 24px; }
+.zones li { padding: 8px 0; border-top: 1px solid var(--rule); line-height: 1.35; }
+.zones li b { display: block; }
+.uncharted { margin: 16px 0 0; color: var(--muted); }
+.uncharted b { color: var(--ink); }
+
 /* ---------- Guild totals ---------- */
 .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin: 0; }
 .tiles div { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; box-shadow: var(--shadow); padding: 14px 16px 12px; display: flex; flex-direction: column-reverse; border-bottom: 3px solid color-mix(in srgb, var(--trim) 70%, transparent); }
@@ -388,6 +419,7 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
   <div class="jump-inner">
     <a class="home" href="#top">Stryguard</a>
     <a href="#oddities">Oddities</a>
+    <a href="#firsts">Firsts</a>
     <a href="#deeds">Deeds</a>
     <a href="#trophies">Trophies</a>
     <a href="#friends">Friends</a>
@@ -404,6 +436,12 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
     <h2 id="oddities-h">Hall of oddities</h2>
     <p class="lede">The guild’s book of records, kept honestly by the Armory and refreshed every hour. Glory to the winners, condolences to the critters.</p>
     <div id="awards"></div>
+  </section>
+
+  <section id="firsts" aria-labelledby="firsts-h" hidden>
+    <h2 id="firsts-h">Guild firsts</h2>
+    <p class="lede">Who got there before anyone else in Stryguard. Achievements carry their exact dates; the odder milestones are watched every hour and written down for good.</p>
+    <div id="firsts-body"></div>
   </section>
 
   <section id="totals" aria-labelledby="totals-h" hidden>
@@ -553,6 +591,7 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
   /* ---------- State ---------- */
   const state = {
     members: [], guild: {}, fetchedAt: null, faction: "", enemy: "Horde",
+    catalog: [], milestones: {}, ledger: {},
     sort: { key: "level", dir: "desc" },
     filter: { q: "", cls: "", role: "", mainsOnly: false }
   };
@@ -588,9 +627,11 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
   async function load() {
     let roster, guild = {};
     try {
-      [roster, guild] = await Promise.all([
+      [roster, guild, state.milestones, state.ledger] = await Promise.all([
         getJson("data/stryguard-roster.json"),
-        getJson("guild.json").catch(() => ({}))
+        getJson("guild.json").catch(() => ({})),
+        getJson("milestones.json").catch(() => ({})),
+        getJson("firsts.json").catch(() => ({}))
       ]);
     } catch (e) {
       const st = $("status");
@@ -602,6 +643,7 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
     }
     state.guild = guild || {};
     state.fetchedAt = roster.fetched_at ? Date.parse(roster.fetched_at) : null;
+    state.catalog = Array.isArray(roster.achievement_catalog) ? roster.achievement_catalog : [];
     state.members = buildMembers(roster, state.guild);
     document.querySelectorAll("section[hidden]").forEach(s => { s.hidden = false; });
     render();
@@ -610,7 +652,7 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
 
   /* ---------- Rendering ---------- */
   function render() {
-    renderFaction(); renderStatus(); renderHero(); renderAwards(); renderTotals(); renderDeeds();
+    renderFaction(); renderStatus(); renderHero(); renderAwards(); renderFirsts(); renderTotals(); renderDeeds();
     renderTrophies(); renderFriends(); renderMakeup(); renderBoards(); renderRoster(); renderFooter();
   }
 
@@ -775,6 +817,201 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
         h("div", { class: "awards" }, cards)));
     });
     if (!count) box.append(h("p", { class: "empty-note", text: "No records yet. Go and fall off something." }));
+  }
+
+  /* ---------- Guild firsts ---------- */
+  // Two sources: achievements (exact completion times from the Armory) and the hourly ledger in
+  // firsts.json for milestones the Armory doesn't date. Many achievements are account-wide, so level
+  // and craft firsts only count characters whose class and level (or skill) actually qualify.
+  const TIERS = [["Novice", 25], ["Experienced", 45], ["Master", 60]];
+  const CRAFT_TIERS = [["Journeyman", 150], ["Expert", 225], ["Artisan", 300]];
+  const CRAFTERS = { Alchemy: "Alchemist", Blacksmithing: "Blacksmith", Enchanting: "Enchanter",
+                     Engineering: "Engineer", Leatherworking: "Leatherworker", Tailoring: "Tailor" };
+  const BIG_EXPLORES = ["Explore Eastern Kingdoms", "Explore Kalimdor", "Explore Azeroth"];
+  const shortDate = ms => new Date(ms).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+  const longDate = ms => new Date(ms).toLocaleString("en-GB", { dateStyle: "long", timeStyle: "short" });
+  const skillOf = (m, prof) => Math.max(0, ...m.profs.filter(p => p.name === prof).map(p => p.skill));
+  const inCatalog = name => !state.catalog.length || state.catalog.includes(name);
+
+  // Earliest completion of an achievement among members who pass `valid`. Identical times
+  // usually mean two characters on one account, so they share the honour.
+  function firstOf(name, valid) {
+    let at = Infinity, who = [];
+    state.members.forEach(m => {
+      if (valid && !valid(m)) return;
+      const d = ((m.fun && m.fun.deeds) || []).find(x => x.name === name);
+      if (!d || !d.at) return;
+      if (d.at < at) { at = d.at; who = [m]; } else if (d.at === at) who.push(m);
+    });
+    return who.length ? { who, at, exact: true } : null;
+  }
+  const byName = new Map();
+  const memberNamed = n => byName.get(n.toLowerCase());
+
+  function ledgerFirst(ms) {
+    const e = (state.ledger.milestones || {})[ms.id];
+    if (!e || e.state !== "claimed") return null;
+    const who = (e.who || []).map(memberNamed).filter(Boolean);
+    return who.length ? { who, at: e.at, before: !!e.before_records } : { who: [], names: e.who || [], at: e.at, before: !!e.before_records };
+  }
+  function measure(ms) {
+    return m => ms.level ? lvl(m) : ms.skill ? skillOf(m, ms.skill) : ms.pets ? ((m.fun && m.fun.pets) || []).length : statSum(m, ms.stats || []);
+  }
+  function leaderOf(valueOf) {
+    let best = null;
+    state.members.forEach(m => { const n = valueOf(m); if (n > 0 && (!best || n > best.n)) best = { m, n }; });
+    return best;
+  }
+
+  function whoLine(first) {
+    const box = h("div", { class: "fc-who" });
+    const shown = first.who.slice(0, first.before ? 2 : 3), extra = first.who.length - shown.length;
+    shown.forEach((m, i) => {
+      if (i && i === shown.length - 1 && !extra) box.append(h("span", { class: "small", text: "and" }));
+      const comma = (i < shown.length - 2) || (extra && i < shown.length - 1) ? "," : "";
+      box.append(h("span", { class: "winner" }, swatch(m.cls), " ", nameButton(m), comma));
+    });
+    if (!shown.length && first.names) box.append(h("span", { text: first.names.join(", ") }));
+    if (extra) box.append(h("span", { class: "small", text: "and " + plural(extra, "other", "others") }));
+    return box;
+  }
+
+  // One milestone card: claimed shows who and when, open shows the race to get there.
+  function firstCard(spec) {
+    const f = spec.first;
+    const card = h("article", { class: "fcard" + (f ? "" : " open") },
+      h("div", { class: "fc-head" }, h("span", { class: "fc-icon", "aria-hidden": "true", text: spec.icon }),
+        h("div", null, h("div", { class: "fc-title", text: spec.title }), h("div", { class: "fc-say", text: "First to " + spec.say }))));
+    if (f) {
+      card.append(whoLine(f));
+      card.append(h("div", { class: "fc-when", title: f.before ? "" : longDate(f.at),
+        text: f.before ? (f.who.length > 1 || (f.names && f.names.length > 1) ? "Already done before records began" : "Before records began")
+                       : (f.exact ? "" : "around ") + new Date(f.at).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) }));
+    } else {
+      card.append(h("span", { class: "pill fc-open", text: "Unclaimed" }));
+      if (spec.goal && spec.leader) {
+        const pct = Math.min(100, spec.leader.n / spec.goal * 100);
+        card.append(h("div", { class: "fc-race" },
+          h("div", { class: "track", role: "img", "aria-label": fmt.format(spec.leader.n) + " of " + fmt.format(spec.goal) },
+            h("div", { class: "fill", style: "width:" + pct + "%" })),
+          h("div", { class: "small" }, "Closest: ", h("b", { text: fullName(spec.leader.m) }), " · " + fmt.format(spec.leader.n) + " of " + fmt.format(spec.goal))));
+      } else card.append(h("div", { class: "small", text: "Up for grabs." }));
+    }
+    return card;
+  }
+
+  function cardGroup(specs, maxOpen) {
+    const claimed = specs.filter(s => s.first);
+    const progress = s => s.goal && s.leader ? s.leader.n / s.goal : -1;
+    const open = specs.filter(s => !s.first).sort((a, b) => progress(b) - progress(a));
+    const racing = open.filter(s => progress(s) >= 0).slice(0, maxOpen);
+    const rest = open.filter(s => !racing.includes(s));
+    const out = [];
+    if (claimed.length || racing.length) out.push(h("div", { class: "fcards" }, claimed.concat(racing).map(firstCard)));
+    if (rest.length) {
+      const ul = h("ul", { class: "grabs", "aria-label": "Still up for grabs" });
+      rest.forEach(s => ul.append(h("li", { title: "First to " + s.say + (s.leader && s.goal ? " (closest: " + fullName(s.leader.m) + ", " + fmt.format(s.leader.n) + " of " + fmt.format(s.goal) + ")" : "") },
+        h("span", { "aria-hidden": "true", text: s.icon }), " " + s.title)));
+      out.push(h("div", { class: "grabs-wrap" }, h("span", { class: "grabs-label", text: "Still up for grabs" }), ul));
+    }
+    return out;
+  }
+
+  function shelf(name, icon, blurb, ...kids) {
+    return h("div", { class: "shelf" },
+      h("div", { class: "shelf-head" }, h("span", { class: "shelf-icon", "aria-hidden": "true", text: icon }),
+        h("div", null, h("h3", { class: "shelf-title", text: name }), blurb ? h("p", { class: "shelf-blurb", text: blurb }) : null)),
+      ...kids);
+  }
+
+  function tableCell(f) {
+    if (!f) return h("td", { class: "dash", text: "–" });
+    const m = f.who[0];
+    if (!m) return h("td", { class: "small", text: (f.names || []).join(", ") || "–" });
+    return h("td", null, h("span", { class: "winner" }, swatch(m.cls), " ", nameButton(m)),
+      f.who.length > 1 ? h("span", { class: "small", text: " +" + (f.who.length - 1) }) : null,
+      h("span", { class: "fc-date", title: f.before ? "Before records began" : longDate(f.at), text: f.before ? "before records" : shortDate(f.at) }));
+  }
+
+  function renderFirsts() {
+    byName.clear();
+    state.members.forEach(m => byName.set(fullName(m).toLowerCase(), m));
+    const defs = (state.milestones && state.milestones.milestones) || [];
+    const ledgerSpecs = shelfId => defs.filter(d => d.shelf === shelfId).map(d => {
+      const f = ledgerFirst(d);
+      return { title: d.title, icon: d.icon, say: d.say, first: f, goal: d.at_least, leader: f ? null : leaderOf(measure(d)), level: d.level ? d.at_least : null };
+    });
+    const body = $("firsts-body"); body.replaceChildren();
+
+    // Coming of age: first to each level, from class achievements (25/45/60) and the ledger (30/40/50).
+    const levelSpecs = TIERS.map(([tier, level]) => {
+      let best = null;
+      CLASSES.forEach(c => {
+        const f = firstOf(tier + " " + c.id, m => m.cls === c.id && lvl(m) >= level);
+        if (f && (!best || f.at < best.at)) best = f;
+      });
+      return { title: level === 60 ? "The First Sixty" : level === 45 ? "Seasoned Adventurer" : "Coming of Age", icon: level === 60 ? "👑" : level === 45 ? "🗡️" : "🎒",
+               say: "reach level " + level, first: best, goal: level, leader: best ? null : leaderOf(lvl), level };
+    }).concat(ledgerSpecs("age")).sort((a, b) => a.level - b.level);
+    const classRows = CLASSES.filter(c => TIERS.some(([t]) => inCatalog(t + " " + c.id))).map(c =>
+      h("tr", null, h("th", { scope: "row" }, h("span", { class: "cls" }, swatch(c.id), c.id)),
+        ...TIERS.map(([tier, level]) => tableCell(firstOf(tier + " " + c.id, m => m.cls === c.id && lvl(m) >= level)))));
+    body.append(shelf("Coming of age", "🎂", "The first of us to each level, and the first of each class.",
+      ...cardGroup(levelSpecs, 2),
+      h("div", { class: "table-scroll ftable-wrap" }, h("table", { class: "ftable" },
+        h("thead", null, h("tr", null, h("th", { scope: "col", text: "Class" }), ...TIERS.map(([, l]) => h("th", { scope: "col", text: "First to " + l })))),
+        h("tbody", null, classRows)))));
+
+    // Masters of craft: crafting tiers come from achievements, gathering and secondary skills from the ledger.
+    const ledgerCraft = {};
+    defs.filter(d => d.shelf === "craft").forEach(d => { ledgerCraft[d.skill + "|" + d.at_least] = ledgerFirst(d); });
+    const craftRows = Object.keys(CRAFTERS).concat(["Mining", "Herbalism", "Skinning", "Cooking", "Fishing", "First Aid"]).map(prof =>
+      h("tr", null, h("th", { scope: "row", text: prof }), ...CRAFT_TIERS.map(([tier, skill]) => tableCell(CRAFTERS[prof]
+        ? firstOf(tier + " " + CRAFTERS[prof], m => skillOf(m, prof) >= skill)
+        : ledgerCraft[prof + "|" + skill]))));
+    body.append(shelf("Masters of craft", "⚒️", "The first to reach 150, 225 and 300 in every profession.",
+      h("div", { class: "table-scroll ftable-wrap" }, h("table", { class: "ftable" },
+        h("thead", null, h("tr", null, h("th", { scope: "col", text: "Profession" }), ...CRAFT_TIERS.map(([t, s]) => h("th", { scope: "col", text: t + " (" + s + ")" })))),
+        h("tbody", null, craftRows)))));
+
+    // Trailblazers: every zone in the catalog, claimed or still uncharted.
+    const zones = state.catalog.filter(n => /^Explore /.test(n) && !BIG_EXPLORES.includes(n));
+    const claimedZones = [], uncharted = [];
+    zones.forEach(n => { const f = firstOf(n); (f ? claimedZones : uncharted).push({ zone: n.replace(/^Explore /, ""), f }); });
+    claimedZones.sort((a, b) => a.f.at - b.f.at);
+    const big = BIG_EXPLORES.filter(inCatalog).map(n => ({ title: n.replace("Explore ", "Explorer of "), icon: n === "Explore Azeroth" ? "🌍" : "🧭", say: n.replace("Explore", "explore all of"), first: firstOf(n) }));
+    const zoneList = h("ul", { class: "zones" });
+    claimedZones.forEach(z => zoneList.append(h("li", null, h("b", { text: z.zone }), " ",
+      h("span", { class: "winner" }, swatch(z.f.who[0].cls), " ", nameButton(z.f.who[0])),
+      h("span", { class: "fc-date", title: longDate(z.f.at), text: shortDate(z.f.at) }))));
+    body.append(shelf("Trailblazers", "🗺️", plural(claimedZones.length, "land", "lands") + " charted, " + plural(uncharted.length, "still waits", "still wait") + " for its first Stryguard boots.",
+      ...cardGroup(big, 0),
+      claimedZones.length ? zoneList : null,
+      uncharted.length ? h("p", { class: "uncharted" }, h("b", { text: "Uncharted: " }), uncharted.map(z => z.zone).sort().join(", ") + ".") : null));
+
+    // Dungeons, raids and battle.
+    const named = (name, title, icon, say) => inCatalog(name) ? { title, icon, say, first: firstOf(name) } : null;
+    const dr = [
+      named("Novice Spelunker", "Novice Spelunker", "🔦", "clear the novice dungeon set"),
+      named("Experienced Spelunker", "Experienced Spelunker", "🏮", "clear the experienced dungeon set"),
+      named("Master Spelunker", "Master Spelunker", "🕯️", "clear the master dungeon set"),
+      named("Conqueror of the Deeps", "Conqueror of the Deeps", "🦴", "conquer the Barrow Deeps"),
+      named("Conqueror of the Wilds", "Conqueror of the Wilds", "🌲", "conquer Hyjal Summit"),
+      named("Conqueror of the Lair", "Conqueror of the Lair", "🐉", "defeat Onyxia"),
+      named("Lord Valthalak Laid to Rest", "Ghostbuster", "👻", "lay Lord Valthalak to rest")
+    ].filter(Boolean);
+    const pvp = [[3, "Sergeant"], [7, "Knight-Lieutenant"], [10, "Lieutenant Commander"], [13, "Field Marshal"], [14, "Grand Marshal"]]
+      .map(([r, t]) => named("Rank " + r, t, r >= 13 ? "🎖️" : "🪖", "reach honor rank " + r))
+      .concat(["Arathi Basin", "Warsong Gulch", "Alterac Valley", "Darkspear Islands"].map(b => named("Master of " + b, "Master of " + b, "🏳️", "be exalted with the " + b + " faction")))
+      .concat([4, 7, 10].map(w => named("Field of Honor: Week " + w, "Field of Honor, week " + w, "🏟️", "finish week " + w + " of the Field of Honor")))
+      .filter(Boolean);
+    body.append(shelf("Dungeons and raids", "🏰", "Darkness, loot and the occasional dragon.", ...cardGroup(dr, 0)));
+    body.append(shelf("Field of honour", "🛡️", "Rank, glory and battleground banners.", ...cardGroup(pvp, 0)));
+
+    // The odd ones, watched by the hourly job.
+    const odd = ledgerSpecs("odd");
+    if (odd.length) body.append(shelf("Odd milestones", "🎲", "Strange lines in the sand. The first to cross one is remembered forever. The closest races are shown; hover the rest to see who leads.",
+      ...cardGroup(odd, 8)));
   }
 
   /* ---------- Guild totals ---------- */

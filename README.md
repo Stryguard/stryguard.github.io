@@ -23,6 +23,11 @@ GitHub Actions (every hour)          GitHub Pages
   - `ranks`: guild rank names by rank number (0 is the Guild Master)
   - `members`: per character, `role` (Tank, Healer or Damage), `alt` (true or false; alts get a tag and can be hidden in the roster), an in-character `title`, and `notes`.
     New characters appear on the site automatically; add them here only to set these fields.
+- `site/milestones.json` lists the odd milestones (first to die 100 times, first to 10 hugs, ...). Add your own;
+  each needs a unique `id`.
+- `site/firsts.json` is the ledger of who claimed each milestone first. The hourly job updates and commits it
+  whenever someone crosses a line; don't edit it by hand unless you're correcting a mistake.
+  Achievement firsts (levels, crafts, exploration, dungeons) need no ledger: the Armory dates them exactly.
 - `fetch_roster.py` is the data script. Python 3.8+, standard library only.
 
 ## One-time setup
