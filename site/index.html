@@ -466,6 +466,102 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
   .card-head h2 { font-size: 30px; }
 }
 @media (min-width: 641px) { .status.fresh { display: none; } }
+/* ---------- Norge-modus: a secret, see the bottom of the script ---------- */
+:root.norsk {
+  --no-red: #BA0C2F; --no-blue: #00205B; --no-white: #FFFFFF;
+  --bg: #EDF1F7; --surface: #FFFFFF; --surface-2: #F2F5FA; --ink: #0B1F44; --muted: #4C5A76;
+  --rule: #D3DBE8; --track: #E1E7F0; --banner: #BA0C2F; --trim: #00205B; --accent: #BA0C2F;
+  --band-ink: #FFFFFF; --band-muted: rgba(255,255,255,.82); --snow: #9FB6D8;
+}
+@media (prefers-color-scheme: dark) {
+  :root.norsk:not([data-theme="light"]) {
+    --bg: #07101E; --surface: #0E1A2E; --surface-2: #14233C; --ink: #EAF0F8; --muted: #9BA9C1;
+    --rule: #21314D; --track: #1A2944; --banner: #A30B2A; --trim: #F0F4FA; --accent: #FF6B7D; --snow: #FFFFFF;
+  }
+}
+:root.norsk[data-theme="dark"] {
+  --bg: #07101E; --surface: #0E1A2E; --surface-2: #14233C; --ink: #EAF0F8; --muted: #9BA9C1;
+  --rule: #21314D; --track: #1A2944; --banner: #A30B2A; --trim: #F0F4FA; --accent: #FF6B7D; --snow: #FFFFFF;
+}
+/* Hero: flag red with knitted selburoser, bunting on top and a lusekofte border underneath. */
+.norsk .band {
+  border-bottom: 0;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpolygon points='24.0,11.0 26.1,18.9 33.2,14.8 29.1,21.9 37.0,24.0 29.1,26.1 33.2,33.2 26.1,29.1 24.0,37.0 21.9,29.1 14.8,33.2 18.9,26.1 11.0,24.0 18.9,21.9 14.8,14.8 21.9,18.9' fill='%23fff' fill-opacity='.11'/%3E%3Ccircle cx='0' cy='0' r='2.5' fill='%23fff' fill-opacity='.14'/%3E%3Ccircle cx='48' cy='0' r='2.5' fill='%23fff' fill-opacity='.14'/%3E%3Ccircle cx='0' cy='48' r='2.5' fill='%23fff' fill-opacity='.14'/%3E%3Ccircle cx='48' cy='48' r='2.5' fill='%23fff' fill-opacity='.14'/%3E%3C/svg%3E"),
+    radial-gradient(900px 380px at 12% -20%, rgba(255,255,255,.16), transparent 62%),
+    var(--banner);
+}
+.norsk .band::before {
+  content: ""; display: block; height: 34px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='34'%3E%3Cpath d='M0 3 Q36 9 72 3' fill='none' stroke='%23F6EBDD' stroke-width='1.5'/%3E%3Cpolygon points='3,4 21,6 12,30' fill='%23fff'/%3E%3Cpolygon points='27,6 45,6 36,32' fill='%2300205B'/%3E%3Cpolygon points='51,6 69,4 60,30' fill='%23BA0C2F' stroke='%23fff' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x;
+}
+.norsk .band::after {
+  content: ""; display: block; height: 18px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='18'%3E%3Crect width='24' height='18' fill='%2300205B'/%3E%3Crect y='1' width='24' height='1' fill='%23fff'/%3E%3Crect y='16' width='24' height='1' fill='%23fff'/%3E%3Cpolygon points='12,4 17,9 12,14 7,9' fill='%23fff'/%3E%3Cpolygon points='12,7 14,9 12,11 10,9' fill='%23BA0C2F'/%3E%3Ccircle cx='0' cy='9' r='1.5' fill='%23fff'/%3E%3Ccircle cx='24' cy='9' r='1.5' fill='%23fff'/%3E%3C/svg%3E") repeat-x;
+}
+.norsk .banner .cloth path:first-child { fill: url(#noflag) !important; }
+.norsk .banner .cloth path:not(:first-child) { stroke: #fff !important; }
+.norsk .banner > rect { fill: #C9A227 !important; }
+.norsk .banner-letter { display: none; }
+.norsk h1 { text-shadow: 0 3px 0 rgba(0,32,91,.45); }
+.ordtak { margin: 10px 0 0; font-size: 23px; font-style: italic; min-height: 1.5em; }
+/* Every heading underlined with a little flag stripe. */
+.norsk h2::after {
+  height: 6px; border-radius: 1px;
+  background: linear-gradient(to right, var(--no-red) 0 44px, var(--no-white) 44px 52px, var(--no-blue) 52px 66px, var(--no-white) 66px 74px, var(--no-red) 74px 170px, transparent 170px);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--rule) 60%, transparent);
+  max-width: 170px;
+}
+.norsk .panel { border-top: 3px solid var(--no-red); }
+.norsk .jump a:hover { border-bottom-color: var(--no-red); }
+.noflag {
+  display: inline-block; width: 22px; height: 16px; border-radius: 2px; flex: none; vertical-align: -2px;
+  background:
+    linear-gradient(to right, transparent 27.3%, var(--no-blue, #00205B) 27.3% 36.4%, transparent 36.4%),
+    linear-gradient(to bottom, transparent 43.75%, var(--no-blue, #00205B) 43.75% 56.25%, transparent 56.25%),
+    linear-gradient(to right, transparent 22.7%, #fff 22.7% 40.9%, transparent 40.9%),
+    linear-gradient(to bottom, transparent 37.5%, #fff 37.5% 62.5%, transparent 62.5%),
+    var(--no-red, #BA0C2F);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.18);
+}
+.norsk-exit {
+  position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 32;
+  display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; cursor: pointer;
+  border: 1px solid var(--rule); background: var(--surface); box-shadow: var(--shadow); font-size: 16px; font-weight: 500;
+}
+.norsk-exit:hover { background: var(--surface-2); }
+.norsk-foot { text-align: center; color: var(--muted); font-size: 16px; margin: 8px 0 0; }
+.norsk-toast {
+  position: fixed; left: 50%; top: 76px; transform: translateX(-50%); z-index: 33; max-width: calc(100vw - 32px);
+  display: flex; align-items: center; gap: 10px; padding: 10px 18px; border-radius: 8px;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--rule); box-shadow: var(--shadow);
+  font-weight: 700; animation: toast 4s ease both;
+}
+@keyframes toast { 0% { opacity: 0; transform: translate(-50%, -12px); } 8%, 85% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; } }
+.norsk-snow, .norsk-party { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 30; }
+.norsk-snow span { position: absolute; top: -6vh; color: var(--snow); animation: snowfall linear infinite; }
+@keyframes snowfall { to { transform: translate3d(var(--dx), 112vh, 0) rotate(260deg); } }
+.norsk-party span { position: absolute; top: -10vh; font-size: 32px; animation: party ease-in forwards; }
+@keyframes party { to { transform: translate3d(var(--dx), 120vh, 0) rotate(var(--spin)); } }
+.norsk-ship { position: fixed; bottom: 4px; left: -90px; font-size: 44px; z-index: 29; pointer-events: none; animation: sail 60s linear infinite; }
+@keyframes sail { 0% { transform: translateX(0); } 45%, 100% { transform: translateX(calc(100vw + 180px)); } }
+/* Polar night: northern lights drift behind the page. */
+@media (prefers-color-scheme: dark) {
+  :root.norsk:not([data-theme="light"]) body::before {
+    content: ""; position: fixed; inset: 0 0 auto; height: 75vh; z-index: -1; pointer-events: none;
+    background: radial-gradient(60% 50% at 25% 0%, rgba(58,255,170,.34), transparent 70%),
+                radial-gradient(45% 45% at 70% 10%, rgba(150,95,255,.28), transparent 70%),
+                radial-gradient(40% 35% at 50% 30%, rgba(40,200,255,.18), transparent 70%);
+    animation: aurora 22s ease-in-out infinite alternate;
+  }
+}
+@keyframes aurora { from { transform: translateX(-4%) skewX(-6deg); opacity: .7; } to { transform: translateX(4%) skewX(6deg); opacity: 1; } }
+.banner.nudge { animation: nudge .35s ease; }
+@keyframes nudge { 30% { transform: rotate(-4deg); } 70% { transform: rotate(3deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .norsk-ship, .norsk-snow { display: none; }
+  .norsk-toast, .banner.nudge, body::before { animation: none !important; }
+}
 </style>
 </head>
 <body id="top">
@@ -745,6 +841,7 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
     state.crowns = crownHistory();
     renderAwards(); renderFirsts(); renderCrier(); renderRace(); renderTotals(); renderDeeds();
     renderTrophies(); renderFriends(); renderMakeup(); renderBoards(); renderRoster(); renderFooter();
+    if (isNorsk()) translate(true);
   }
 
   function renderFaction() {
@@ -1799,6 +1896,159 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
   card.addEventListener("click", e => { if (e.target === card) card.close(); });
   // Keep "3 minutes ago" honest if the tab stays open.
   setInterval(() => { if (state.members.length) { renderStatus(); } }, 60000);
+
+  /* ---------- Norge-modus (a secret) ---------- */
+  // Tap the guild banner 17 times (for 17. mai) or type "uffda" anywhere: the whole site goes
+  // Norwegian. The same again, or the button in the corner, brings it back. Remembered per browser.
+  const NORSK = {
+    "Oddities": "Rariteter", "Crier": "Utroper", "Firsts": "Først", "Race": "Løpet", "Deeds": "Bragder",
+    "Trophies": "Trofeer", "Friends": "Venner", "Makeup": "Laget", "Roster": "Medlemmer",
+    "Hall of oddities": "Rariteteskabinettet", "The Stryguard Town Crier": "Stryguard-utroperen",
+    "Guild firsts": "Først til mølla", "The levelling race": "Det store nivåløpet", "Between us": "Dugnadsånd",
+    "Recent deeds": "Siste bragder", "Trophy wall": "Troféveggen", "Friends and companions": "Venner og turkamerater",
+    "Who rides with us": "Hvem er med på tur", "Honor and crafts": "Ære og husflid",
+    "The guild’s book of records, kept honestly by the Armory and refreshed every hour. Glory to the winners, condolences to the critters.":
+      "Laugets rekordbok, ført ærlig av Armory og oppdatert hver time. Ære til vinnerne, kondolerer til smådyrene.",
+    "Who got there before anyone else in Stryguard. Achievements carry their exact dates; the odder milestones are watched every hour and written down for good.":
+      "Hvem som kom først til mølla i Stryguard. Bragder har nøyaktig dato; de rarere milepælene følges hver time og skrives ned for godt.",
+    "Everyone’s level right now, with XP as the decimal. The blue end of each bar is how far they’ve climbed this past week; hover a bar for the details.":
+      "Alles nivå akkurat nå, med XP som desimal. Den blå enden er hvor langt de har klatret den siste uka. Husk Janteloven: ingen må tro de er noe.",
+    "Everything the whole guild has done, added together.": "Alt laget har fått til sammen. En skikkelig dugnad.",
+    "Feats of exploration, craft and daring, newest first.": "Bragder innen utforsking, husflid og pågangsmot, nyeste først.",
+    "Dungeon bosses who met Stryguard and regretted it.": "Fangehullsjefer som møtte Stryguard og angret bittert.",
+    "Who the cities love best, and who keeps the finest company.": "Hvem byene er mest glad i, og hvem som har det koseligste følget.",
+    "Every character on the roster, alts included.": "Hver eneste karakter i laget, alter inkludert.",
+    "Best loved by": "Mest elsket av", "The stables": "Stallen", "The menagerie": "Dyreparken", "Classes": "Klasser",
+    "Roles": "Roller", "Levels": "Nivåer", "Most honorable kills": "Flest ærefulle drap", "Best in each craft": "Flinkest i hvert håndverk",
+    "character": "karakter", "characters": "karakterer", "at level 60": "på nivå 60", "average level": "nivå i snitt",
+    "deaths, and counting": "dødsfall, og det fortsetter",
+    "World of Warcraft: Forever, RP-PvP ruleset": "World of Warcraft: Forever · RP‑PvP",
+    "World of Warcraft: Forever, RP-PvP ruleset, Alliance": "World of Warcraft: Forever · RP‑PvP · Alliansen",
+    "World of Warcraft: Forever, RP-PvP ruleset, Horde": "World of Warcraft: Forever · RP‑PvP · Horden",
+    "Ways to die": "Måter å dø på", "Azeroth is dangerous. Some of us prove it daily.": "Azeroth er farlig. Noen av oss beviser det daglig.",
+    "Appetites": "Matlyst", "An army marches on its stomach. Ours mostly sits on it.": "En hær marsjerer på magen. Vår sitter mest på den, med en matpakke.",
+    "Travels": "På tur", "Long roads, short attention spans.": "Lange veier, kort tålmodighet.",
+    "Manners": "Folkeskikk", "The finest emotes in the realm, counted.": "Rikets fineste emotes, talt opp.",
+    "Loot and quests": "Bytte og oppdrag", "Need, greed and the quest log of shame.": "Need, greed og skammens oppdragslogg.",
+    "Battle": "Strid", "Blood, honour and a great many small animals.": "Blod, ære og svært mange små dyr.",
+    "Curiosities": "Kuriositeter", "Records nobody asked for, kept anyway.": "Rekorder ingen ba om, ført likevel.",
+    "Coming of age": "Konfirmasjon", "The first of us to each level, and the first of each class.": "Den første av oss til hvert nivå, og den første i hver klasse.",
+    "Masters of craft": "Husflidsmestere", "The first to reach 150, 225 and 300 in every profession.": "Den første til 150, 225 og 300 i hvert yrke.",
+    "Trailblazers": "Stifinnere", "Dungeons and raids": "Fangehull og raid", "Darkness, loot and the occasional dragon.": "Mørke, bytte og en og annen drage.",
+    "Field of honour": "Ærens slagmark", "Rank, glory and battleground banners.": "Rang, ære og slagmarksbannere.",
+    "Odd milestones": "Rare milepæler",
+    "Strange lines in the sand. The first to cross one is remembered forever. The closest races are shown; hover the rest to see who leads.":
+      "Merkelige streker i sanden. Den første over blir husket for alltid. De jevneste løpene vises; hold over resten for å se hvem som leder.",
+    "Crowns stolen this week": "Kroner stjålet denne uka"
+  };
+  const ORDTAK = ["Ut på tur, aldri sur.", "Det finnes ikke dårlig vær, bare dårlige klær.", "Borte bra, men hjemme best.",
+    "Ingen ko på isen.", "Alle gode ting er tre.", "Det ordner seg.", "Brunost er pålegg, ikke dessert.",
+    "Fredagstaco er hellig.", "Man skal ikke skue hunden på hårene.", "Uff da, nå døde jeg igjen.",
+    "Nordmenn er født med ski på beina.", "Kos deg, det er snart helg.", "Den som intet våger, intet vinner."];
+  const isNorsk = () => document.documentElement.classList.contains("norsk");
+  let ordtakTimer = 0;
+
+  // Swaps fixed English labels for Norwegian ones, and back. Safe to run after every render.
+  function translate(on) {
+    document.querySelectorAll(".jump a, section > h2, section > .lede, .panel > h3, #sub, .tally dt, .shelf-title, .shelf-blurb").forEach(el => {
+      if (on) {
+        if (el.dataset.no === el.textContent) return;
+        const no = NORSK[el.textContent]; if (!no) return;
+        el.dataset.en = el.textContent; el.dataset.no = no; el.textContent = no;
+      } else if (el.dataset.en) {
+        if (el.textContent === el.dataset.no) el.textContent = el.dataset.en;
+        delete el.dataset.en; delete el.dataset.no;
+      }
+    });
+    const q = $("q"); if (q) q.placeholder = on ? "Søk i navn, titler og notater" : "Search names, titles, notes";
+  }
+
+  // The guild banner becomes a Norwegian flag, hung like a banner.
+  function flagPattern() {
+    const svg = document.querySelector(".banner"); if (!svg || svg.querySelector("#noflag")) return;
+    const ns = "http://www.w3.org/2000/svg";
+    const el = (tag, attrs) => { const e = document.createElementNS(ns, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
+    const pat = el("pattern", { id: "noflag", patternUnits: "userSpaceOnUse", width: 124, height: 212 });
+    [[0, 0, 124, 212, "#BA0C2F"], [47, 0, 30, 212, "#FFFFFF"], [0, 50, 124, 30, "#FFFFFF"], [54, 0, 16, 212, "#00205B"], [0, 57, 124, 16, "#00205B"]]
+      .forEach(([x, y, w, hh, fill]) => pat.append(el("rect", { x, y, width: w, height: hh, fill })));
+    const defs = el("defs", {}); defs.append(pat); svg.prepend(defs);
+  }
+
+  function toast(text, flag) {
+    document.querySelectorAll(".norsk-toast").forEach(t => t.remove());
+    const t = h("div", { class: "norsk-toast", role: "status" }, flag ? h("span", { class: "noflag", "aria-hidden": "true" }) : "", text);
+    document.body.append(t);
+    setTimeout(() => t.remove(), 4000);
+  }
+
+  const rand = (a, b) => a + Math.random() * (b - a);
+  function snowfall() {
+    const box = h("div", { class: "norsk-snow norsk-extra", "aria-hidden": "true" });
+    for (let i = 0; i < 36; i++) box.append(h("span", { text: "❄︎",
+      style: "left:" + rand(0, 100) + "%;font-size:" + rand(10, 22) + "px;opacity:" + rand(.4, .95) + ";--dx:" + rand(-10, 10) + "vw;animation-duration:" +
+             rand(9, 20) + "s;animation-delay:-" + rand(0, 20) + "s" }));
+    document.body.append(box, h("div", { class: "norsk-ship norsk-extra", "aria-hidden": "true", text: "⛵" }));
+  }
+  function party() {
+    const box = h("div", { class: "norsk-party norsk-extra", "aria-hidden": "true" });
+    const things = ["flag", "flag", "flag", "🧀", "🧇", "🐟", "⛷️", "❄️", "🌲", "⛵", "☕", "🏔️"];
+    for (let i = 0; i < 48; i++) {
+      const pick = things[i % things.length];
+      box.append(h("span", { class: pick === "flag" ? "noflag" : null, text: pick === "flag" ? null : pick,
+        style: (pick === "flag" ? "width:36px;height:26px;" : "") + "left:" + rand(0, 100) + "%;--dx:" + rand(-20, 20) + "vw;--spin:" + rand(-540, 540) +
+               "deg;animation-duration:" + rand(2.6, 4.6) + "s;animation-delay:" + rand(0, 1.2) + "s" }));
+    }
+    document.body.append(box);
+    setTimeout(() => box.remove(), 7000);
+  }
+
+  function setNorsk(on, fanfare) {
+    const root = document.documentElement;
+    root.classList.toggle("norsk", on);
+    root.lang = on ? "nb" : "en";
+    document.title = on ? "Stryguard · Norge-modus" : "Stryguard";
+    try { if (on) localStorage.setItem("stryguard-norsk", "1"); else localStorage.removeItem("stryguard-norsk"); } catch (e) { /* private window */ }
+    document.querySelectorAll(".norsk-extra").forEach(el => el.remove());
+    clearInterval(ordtakTimer);
+    translate(on);
+    if (!on) return;
+    flagPattern();
+    const say = h("p", { class: "ordtak norsk-extra" });
+    let i = Math.floor(Math.random() * ORDTAK.length);
+    const next = () => { say.textContent = "«" + ORDTAK[i++ % ORDTAK.length] + "»"; };
+    next(); ordtakTimer = setInterval(next, 7000);
+    $("sub").after(say);
+    $("footer").after(h("p", { class: "norsk-foot norsk-extra", text: "Laget med kjærlighet, brunost og vafler. Kos deg!" }));
+    document.body.append(h("button", { class: "norsk-exit norsk-extra", type: "button", onclick: toggleNorsk },
+      h("span", { class: "noflag", "aria-hidden": "true" }), "Tilbake til utlandet"));
+    const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!calm) snowfall();
+    if (fanfare && !calm) party();
+  }
+  function toggleNorsk() {
+    const on = !isNorsk();
+    setNorsk(on, true);
+    toast(on ? "Hipp hipp hurra! Velkommen til Norge-modus" : "Ha det bra! Back to the boring version.", on);
+  }
+
+  // The steps: 17 quick taps on the banner (it starts to wobble at 5, and drops a hint at 12).
+  let taps = 0, tapTimer = 0;
+  const banner = document.querySelector(".banner");
+  banner.addEventListener("click", () => {
+    clearTimeout(tapTimer); tapTimer = setTimeout(() => { taps = 0; }, 2500);
+    taps++;
+    if (taps >= 5) { banner.classList.remove("nudge"); banner.getBoundingClientRect(); banner.classList.add("nudge"); }
+    if (taps === 12) toast("Noe er i gjære …");
+    if (taps >= 17) { taps = 0; toggleNorsk(); }
+  });
+  let typed = "";
+  document.addEventListener("keydown", ev => {
+    if (ev.target.closest && ev.target.closest("input, textarea, select")) return;
+    if (ev.key.length !== 1) return;
+    typed = (typed + ev.key.toLowerCase()).slice(-8);
+    if (typed.endsWith("uffda") || typed.endsWith("17mai")) { typed = ""; toggleNorsk(); }
+  });
+  try { if (localStorage.getItem("stryguard-norsk") === "1") setNorsk(true, false); } catch (e) { /* private window */ }
 
   load();
 })();
