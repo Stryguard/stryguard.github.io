@@ -1,0 +1,181 @@
+{
+  "_help": "Things the Blizzard API does not know. Edit on GitHub (pencil icon) and commit; the site rebuilds in a minute or two. role: Tank, Healer or Damage (or empty). alt: true for alts (alts do not count toward raid readiness). title: in-character title. notes: anything. ranks: the guild rank names by rank number (0 is the Guild Master). New members show up automatically; add them here only to set these fields.",
+  "motto": "",
+  "ranks": {
+    "0": "Guild Master",
+    "1": "Officer",
+    "2": "Rank 2",
+    "3": "Member",
+    "4": "Recruit"
+  },
+  "members": {
+    "Alzen Knifear": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Archibaldric Irontankarde": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Arektanel Briskfarer": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Aulë Ill": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Deon Stormson": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Dorokin Pork": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Durin Stoneshaft": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Elfon Theshelves": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Fam Ily": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Gideon Solaire": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Gnellik Shimmersteel": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Gnomanni Runesprocket": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Gnomelena Runesprocket": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Imperiel Thornblade": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Johris Shadowsong": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Jovek Kneepelter": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Julian Vane": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Kasmer Meade": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Leandros Bloodshot": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Logi Duncairn": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Old Iron": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Sigmund Ashvane": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Sigvald Gormundson": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Silas Moonwhisper": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Uglemann Bjørnson": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Valo Chazizzfizz": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Veranii Thornblade": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    },
+    "Yves Adelaar": {
+      "role": "",
+      "alt": false,
+      "title": "",
+      "notes": ""
+    }
+  }
+}

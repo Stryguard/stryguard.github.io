@@ -1,0 +1,1057 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Stryguard</title>
+<meta name="description" content="The Stryguard guild of World of Warcraft: Forever: roster, raid readiness and a hall of oddities.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 2h24v28l-12-7-12 7z' fill='%231E3A7B'/%3E%3Cpath d='M7 2v23l9-5 9 5V2' fill='none' stroke='%23C9A227' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Grenze+Gotisch:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  color-scheme: light;
+  --display: "Grenze Gotisch", "UnifrakturMaguntia", "Palatino Linotype", Georgia, serif;
+  --body: "Alegreya Sans", "Gill Sans", "Segoe UI", system-ui, sans-serif;
+  --bg: #E4E8EC;
+  --surface: #F5F7F9;
+  --surface-2: #ECEFF3;
+  --ink: #1A2030;
+  --muted: #566073;
+  --rule: #C3CAD4;
+  --track: #D5DBE2;
+  --focus: #2A57D0;
+  --danger: #9E2525;
+  --swatch-edge: rgba(0,0,0,.35);
+  --banner: #3E4757;
+  --trim: #AEB6C2;
+  --on-banner: #FFFFFF;
+  --q-poor: #6B7280; --q-uncommon: #17800A; --q-rare: #0B5CC2; --q-epic: #7B2FC9; --q-legendary: #B4560A;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+:root[data-faction="alliance"] { --banner: #1E3A7B; --trim: #C9A227; }
+:root[data-faction="horde"] { --banner: #7A1E1E; --trim: #C68A3A; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #11151D; --surface: #191F2A; --surface-2: #202735; --ink: #E8E4DA; --muted: #9AA3B1;
+    --rule: #2D3544; --track: #283040; --focus: #86A9FF; --danger: #E27171; --swatch-edge: rgba(255,255,255,.28);
+    --q-poor: #9D9D9D; --q-uncommon: #3BD92A; --q-rare: #4C9DFF; --q-epic: #B56CFF; --q-legendary: #FF9A3C;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #11151D; --surface: #191F2A; --surface-2: #202735; --ink: #E8E4DA; --muted: #9AA3B1;
+  --rule: #2D3544; --track: #283040; --focus: #86A9FF; --danger: #E27171; --swatch-edge: rgba(255,255,255,.28);
+  --q-poor: #9D9D9D; --q-uncommon: #3BD92A; --q-rare: #4C9DFF; --q-epic: #B56CFF; --q-legendary: #FF9A3C;
+}
+*, *::before, *::after { box-sizing: inherit; }
+[hidden] { display: none !important; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--body); font-size: 17px; line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+img, svg { max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+a { color: inherit; }
+
+.wrap { max-width: 1080px; margin: 0 auto; padding: 28px 20px 72px; }
+
+/* Hero: the hanging banner is the one loud thing on the page */
+.hero { display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; }
+.banner { width: 124px; height: auto; display: block; }
+.banner .cloth { transform-origin: 50% 0; transform-box: fill-box; animation: unfurl 1s cubic-bezier(.2,.75,.25,1) both; }
+@keyframes unfurl { from { transform: scaleY(.12); } to { transform: scaleY(1); } }
+@media (prefers-reduced-motion: reduce) { .banner .cloth { animation: none; } }
+.banner-letter { font-family: var(--display); font-size: 96px; font-weight: 700; }
+h1 {
+  font-family: var(--display); font-weight: 700; margin: 0;
+  font-size: clamp(60px, 12vw, 124px); line-height: .86; letter-spacing: .005em;
+}
+.sub { margin: 10px 0 0; color: var(--muted); }
+.motto { margin: 14px 0 0; }
+.motto:empty { display: none; }
+.motto q { font-style: italic; font-size: 20px; quotes: "“" "”"; }
+.tally { display: flex; flex-wrap: wrap; gap: 8px 36px; margin: 22px 0 0; padding: 14px 0 0; border-top: 2px solid var(--trim); }
+.tally div { display: flex; flex-direction: column-reverse; }
+.tally dd { margin: 0; font-family: var(--display); font-size: 40px; line-height: 1; font-weight: 500; }
+.tally dt { color: var(--muted); font-size: 15px; }
+
+.jump { display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 15px; }
+.jump a { color: var(--muted); text-underline-offset: 3px; text-decoration-color: var(--rule); }
+.jump a:hover { color: var(--ink); text-decoration-color: currentColor; }
+
+.status { margin: 24px 0 0; padding: 10px 14px; border-left: 4px solid var(--trim); background: var(--surface); border-radius: 0 4px 4px 0; }
+.status:empty { display: none; }
+.status.bad { border-left-color: var(--danger); }
+
+section { margin-top: 56px; }
+h2 { font-family: var(--display); font-weight: 700; font-size: 36px; line-height: 1.05; margin: 0 0 6px; }
+.lede { margin: 0 0 18px; color: var(--muted); max-width: 64ch; }
+h3 { font-size: 17px; font-weight: 700; margin: 0 0 12px; }
+
+.panel { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 18px 20px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+  padding: 8px 14px; border-radius: 4px; border: 1px solid var(--rule);
+  background: var(--surface); font-weight: 500; line-height: 1.2;
+}
+.btn:hover { background: var(--surface-2); }
+.btn.quiet { border-color: transparent; background: transparent; color: var(--muted); padding: 4px 6px; text-decoration: underline; text-underline-offset: 3px; }
+.btn.quiet:hover { color: var(--ink); background: transparent; }
+
+/* Hall of oddities */
+.awards { display: grid; grid-template-columns: repeat(auto-fill, minmax(236px, 1fr)); gap: 14px; }
+.award { background: var(--surface); border: 1px solid var(--rule); border-top: 3px solid var(--trim); border-radius: 6px; padding: 14px 16px 14px; display: flex; flex-direction: column; gap: 6px; }
+.award-head { display: flex; align-items: center; gap: 10px; }
+.seal { flex: none; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font-size: 19px; line-height: 1; background: var(--banner); box-shadow: inset 0 0 0 2px var(--trim); }
+.award-title { font-family: var(--display); font-size: 24px; line-height: 1.05; font-weight: 700; }
+.award-who { font-weight: 700; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-top: 2px; }
+.award-who .name-btn { font-weight: 700; }
+.award-who .winner { white-space: nowrap; }
+.award-who .winner .swatch { margin-right: 2px; vertical-align: -1px; }
+.award-feat { color: var(--ink); }
+.award-feat b { font-family: var(--display); font-size: 22px; font-weight: 500; line-height: 1; }
+.award-rest { font-size: 14px; color: var(--muted); margin-top: auto; padding-top: 4px; }
+
+/* Guild totals */
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); overflow: hidden; margin: 0; }
+.tiles div { padding: 14px 16px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); display: flex; flex-direction: column-reverse; margin-right: -1px; margin-bottom: -1px; }
+.tiles dd { margin: 0; font-family: var(--display); font-size: 34px; line-height: 1; font-weight: 500; }
+.tiles dt { color: var(--muted); font-size: 15px; margin-top: 4px; }
+
+/* Raid readiness */
+.raid { padding: 16px 0; border-top: 1px solid var(--rule); display: grid; grid-template-columns: minmax(150px, 220px) 1fr; gap: 6px 20px; align-items: center; }
+.raid:first-of-type { border-top: 0; padding-top: 4px; }
+.raid-name { font-family: var(--display); font-size: 26px; font-weight: 500; line-height: 1.1; }
+.raid-size { color: var(--muted); font-size: 15px; }
+.track { height: 14px; background: var(--track); border-radius: 7px; overflow: hidden; }
+.fill { height: 100%; background: var(--banner); border-radius: 7px; box-shadow: inset 0 0 0 1px var(--trim); }
+.raid-note { margin: 6px 0 0; font-size: 15px; color: var(--muted); }
+.raid-note b { color: var(--ink); font-weight: 700; }
+@media (max-width: 560px) { .raid { grid-template-columns: 1fr; } }
+
+/* Makeup */
+.stack { display: flex; height: 22px; border-radius: 4px; overflow: hidden; border: 1px solid var(--swatch-edge); background: var(--track); }
+.stack span { display: block; height: 100%; }
+.legend { list-style: none; padding: 0; margin: 14px 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 6px 14px; font-size: 15px; }
+.legend li { display: flex; align-items: center; gap: 8px; }
+.legend li.zero { color: var(--muted); }
+.legend .count { margin-left: auto; font-weight: 700; }
+.legend li.zero .count { font-weight: 400; }
+.swatch { width: 11px; height: 11px; border-radius: 2px; border: 1px solid var(--swatch-edge); flex: none; display: inline-block; }
+.rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.rows li { display: grid; grid-template-columns: 92px 1fr 34px; gap: 10px; align-items: center; font-size: 15px; }
+.rows .n { text-align: right; font-weight: 700; }
+.hist { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; align-items: end; height: 150px; }
+.hist .col { display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; height: 100%; }
+.hist .bar { background: var(--banner); border-radius: 3px 3px 0 0; min-height: 2px; box-shadow: inset 0 0 0 1px var(--trim); }
+.hist .bar.empty { background: var(--track); box-shadow: none; }
+.hist .v { text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+.hist-labels { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-top: 6px; font-size: 13px; color: var(--muted); text-align: center; }
+
+/* Boards */
+.board { list-style: none; margin: 0; padding: 0; }
+.board li { display: grid; grid-template-columns: 28px 1fr auto; gap: 10px; align-items: baseline; padding: 8px 0; border-top: 1px solid var(--rule); }
+.board li:first-child { border-top: 0; }
+.board .pos { font-family: var(--display); font-size: 22px; color: var(--muted); }
+.board .who { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.board .who > span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.board .val { font-weight: 700; text-align: right; }
+.board.plain li { grid-template-columns: 1fr auto; }
+.small { font-size: 15px; color: var(--muted); }
+.empty-note { color: var(--muted); margin: 0; }
+
+/* Deeds feed */
+.feed { list-style: none; margin: 0; padding: 0; }
+.feed li { display: grid; grid-template-columns: 1fr auto; gap: 4px 14px; padding: 9px 0; border-top: 1px solid var(--rule); align-items: baseline; }
+.feed li:first-child { border-top: 0; padding-top: 0; }
+.feed .deed { font-style: italic; }
+.feed time { color: var(--muted); font-size: 14px; white-space: nowrap; }
+
+/* Trophy wall */
+.trophies { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.plaque { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 14px 16px; text-align: center; position: relative; }
+.plaque::before { content: ""; position: absolute; inset: 5px; border: 1px solid var(--trim); border-radius: 3px; pointer-events: none; opacity: .7; }
+.plaque .boss { font-family: var(--display); font-size: 24px; font-weight: 700; line-height: 1.05; }
+.plaque .where { color: var(--muted); font-size: 14px; margin-top: 2px; }
+.plaque .count { margin-top: 10px; }
+.plaque .count b { font-family: var(--display); font-size: 30px; font-weight: 500; line-height: 1; }
+.plaque .top { font-size: 14px; color: var(--muted); margin-top: 4px; }
+
+/* Roster */
+.toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }
+.toolbar input[type="search"], .toolbar select {
+  padding: 8px 10px; border: 1px solid var(--rule); border-radius: 4px; background: var(--surface);
+}
+.toolbar input[type="search"] { flex: 1 1 200px; min-width: 0; }
+.toolbar label.check { display: inline-flex; align-items: center; gap: 6px; font-size: 15px; }
+.table-scroll { overflow-x: auto; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); }
+table { width: 100%; border-collapse: collapse; min-width: 860px; }
+th { text-align: left; font-weight: 500; color: var(--muted); font-size: 15px; padding: 0; border-bottom: 2px solid var(--rule); white-space: nowrap; }
+th button { all: unset; cursor: pointer; display: block; padding: 10px 12px; }
+th button:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+th[aria-sort="ascending"] button::after { content: " ▲"; font-size: 11px; }
+th[aria-sort="descending"] button::after { content: " ▼"; font-size: 11px; }
+th.num, td.num { text-align: right; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+tbody tr:last-child td { border-bottom: 0; }
+tbody tr:hover td { background: var(--surface-2); }
+td.name { min-width: 190px; }
+.name-btn { all: unset; cursor: pointer; font-weight: 700; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+.name-btn:hover { text-decoration-color: currentColor; }
+.name-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.title-line { display: block; font-style: italic; color: var(--muted); font-size: 15px; }
+.tag { display: inline-block; margin-left: 6px; padding: 0 6px; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; color: var(--muted); vertical-align: 1px; font-weight: 400; }
+.cls { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
+.dash { color: var(--muted); }
+
+/* Character card */
+dialog {
+  border: 1px solid var(--rule); border-radius: 8px; padding: 0; background: var(--surface); color: var(--ink);
+  width: min(720px, calc(100vw - 24px)); max-height: calc(100dvh - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+}
+dialog::backdrop { background: rgba(8, 11, 18, .55); }
+.card-head { padding: 18px 22px 14px; display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: start; border-bottom: 2px solid var(--trim); }
+.portrait { width: 84px; height: 84px; border-radius: 6px; border: 2px solid var(--trim); background: var(--banner); display: grid; place-items: center; overflow: hidden; }
+.portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.portrait span { font-family: var(--display); font-size: 44px; color: var(--trim); line-height: 1; }
+.card-head h2 { font-size: 34px; margin: 0; }
+.card-head .meta { color: var(--muted); font-size: 15px; margin: 2px 0 0; }
+.card-head .ic-title { font-style: italic; margin: 2px 0 0; }
+.card-body { padding: 4px 22px 22px; }
+.card-body h3 { font-family: var(--display); font-size: 22px; font-weight: 700; margin: 18px 0 8px; }
+.facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px 16px; margin: 0; }
+.facts div { display: flex; flex-direction: column-reverse; }
+.facts dt { color: var(--muted); font-size: 14px; }
+.facts dd { margin: 0; font-weight: 700; font-size: 19px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.chips li { border: 1px solid var(--rule); border-radius: 3px; padding: 2px 8px; font-size: 15px; background: var(--bg); }
+.chips li .k { color: var(--muted); }
+.gear { list-style: none; margin: 0; padding: 0; columns: 2 220px; column-gap: 20px; font-size: 15px; }
+.gear li { break-inside: avoid; padding: 2px 0; }
+.gear .slot { color: var(--muted); font-size: 13px; display: inline-block; min-width: 72px; }
+.q-poor { color: var(--q-poor); } .q-uncommon { color: var(--q-uncommon); } .q-rare { color: var(--q-rare); }
+.q-epic { color: var(--q-epic); } .q-legendary { color: var(--q-legendary); }
+.notes { white-space: pre-wrap; margin: 0; }
+
+footer { margin-top: 64px; padding-top: 14px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 14px; }
+
+@media (max-width: 640px) {
+  .wrap { padding: 20px 16px 56px; }
+  .hero { gap: 16px; }
+  .banner { width: 76px; }
+  .tally { gap: 8px 24px; }
+  .tally dd { font-size: 32px; }
+  h2 { font-size: 30px; }
+  .card-head { grid-template-columns: auto 1fr; padding: 16px 16px 12px; }
+  .card-head .btn { grid-column: 1 / -1; grid-row: 1; justify-self: end; }
+  .card-body { padding: 4px 16px 18px; }
+  .portrait { width: 64px; height: 64px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero" id="hero">
+    <svg class="banner" viewBox="0 0 124 212" role="img" aria-label="Guild banner">
+      <rect x="0" y="0" width="124" height="10" rx="5" style="fill:var(--trim)"></rect>
+      <g class="cloth">
+        <path d="M10 10 H114 V204 L62 174 L10 204 Z" style="fill:var(--banner)"></path>
+        <path d="M19 10 V188 L62 162 L105 188 V10" style="fill:none;stroke:var(--trim);stroke-width:2.5"></path>
+        <text x="62" y="122" text-anchor="middle" class="banner-letter" style="fill:var(--trim)">S</text>
+      </g>
+    </svg>
+    <div>
+      <h1>Stryguard</h1>
+      <p class="sub" id="sub">World of Warcraft: Forever, RP-PvP ruleset</p>
+      <div class="motto" id="motto"></div>
+      <dl class="tally" id="tally"></dl>
+      <ul class="jump" aria-label="On this page">
+        <li><a href="#oddities">Hall of oddities</a></li>
+        <li><a href="#deeds">Recent deeds</a></li>
+        <li><a href="#trophies">Trophy wall</a></li>
+        <li><a href="#raids">Raid readiness</a></li>
+        <li><a href="#friends">Friends and companions</a></li>
+        <li><a href="#roster">Roster</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="status" id="status" role="status" aria-live="polite">Gathering the guild…</div>
+
+  <section id="oddities" aria-labelledby="oddities-h" hidden>
+    <h2 id="oddities-h">Hall of oddities</h2>
+    <p class="lede">The guild’s book of records, kept honestly by the Armory. Glory to the winners, condolences to the critters.</p>
+    <div class="awards" id="awards"></div>
+  </section>
+
+  <section id="totals" aria-labelledby="totals-h" hidden>
+    <h2 id="totals-h">Between us</h2>
+    <p class="lede">Everything the whole guild has done, added together.</p>
+    <dl class="tiles" id="tiles"></dl>
+  </section>
+
+  <section id="deeds" aria-labelledby="deeds-h" hidden>
+    <h2 id="deeds-h">Recent deeds</h2>
+    <p class="lede">Feats of exploration, craft and daring, newest first.</p>
+    <div class="panel"><ul class="feed" id="feed"></ul></div>
+  </section>
+
+  <section id="trophies" aria-labelledby="trophies-h" hidden>
+    <h2 id="trophies-h">Trophy wall</h2>
+    <p class="lede" id="trophies-lede">Dungeon bosses who met Stryguard and regretted it.</p>
+    <div class="trophies" id="trophy-wall"></div>
+  </section>
+
+  <section id="raids" aria-labelledby="raids-h" hidden>
+    <h2 id="raids-h">Raid readiness</h2>
+    <p class="lede" id="raid-countdown"></p>
+    <div class="panel" id="raid-list"></div>
+  </section>
+
+  <section id="friends" aria-labelledby="friends-h" hidden>
+    <h2 id="friends-h">Friends and companions</h2>
+    <p class="lede">Who the cities love best, and who keeps the finest company.</p>
+    <div class="grid-3">
+      <div class="panel"><h3>Best loved by</h3><div id="rep-board"></div></div>
+      <div class="panel"><h3>The stables</h3><div id="mount-board"></div></div>
+      <div class="panel"><h3>The menagerie</h3><div id="pet-board"></div></div>
+    </div>
+  </section>
+
+  <section id="makeup" aria-labelledby="makeup-h" hidden>
+    <h2 id="makeup-h">Who rides with us</h2>
+    <p class="lede">Every character on the roster, alts included.</p>
+    <div class="grid-3">
+      <div class="panel"><h3>Classes</h3><div id="class-chart"></div></div>
+      <div class="panel"><h3>Roles</h3><div id="role-chart"></div></div>
+      <div class="panel"><h3>Levels</h3><div id="level-chart"></div></div>
+    </div>
+  </section>
+
+  <section id="boards" aria-labelledby="boards-h" hidden>
+    <h2 id="boards-h">Honor and crafts</h2>
+    <div class="grid-2">
+      <div class="panel"><h3>Most honorable kills</h3><div id="honor-board"></div></div>
+      <div class="panel"><h3>Best in each craft</h3><div id="craft-board"></div></div>
+    </div>
+  </section>
+
+  <section id="roster" aria-labelledby="roster-h" hidden>
+    <h2 id="roster-h">Roster</h2>
+    <p class="lede" id="roster-lede"></p>
+    <div class="toolbar">
+      <input type="search" id="q" placeholder="Search names, titles, notes" aria-label="Search the roster">
+      <select id="f-class" aria-label="Filter by class"><option value="">All classes</option></select>
+      <select id="f-role" aria-label="Filter by role"><option value="">All roles</option></select>
+      <label class="check"><input type="checkbox" id="f-mains"> Hide alts</label>
+    </div>
+    <div id="roster-body"></div>
+  </section>
+
+  <footer id="footer"></footer>
+</div>
+
+<dialog id="card" aria-labelledby="card-name">
+  <div class="card-head">
+    <div class="portrait" id="card-portrait"></div>
+    <div>
+      <h2 id="card-name"></h2>
+      <p class="ic-title" id="card-title"></p>
+      <p class="meta" id="card-meta"></p>
+      <p class="meta" id="card-seen"></p>
+    </div>
+    <button class="btn quiet" type="button" id="card-close">Close</button>
+  </div>
+  <div class="card-body" id="card-body"></div>
+</dialog>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- Game reference (WoW: Forever launch) ---------- */
+  const CLASSES = [
+    { id: "Warrior", color: "#C69B6D" }, { id: "Paladin", color: "#F48CBA" },
+    { id: "Hunter", color: "#AAD372" }, { id: "Rogue", color: "#FFF468" },
+    { id: "Priest", color: "#FFFFFF" }, { id: "Shaman", color: "#0070DD" },
+    { id: "Mage", color: "#3FC7EB" }, { id: "Warlock", color: "#8788EE" },
+    { id: "Druid", color: "#FF7C0A" }
+  ];
+  const CLASS_COLOR = Object.fromEntries(CLASSES.map(c => [c.id, c.color]));
+  const FACTION_BY_RACE = {
+    "Human": "alliance", "Dwarf": "alliance", "Night Elf": "alliance", "Gnome": "alliance", "High Order Skyborne": "alliance",
+    "Orc": "horde", "Undead": "horde", "Tauren": "horde", "Troll": "horde", "Windshaper Skyborne": "horde"
+  };
+  const ROLES = ["Tank", "Healer", "Damage"];
+  const PRIMARY_PROFS = ["Alchemy","Blacksmithing","Enchanting","Engineering","Herbalism","Leatherworking","Mining","Skinning","Tailoring"];
+  const SECONDARY_PROFS = ["Cooking","First Aid","Fishing"];
+  const RAIDS = [
+    { name: "Barrow Deeps", size: 10 },
+    { name: "Hyjal Summit", size: 20 },
+    { name: "Onyxia’s Lair", size: 40 }
+  ];
+  const RAID_DAY = new Date(2026, 11, 9);
+  const LEVEL_BUCKETS = [[1,9,"1–9"],[10,19,"10–19"],[20,29,"20–29"],[30,39,"30–39"],[40,49,"40–49"],[50,59,"50–59"],[60,60,"60"]];
+  const PORTRAIT_HOST = "https://render.worldofwarcraft.com/";
+
+  const RAISED = ["Resurrected by priests", "Redeemed by paladins", "Spirit returned to body by shamans",
+                  "Revived by druids", "Rebirthed by druids", "Resurrected by soulstones"];
+
+  /* ---------- Helpers ---------- */
+  const fmt = new Intl.NumberFormat("en");
+  const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
+  const $ = id => document.getElementById(id);
+  function h(tag, attrs, ...kids) {
+    const el = document.createElement(tag);
+    if (attrs) for (const [k, v] of Object.entries(attrs)) {
+      if (v == null || v === false) continue;
+      if (k === "class") el.className = v;
+      else if (k === "text") el.textContent = v;
+      else if (k.startsWith("on")) el.addEventListener(k.slice(2), v);
+      else el.setAttribute(k, v === true ? "" : String(v));
+    }
+    for (const kid of kids.flat()) {
+      if (kid == null || kid === false) continue;
+      el.append(kid instanceof Node ? kid : document.createTextNode(String(kid)));
+    }
+    return el;
+  }
+  const str = v => (v == null ? "" : String(v));
+  const num = v => { const n = Number(v); return Number.isFinite(n) ? n : 0; };
+  const lvl = m => { const n = Math.round(num(m.level)); return n >= 1 && n <= 60 ? n : 0; };
+  const fullName = m => [str(m.first).trim(), str(m.last).trim()].filter(Boolean).join(" ") || "Unnamed";
+  const classColor = c => CLASS_COLOR[c] || "transparent";
+  const plural = (n, one, many) => fmt.format(n) + " " + (n === 1 ? one : many);
+  const times = n => n === 1 ? "once" : n === 2 ? "twice" : fmt.format(n) + " times";
+  const swatch = cls => h("span", { class: "swatch", style: "background:" + classColor(cls), "aria-hidden": "true" });
+  const stat = (m, name) => num(m.fun && m.fun.stats && m.fun.stats[name]);
+  const statSum = (m, names) => names.reduce((s, n) => s + stat(m, n), 0);
+  function joinWords(a, last) { return a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + " " + (last || "and") + " " + a[a.length - 1]; }
+  function ago(ms) {
+    if (!ms) return "";
+    const s = (ms - Date.now()) / 1000, a = Math.abs(s);
+    if (a < 60) return "just now";
+    if (a < 3600) return rtf.format(Math.round(s / 60), "minute");
+    if (a < 86400) return rtf.format(Math.round(s / 3600), "hour");
+    if (a < 86400 * 30) return rtf.format(Math.round(s / 86400), "day");
+    return new Date(ms).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+  }
+  function nameButton(m) {
+    return h("button", { class: "name-btn", type: "button", onclick: () => openCard(m) }, fullName(m));
+  }
+
+  /* ---------- State ---------- */
+  const state = {
+    members: [], guild: {}, fetchedAt: null, faction: "", enemy: "Horde",
+    sort: { key: "level", dir: "desc" },
+    filter: { q: "", cls: "", role: "", mainsOnly: false }
+  };
+
+  /* ---------- Loading ---------- */
+  async function getJson(path) {
+    const r = await fetch(path, { cache: "no-cache" });
+    if (!r.ok) throw new Error(path + " answered " + r.status);
+    return r.json();
+  }
+
+  function buildMembers(roster, guild) {
+    const extra = {};
+    for (const [name, v] of Object.entries((guild && guild.members) || {})) extra[name.trim().toLowerCase()] = v || {};
+    const ranks = (guild && guild.ranks) || {};
+    return (roster.members || []).map(r => {
+      const m = {
+        first: r.first, last: r.last, race: r.race, cls: r["class"], level: r.level,
+        rankNumber: typeof r.rank_number === "number" ? r.rank_number : 99,
+        hks: r.honorable_kills, lastLogin: r.last_login, fun: r.fun || null,
+        profs: (r.professions || []).filter(p => Array.isArray(p) && p[0]).map(([name, skill]) => ({ name, skill: num(skill) }))
+      };
+      m.rank = str(ranks[String(m.rankNumber)]) || (m.rankNumber === 0 ? "Guild Master" : m.rankNumber === 99 ? "" : "Rank " + m.rankNumber);
+      const x = extra[fullName(m).toLowerCase()] || {};
+      m.role = ROLES.includes(x.role) ? x.role : "";
+      m.alt = x.alt === true;
+      m.title = str(x.title).trim() || str(m.fun && m.fun.active_title);
+      m.notes = str(x.notes).trim();
+      return m;
+    });
+  }
+
+  async function load() {
+    let roster, guild = {};
+    try {
+      [roster, guild] = await Promise.all([
+        getJson("data/stryguard-roster.json"),
+        getJson("guild.json").catch(() => ({}))
+      ]);
+    } catch (e) {
+      const st = $("status");
+      st.classList.add("bad");
+      st.textContent = location.protocol === "file:"
+        ? "Open this page through a web server (for example: py -m http.server -d site) so it can read its data."
+        : "The guild records couldn’t be read just now. Try reloading in a minute.";
+      return;
+    }
+    state.guild = guild || {};
+    state.fetchedAt = roster.fetched_at ? Date.parse(roster.fetched_at) : null;
+    state.members = buildMembers(roster, state.guild);
+    document.querySelectorAll("section[hidden]").forEach(s => { s.hidden = false; });
+    render();
+    openFromHash();
+  }
+
+  /* ---------- Rendering ---------- */
+  function render() {
+    renderFaction(); renderStatus(); renderHero(); renderAwards(); renderTotals(); renderDeeds();
+    renderTrophies(); renderRaids(); renderFriends(); renderMakeup(); renderBoards(); renderRoster(); renderFooter();
+  }
+
+  function renderFaction() {
+    let a = 0, hd = 0;
+    state.members.forEach(m => { const f = FACTION_BY_RACE[m.race]; if (f === "alliance") a++; else if (f === "horde") hd++; });
+    state.faction = a > hd ? "alliance" : hd > a ? "horde" : "";
+    state.enemy = state.faction === "horde" ? "Alliance" : "Horde";
+    document.documentElement.setAttribute("data-faction", state.faction || "none");
+    $("sub").textContent = "World of Warcraft: Forever, RP-PvP ruleset" + (state.faction ? ", " + (state.faction === "alliance" ? "Alliance" : "Horde") : "");
+  }
+
+  function renderStatus() {
+    const st = $("status");
+    st.classList.remove("bad");
+    if (!state.fetchedAt) { st.textContent = ""; return; }
+    const hours = (Date.now() - state.fetchedAt) / 3600000;
+    st.textContent = "Fresh from the Armory " + ago(state.fetchedAt) + "." +
+      (hours > 6 ? " The hourly update seems to be stuck; these numbers may be out of date." : " Updates itself every hour or so.");
+    if (hours > 6) st.classList.add("bad");
+  }
+
+  function renderHero() {
+    const ms = state.members;
+    const leveled = ms.filter(m => lvl(m) > 0);
+    const at60 = ms.filter(m => lvl(m) >= 60).length;
+    const avg = leveled.length ? Math.round(leveled.reduce((s, m) => s + lvl(m), 0) / leveled.length) : null;
+    const deaths = ms.reduce((s, m) => s + stat(m, "Total deaths"), 0);
+    const tally = $("tally"); tally.replaceChildren();
+    [[fmt.format(ms.length), ms.length === 1 ? "character" : "characters"],
+     [fmt.format(at60), "at level 60"],
+     [avg == null ? "–" : String(avg), "average level"],
+     [fmt.format(deaths), "deaths, and counting"]].forEach(([v, l]) => tally.append(h("div", null, h("dt", { text: l }), h("dd", { text: v }))));
+    const motto = str(state.guild.motto).trim();
+    $("motto").replaceChildren(motto ? h("q", { text: motto }) : "");
+  }
+
+  /* ---------- Hall of oddities ---------- */
+  // Each award: the statistic(s) it counts, a title, an icon, and how to say the number.
+  function awards() {
+    return [
+      { stats: ["Deaths from falling"], title: "Gravity’s Favourite", icon: "🪂", say: n => ["fell to their doom ", times(n)] },
+      { stats: ["Deaths from drowning"], title: "Sleeps with the Fishes", icon: "🫧", say: n => ["drowned ", times(n)] },
+      { stats: ["Deaths from fire and lava"], title: "Moth to the Flame", icon: "🔥", say: n => ["burned to a crisp ", times(n)] },
+      { stats: ["Deaths from fatigue"], title: "Swam Too Far", icon: "🌊", say: n => ["lost to fatigue ", times(n)] },
+      { stats: ["Food eaten"], title: "Bottomless Stomach", icon: "🍗", say: n => [fmt.format(n), n === 1 ? " meal eaten" : " meals eaten"] },
+      { stats: ["Beverages consumed"], title: "Always Thirsty", icon: "🍺", say: n => [fmt.format(n), n === 1 ? " drink downed" : " drinks downed"] },
+      { stats: ["Health potions consumed", "Mana potions consumed"], title: "Potion Sommelier", icon: "🧪", say: n => [fmt.format(n), n === 1 ? " potion quaffed" : " potions quaffed"] },
+      { stats: ["Critters killed"], title: "Bane of Squirrels", icon: "🐿️", say: n => [fmt.format(n), n === 1 ? " innocent critter" : " innocent critters"] },
+      { stats: ["Times camped"], title: "Happy Camper", icon: "🏕️", say: n => ["made camp ", times(n)] },
+      { stats: ["Number of times hearthed"], title: "Homebody", icon: "🏠", say: n => ["hearthed home ", times(n)] },
+      { stats: ["Flight paths taken"], title: "Frequent Flyer", icon: "🦅", say: n => [fmt.format(n), n === 1 ? " flight taken" : " flights taken"] },
+      { stats: ["Number of hugs"], title: "Free Hugs", icon: "🤗", say: n => [fmt.format(n), n === 1 ? " hug given" : " hugs given"] },
+      { stats: ["Total waves"], title: "Friendly Wave", icon: "👋", say: n => ["waved ", times(n)] },
+      { stats: ["Total cheers"], title: "Head Cheerleader", icon: "📣", say: n => ["cheered ", times(n)] },
+      { stats: ["Total times LOL'd"], title: "Laughs at Everything", icon: "😂", say: n => ["LOL’d ", times(n)] },
+      { stats: ["Total facepalms"], title: "Deeply Disappointed", icon: "🤦", say: n => ["facepalmed ", times(n)] },
+      { stats: ["Greed rolls made on loot"], title: "Greedy Goblin", icon: "💰", say: n => [fmt.format(n), " greed rolls"] },
+      { stats: ["Quests abandoned"], title: "Commitment Issues", icon: "📜", say: n => [fmt.format(n), n === 1 ? " quest abandoned" : " quests abandoned"] },
+      { stats: ["Total deaths from opposite faction"], title: "Favourite Target", icon: "🎯", say: n => ["slain by the " + state.enemy + " ", times(n)] },
+      { stats: ["Total deaths"], title: "Professional Corpse", icon: "💀", say: n => [fmt.format(n), n === 1 ? " death" : " deaths"] },
+      { stats: RAISED, title: "Back from the Dead", icon: "✨", say: n => ["raised by friends ", times(n)] },
+      { stats: ["Duels lost"], title: "Gracious Loser", icon: "🤺", say: n => [fmt.format(n), n === 1 ? " duel lost" : " duels lost"] },
+      { stats: ["Fish caught"], title: "Master Angler", icon: "🎣", say: n => [fmt.format(n), " fish landed"] },
+      { stats: ["Bandages used"], title: "Field Medic", icon: "🩹", say: n => [fmt.format(n), n === 1 ? " bandage tied" : " bandages tied"] }
+    ];
+  }
+
+  function ranking(stats) {
+    return state.members.map(m => ({ m, n: statSum(m, stats) })).filter(x => x.n > 0)
+      .sort((a, b) => b.n - a.n || fullName(a.m).localeCompare(fullName(b.m)));
+  }
+
+  function renderAwards() {
+    const box = $("awards"); box.replaceChildren();
+    awards().forEach(a => {
+      const ranked = ranking(a.stats);
+      if (!ranked.length) return;
+      const best = ranked[0].n;
+      const winners = ranked.filter(x => x.n === best);
+      const rest = ranked.filter(x => x.n < best).slice(0, 2);
+      const [lead, tail] = a.say(best);
+      const who = h("div", { class: "award-who" });
+      const shown = winners.slice(0, 3), extra = winners.length - shown.length;
+      shown.forEach((x, i) => {
+        if (i && i === shown.length - 1 && !extra) who.append(h("span", { class: "small", text: "and" }));
+        const comma = (i < shown.length - 2) || (extra && i < shown.length - 1) ? "," : "";
+        who.append(h("span", { class: "winner" }, swatch(x.m.cls), " ", nameButton(x.m), comma));
+      });
+      if (extra) who.append(h("span", { class: "small", text: "and " + plural(extra, "other", "others") }));
+      // Put the number in the big face, whichever side of the phrase it sits on.
+      const feat = /^\d/.test(lead) ? h("div", { class: "award-feat" }, h("b", { text: lead }), tail)
+                                    : h("div", { class: "award-feat" }, lead, h("b", { text: tail }));
+      box.append(h("article", { class: "award" },
+        h("div", { class: "award-head" }, h("span", { class: "seal", "aria-hidden": "true", text: a.icon }), h("div", { class: "award-title", text: a.title })),
+        who, feat,
+        rest.length ? h("div", { class: "award-rest", text: "Close behind: " + rest.map(x => fullName(x.m) + " (" + fmt.format(x.n) + ")").join(", ") }) : null));
+    });
+    if (!box.children.length) box.append(h("p", { class: "empty-note", text: "No records yet. Go and fall off something." }));
+  }
+
+  /* ---------- Guild totals ---------- */
+  function renderTotals() {
+    const total = names => state.members.reduce((s, m) => s + statSum(m, names), 0);
+    const tiles = [
+      [total(["Food eaten"]), "meals eaten"],
+      [total(["Beverages consumed"]), "drinks downed"],
+      [total(["Critters killed"]), "critters slain"],
+      [total(["Creatures killed"]), "creatures slain"],
+      [total(["Total deaths"]), "deaths"],
+      [total(["Deaths from falling"]), "fatal falls"],
+      [total(["Deaths from drowning"]), "drownings"],
+      [total(["Quests completed"]), "quests completed"],
+      [total(["Quests abandoned"]), "quests abandoned"],
+      [total(["Flight paths taken"]), "flights taken"],
+      [total(["Number of times hearthed"]), "trips home by hearthstone"],
+      [total(["Health potions consumed", "Mana potions consumed"]), "potions quaffed"],
+      [total(["Fish caught"]), "fish caught"],
+      [total(["Number of hugs"]), "hugs"],
+      [total(["Total waves"]) + total(["Total cheers"]), "waves and cheers"],
+      [total(["Total 5-player dungeons entered"]), "dungeon delves"]
+    ].filter(([n]) => n > 0);
+    const dl = $("tiles"); dl.replaceChildren();
+    tiles.forEach(([n, l]) => dl.append(h("div", null, h("dt", { text: l }), h("dd", { text: fmt.format(n) }))));
+    $("totals").hidden = !tiles.length;
+  }
+
+  /* ---------- Recent deeds ---------- */
+  function renderDeeds() {
+    const seen = new Set(), all = [];
+    state.members.forEach(m => {
+      const f = m.fun || {};
+      (f.recent_deeds || []).concat(f.deeds || []).forEach(d => {
+        if (!d || !d.name || !d.at) return;
+        const key = fullName(m) + "|" + d.name;
+        if (seen.has(key)) return;
+        seen.add(key); all.push({ m, name: d.name, at: d.at });
+      });
+    });
+    all.sort((a, b) => b.at - a.at);
+    const ul = $("feed"); ul.replaceChildren();
+    all.slice(0, 15).forEach(d => ul.append(h("li", null,
+      h("span", null, swatch(d.m.cls), " ", nameButton(d.m), " earned ", h("span", { class: "deed", text: d.name })),
+      h("time", { datetime: new Date(d.at).toISOString(), title: new Date(d.at).toLocaleString("en-GB"), text: ago(d.at) }))));
+    $("deeds").hidden = !all.length;
+  }
+
+  /* ---------- Trophy wall ---------- */
+  function renderTrophies() {
+    const map = new Map();
+    state.members.forEach(m => ((m.fun && m.fun.bosses) || []).forEach(b => {
+      const key = b.boss + "|" + b.dungeon;
+      const e = map.get(key) || { boss: b.boss, dungeon: b.dungeon, kills: 0, slayers: [] };
+      e.kills += num(b.kills); e.slayers.push({ m, n: num(b.kills) });
+      map.set(key, e);
+    }));
+    const list = [...map.values()].sort((a, b) => b.kills - a.kills || a.boss.localeCompare(b.boss));
+    const wall = $("trophy-wall"); wall.replaceChildren();
+    list.forEach(e => {
+      e.slayers.sort((a, b) => b.n - a.n);
+      const top = e.slayers[0];
+      wall.append(h("div", { class: "plaque" },
+        h("div", { class: "boss", text: e.boss }),
+        h("div", { class: "where", text: e.dungeon }),
+        h("div", { class: "count" }, "Slain ", h("b", { text: fmt.format(e.kills) }), " ", e.kills === 1 ? "time" : "times"),
+        h("div", { class: "top", text: e.slayers.length === 1 ? "by " + fullName(top.m) + ", alone."
+          : "by " + e.slayers.length + " of us." + (top.n > 1 ? " Most often by " + fullName(top.m) + " (" + fmt.format(top.n) + ")." : "") })));
+    });
+    $("trophies-lede").textContent = list.length
+      ? plural(list.length, "dungeon boss has", "dungeon bosses have") + " met Stryguard and regretted it."
+      : "No bosses have fallen yet.";
+  }
+
+  /* ---------- Raid readiness ---------- */
+  function renderRaids() {
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const days = Math.round((RAID_DAY - today) / 86400000);
+    const dayName = RAID_DAY.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
+    $("raid-countdown").textContent =
+      days > 1 ? "The first raids open on " + dayName + ", in " + days + " days. Counting mains at level 60, alts left out." :
+      days === 1 ? "The first raids open tomorrow, " + dayName + ". Counting mains at level 60, alts left out." :
+      days === 0 ? "The first raids open today. Counting mains at level 60, alts left out." :
+      "Raids are open. Counting mains at level 60, alts left out.";
+
+    const ready = state.members.filter(m => !m.alt && lvl(m) >= 60);
+    const rc = { Tank: 0, Healer: 0, Damage: 0, none: 0 };
+    ready.forEach(m => { ROLES.includes(m.role) ? rc[m.role]++ : rc.none++; });
+    const box = $("raid-list"); box.replaceChildren();
+    RAIDS.forEach(r => {
+      const n = ready.length, pct = Math.min(100, Math.round(n / r.size * 100));
+      box.append(h("div", { class: "raid" },
+        h("div", null, h("div", { class: "raid-name", text: r.name }), h("div", { class: "raid-size", text: r.size + " players" })),
+        h("div", null,
+          h("div", { class: "track", role: "img", "aria-label": n + " of " + r.size + " ready" }, h("div", { class: "fill", style: "width:" + pct + "%" })),
+          h("p", { class: "raid-note" }, h("b", { text: fmt.format(n) + " of " + r.size }), " mains at level 60. ",
+            n >= r.size ? "Enough for a full group." : fmt.format(r.size - n) + " more needed."))));
+    });
+    const closest = state.members.filter(m => !m.alt && lvl(m) < 60).sort((a, b) => lvl(b) - lvl(a)).slice(0, 3);
+    if (!ready.length && closest.length) {
+      box.append(h("p", { class: "raid-note", style: "margin-top:12px" }, "Closest to 60: ",
+        ...closest.flatMap((m, i) => [i ? ", " : "", h("b", { text: fullName(m) }), " (" + lvl(m) + ")"]), "."));
+    } else if (ready.length) {
+      box.append(h("p", { class: "raid-note", style: "margin-top:12px" },
+        "Among them: ", h("b", { text: plural(rc.Tank, "tank", "tanks") }), ", ",
+        h("b", { text: plural(rc.Healer, "healer", "healers") }), ", ",
+        h("b", { text: fmt.format(rc.Damage) + " damage" }),
+        rc.none ? ", and " + fmt.format(rc.none) + " without a role set" : "", "."));
+    }
+  }
+
+  /* ---------- Friends and companions ---------- */
+  function renderFriends() {
+    // Reputation: the best standing with each faction, and who holds it.
+    const best = new Map();
+    state.members.forEach(m => ((m.fun && m.fun.reputations) || []).forEach(r => {
+      if (!r.faction) return;
+      const score = num(r.tier) * 100000 + num(r.value);
+      const cur = best.get(r.faction);
+      if (!cur || score > cur.score) best.set(r.faction, { faction: r.faction, standing: r.standing, score, m });
+    }));
+    const reps = [...best.values()].sort((a, b) => b.score - a.score || a.faction.localeCompare(b.faction));
+    const rb = $("rep-board"); rb.replaceChildren();
+    if (!reps.length) rb.append(h("p", { class: "empty-note", text: "Nobody has made any friends yet." }));
+    else {
+      const ul = h("ul", { class: "board plain" });
+      reps.forEach(r => ul.append(h("li", null,
+        h("span", { class: "who" }, h("span", null, h("b", { text: r.faction }), " ", h("span", { class: "small", text: fullName(r.m) }))),
+        h("span", { class: "val small", text: str(r.standing) }))));
+      rb.append(ul);
+    }
+
+    // Mounts: who rides what.
+    const mounts = [];
+    state.members.forEach(m => ((m.fun && m.fun.mounts) || []).forEach(x => { if (x.name) mounts.push({ m, name: x.name }); }));
+    const mb = $("mount-board"); mb.replaceChildren();
+    if (!mounts.length) mb.append(h("p", { class: "empty-note", text: "Nobody has a mount yet. It’s a long walk." }));
+    else {
+      const byName = new Map();
+      mounts.forEach(x => { const a = byName.get(x.name) || []; a.push(x.m); byName.set(x.name, a); });
+      const ul = h("ul", { class: "board plain" });
+      [...byName.entries()].sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0])).forEach(([name, riders]) => ul.append(h("li", null,
+        h("span", { class: "who" }, h("span", null, h("b", { text: name }), " ", h("span", { class: "small", text: riders.length > 2 ? plural(riders.length, "rider", "riders") : riders.map(fullName).join(" and ") }))),
+        h("span", { class: "val", text: String(riders.length) }))));
+      mb.append(ul);
+    }
+
+    // Pets: favourites first, then the biggest collections, then the most common species.
+    const pb = $("pet-board"); pb.replaceChildren();
+    const owners = state.members.map(m => ({ m, pets: (m.fun && m.fun.pets) || [] })).filter(x => x.pets.length);
+    if (!owners.length) { pb.append(h("p", { class: "empty-note", text: "No pets yet. The critters are relieved." })); return; }
+    const favs = owners.map(x => ({ m: x.m, p: x.pets.find(p => p.favorite) })).filter(x => x.p);
+    if (favs.length) {
+      pb.append(h("p", { class: "small", style: "margin:0 0 6px", text: "Favourite companions" }));
+      const ul = h("ul", { class: "board plain" });
+      favs.forEach(x => ul.append(h("li", null, h("span", { class: "who" }, swatch(x.m.cls), h("span", { text: fullName(x.m) })), h("span", { class: "val", text: x.p.name || x.p.species }))));
+      pb.append(ul);
+    }
+    const collectors = owners.slice().sort((a, b) => b.pets.length - a.pets.length).slice(0, 3);
+    pb.append(h("p", { class: "small", style: "margin:12px 0 6px", text: "Biggest collections" }));
+    const ul2 = h("ol", { class: "board" });
+    collectors.forEach((x, i) => ul2.append(h("li", null, h("span", { class: "pos", text: String(i + 1) }),
+      h("span", { class: "who" }, swatch(x.m.cls), h("span", { text: fullName(x.m) })), h("span", { class: "val", text: String(x.pets.length) }))));
+    pb.append(ul2);
+    const species = new Map();
+    owners.forEach(x => new Set(x.pets.map(p => p.species || p.name)).forEach(s => species.set(s, (species.get(s) || 0) + 1)));
+    const common = [...species.entries()].sort((a, b) => b[1] - a[1])[0];
+    if (common && common[1] > 1) pb.append(h("p", { class: "small", style: "margin:12px 0 0", text: "Most common companion: the " + common[0] + ", kept by " + common[1] + " of us." }));
+  }
+
+  /* ---------- Makeup ---------- */
+  function renderMakeup() {
+    const ms = state.members, total = ms.length;
+    const counts = Object.fromEntries(CLASSES.map(c => [c.id, 0]));
+    ms.forEach(m => { if (m.cls in counts) counts[m.cls]++; });
+    const known = Object.values(counts).reduce((a, b) => a + b, 0);
+    const stack = h("div", { class: "stack", role: "img", "aria-label": "Class makeup" });
+    CLASSES.forEach(c => { if (counts[c.id]) stack.append(h("span", { style: "width:" + (counts[c.id] / known * 100) + "%;background:" + c.color, title: c.id + ": " + counts[c.id] })); });
+    const legend = h("ul", { class: "legend" });
+    CLASSES.forEach(c => legend.append(h("li", { class: counts[c.id] ? "" : "zero" }, swatch(c.id), h("span", { text: c.id }), h("span", { class: "count", text: String(counts[c.id]) }))));
+    $("class-chart").replaceChildren(known ? stack : h("p", { class: "empty-note", text: "No classes yet." }), legend);
+
+    const roleCounts = ROLES.map(r => [r, ms.filter(m => m.role === r).length]);
+    const none = total - roleCounts.reduce((s, [, n]) => s + n, 0);
+    if (none) roleCounts.push(["Not set", none]);
+    const max = Math.max(1, ...roleCounts.map(([, n]) => n));
+    const rows = h("ul", { class: "rows" });
+    roleCounts.forEach(([r, n]) => rows.append(h("li", null, h("span", { text: r }),
+      h("div", { class: "track" }, h("div", { class: "fill", style: "width:" + (n / max * 100) + "%" + (n ? "" : ";box-shadow:none") })),
+      h("span", { class: "n", text: String(n) }))));
+    $("role-chart").replaceChildren(rows);
+
+    const b = LEVEL_BUCKETS.map(([lo, hi]) => ms.filter(m => lvl(m) >= lo && lvl(m) <= hi).length);
+    const bmax = Math.max(1, ...b);
+    const hist = h("div", { class: "hist", role: "img", "aria-label": "Characters by level range" });
+    b.forEach(n => hist.append(h("div", { class: "col" }, h("div", { class: "v", text: String(n) }),
+      h("div", { class: "bar" + (n ? "" : " empty"), style: "height:" + Math.max(2, n / bmax * 112) + "px" }))));
+    const labels = h("div", { class: "hist-labels", "aria-hidden": "true" });
+    LEVEL_BUCKETS.forEach(([, , l]) => labels.append(h("span", { text: l })));
+    $("level-chart").replaceChildren(hist, labels);
+  }
+
+  /* ---------- Honor and crafts ---------- */
+  function renderBoards() {
+    const ms = state.members;
+    const top = ms.filter(m => num(m.hks) > 0).sort((a, b) => num(b.hks) - num(a.hks)).slice(0, 5);
+    if (!top.length) $("honor-board").replaceChildren(h("p", { class: "empty-note", text: "No honorable kills yet." }));
+    else {
+      const ol = h("ol", { class: "board" });
+      top.forEach((m, i) => ol.append(h("li", null, h("span", { class: "pos", text: String(i + 1) }),
+        h("span", { class: "who" }, swatch(m.cls), h("span", { text: fullName(m) })),
+        h("span", { class: "val", text: fmt.format(num(m.hks)) }))));
+      $("honor-board").replaceChildren(ol);
+    }
+
+    const best = {};
+    ms.forEach(m => m.profs.forEach(p => {
+      if (!best[p.name] || p.skill > best[p.name].skill) best[p.name] = { prof: p.name, skill: p.skill, m };
+    }));
+    const CRAFT_TITLES = { "Cooking": "Head Chef", "Fishing": "Best Angler", "First Aid": "Chief Medic" };
+    const order = PRIMARY_PROFS.concat(SECONDARY_PROFS);
+    const entries = Object.values(best).sort((a, b) => order.indexOf(a.prof) - order.indexOf(b.prof));
+    const missing = PRIMARY_PROFS.filter(p => !best[p]);
+    const box = $("craft-board"); box.replaceChildren();
+    if (!entries.length) box.append(h("p", { class: "empty-note", text: "No professions yet." }));
+    else {
+      const ul = h("ul", { class: "board plain" });
+      entries.forEach(e => ul.append(h("li", null,
+        h("span", { class: "who" }, h("span", null, h("b", { text: CRAFT_TITLES[e.prof] ? CRAFT_TITLES[e.prof] + " (" + e.prof + ")" : e.prof }), " ", h("span", { class: "small", text: fullName(e.m) }))),
+        h("span", { class: "val", text: e.skill ? String(e.skill) : "–" }))));
+      box.append(ul);
+    }
+    if (missing.length && ms.length) box.append(h("p", { class: "small", style: "margin:12px 0 0", text: "Nobody has " + joinWords(missing, "or") + " yet." }));
+  }
+
+  /* ---------- Roster ---------- */
+  const SORTS = {
+    name: m => fullName(m).toLowerCase(),
+    level: m => lvl(m),
+    cls: m => str(m.cls) || "￿",
+    race: m => str(m.race) || "￿",
+    role: m => { const i = ROLES.indexOf(m.role); return i < 0 ? 9 : i; },
+    rank: m => m.rankNumber,
+    seen: m => num(m.lastLogin),
+    hks: m => num(m.hks)
+  };
+  const COLS = [
+    ["name", "Name"], ["level", "Level", "num"], ["cls", "Class"], ["race", "Race"],
+    ["role", "Role"], ["rank", "Rank"], [null, "Professions"], ["seen", "Last seen"], ["hks", "Honorable kills", "num"]
+  ];
+  const primaryProfs = m => m.profs.filter(p => PRIMARY_PROFS.includes(p.name));
+
+  function renderRoster() {
+    const all = state.members;
+    const f = state.filter, q = f.q.trim().toLowerCase();
+    const rows = all.filter(m =>
+      (!f.cls || m.cls === f.cls) &&
+      (!f.role || (f.role === "none" ? !ROLES.includes(m.role) : m.role === f.role)) &&
+      (!f.mainsOnly || !m.alt) &&
+      (!q || [fullName(m), m.title, m.notes, m.race, m.cls, m.rank, ...m.profs.map(p => p.name)].map(str).join(" ").toLowerCase().includes(q)));
+    const key = SORTS[state.sort.key] || SORTS.level, dir = state.sort.dir === "asc" ? 1 : -1;
+    rows.sort((a, b) => {
+      const x = key(a), y = key(b);
+      const c = typeof x === "number" ? x - y : String(x).localeCompare(String(y));
+      return c ? c * dir : fullName(a).localeCompare(fullName(b));
+    });
+
+    const thead = h("tr");
+    COLS.forEach(([k, label, cls]) => {
+      const th = h("th", { class: cls || null, scope: "col" });
+      if (k) {
+        th.setAttribute("aria-sort", state.sort.key === k ? (state.sort.dir === "asc" ? "ascending" : "descending") : "none");
+        th.append(h("button", { type: "button", onclick: () => {
+          if (state.sort.key === k) state.sort.dir = state.sort.dir === "asc" ? "desc" : "asc";
+          else { state.sort.key = k; state.sort.dir = ["level", "hks", "seen"].includes(k) ? "desc" : "asc"; }
+          renderRoster();
+        } }, label));
+      } else th.append(h("span", { style: "display:block;padding:10px 12px", text: label }));
+      thead.append(th);
+    });
+    const tbody = h("tbody");
+    rows.forEach(m => {
+      const profs = primaryProfs(m).map(p => p.name + (p.skill ? " " + p.skill : "")).join(", ");
+      tbody.append(h("tr", null,
+        h("td", { class: "name", style: "box-shadow: inset 4px 0 0 " + classColor(m.cls) },
+          nameButton(m),
+          m.alt ? h("span", { class: "tag", text: "alt" }) : null,
+          m.title ? h("span", { class: "title-line", text: m.title }) : null),
+        h("td", { class: "num", text: lvl(m) ? String(lvl(m)) : "–" }),
+        h("td", null, m.cls ? h("span", { class: "cls" }, swatch(m.cls), str(m.cls)) : h("span", { class: "dash", text: "–" })),
+        h("td", { text: str(m.race) || "–" }),
+        h("td", { text: str(m.role) || "–" }),
+        h("td", { text: str(m.rank) || "–" }),
+        h("td", { text: profs || "–" }),
+        h("td", { text: m.lastLogin ? ago(m.lastLogin) : "–" }),
+        h("td", { class: "num", text: num(m.hks) ? fmt.format(num(m.hks)) : "–" })));
+    });
+    if (!rows.length) tbody.append(h("tr", null, h("td", { colspan: String(COLS.length), class: "dash", text: "No members match these filters." })));
+    $("roster-body").replaceChildren(h("div", { class: "table-scroll" }, h("table", null, h("thead", null, thead), tbody)));
+    $("roster-lede").textContent = (rows.length === all.length ? plural(all.length, "character", "characters") : rows.length + " of " + plural(all.length, "character", "characters")) +
+      ". Select a name to open their character card.";
+  }
+
+  function renderFooter() {
+    $("footer").textContent = "Game data from Blizzard’s World of Warcraft API" +
+      (state.fetchedAt ? ", last gathered " + new Date(state.fetchedAt).toLocaleString("en-GB", { dateStyle: "long", timeStyle: "short" }) : "") +
+      ". World of Warcraft is a trademark of Blizzard Entertainment. This is a fan site.";
+  }
+
+  /* ---------- Character card ---------- */
+  const card = $("card");
+  // Stats worth bragging (or confessing) about on a card, in order.
+  const CARD_FACTS = [
+    ["Total deaths", "deaths"], ["Deaths from falling", "fatal falls"], ["Deaths from drowning", "drownings"],
+    ["Deaths from fire and lava", "burned up"], ["Total deaths from opposite faction", null],
+    ["Food eaten", "meals eaten"], ["Beverages consumed", "drinks downed"], ["Critters killed", "critters slain"],
+    ["Creatures killed", "creatures slain"], ["Quests completed", "quests done"], ["Quests abandoned", "quests abandoned"],
+    ["Flight paths taken", "flights taken"], ["Number of times hearthed", "hearthstones"], ["Times camped", "times camped"],
+    ["Number of hugs", "hugs"], ["Total waves", "waves"], ["Total cheers", "cheers"], ["Total times LOL'd", "LOLs"],
+    ["Greed rolls made on loot", "greed rolls"], ["Need rolls made on loot", "need rolls"], ["Fish caught", "fish caught"],
+    ["Duels won", "duels won"], ["Duels lost", "duels lost"]
+  ];
+
+  function openCard(m) {
+    const f = m.fun || {};
+    $("card-name").textContent = fullName(m);
+    $("card-title").textContent = m.title;
+    $("card-title").hidden = !m.title;
+    $("card-meta").textContent = ["Level " + (lvl(m) || "?"), m.race, m.cls].filter(Boolean).join(" ") +
+      (m.rank ? " · " + m.rank : "") + (m.role ? " · " + m.role : "") + (m.alt ? " · alt" : "");
+    $("card-seen").textContent = m.lastLogin ? "Last seen in Azeroth " + ago(m.lastLogin) + "." : "";
+
+    const portrait = $("card-portrait"); portrait.replaceChildren();
+    const src = f.portrait && (f.portrait.avatar || f.portrait.inset);
+    const initial = h("span", { text: (str(m.first)[0] || "?").toUpperCase(), "aria-hidden": "true" });
+    if (src && String(src).startsWith(PORTRAIT_HOST)) {
+      const img = h("img", { alt: "Portrait of " + fullName(m), src, loading: "lazy" });
+      img.addEventListener("error", () => portrait.replaceChildren(initial));
+      portrait.append(img);
+    } else portrait.append(initial);
+
+    const body = $("card-body"); body.replaceChildren();
+    const section = (title, ...kids) => body.append(h("h3", { text: title }), ...kids);
+
+    if (m.notes) section("Notes", h("p", { class: "notes", text: m.notes }));
+
+    const facts = h("dl", { class: "facts" });
+    CARD_FACTS.forEach(([name, label]) => {
+      const n = stat(m, name);
+      if (n > 0) facts.append(h("div", null, h("dt", { text: label || "slain by the " + state.enemy }), h("dd", { text: fmt.format(n) })));
+    });
+    const raised = statSum(m, RAISED);
+    if (raised) facts.append(h("div", null, h("dt", { text: "times raised" }), h("dd", { text: fmt.format(raised) })));
+    const details = f.stat_details || {};
+    if (details["Creature type killed the most"]) facts.append(h("div", null, h("dt", { text: "favourite prey" }), h("dd", { text: details["Creature type killed the most"] })));
+    if (details["Bandage used most"]) facts.append(h("div", null, h("dt", { text: "bandage of choice" }), h("dd", { text: details["Bandage used most"] })));
+    if (facts.children.length) section("By the numbers", facts);
+
+    const bosses = (f.bosses || []).slice().sort((a, b) => num(b.kills) - num(a.kills));
+    if (bosses.length) {
+      const ul = h("ul", { class: "chips" });
+      bosses.forEach(b => ul.append(h("li", null, b.boss, h("span", { class: "k", text: " · " + b.dungeon + (num(b.kills) > 1 ? " ×" + b.kills : "") }))));
+      section("Bosses slain", ul);
+    }
+
+    const pets = f.pets || [], mounts = f.mounts || [];
+    if (pets.length || mounts.length) {
+      const ul = h("ul", { class: "chips" });
+      mounts.forEach(x => ul.append(h("li", null, x.name, h("span", { class: "k", text: " · mount" }))));
+      pets.slice().sort((a, b) => (b.favorite ? 1 : 0) - (a.favorite ? 1 : 0)).forEach(p =>
+        ul.append(h("li", null, p.name || p.species, h("span", { class: "k", text: p.favorite ? " · favourite" : (p.name && p.species && p.name !== p.species ? " · " + p.species : "") }))));
+      section("Companions", ul);
+    }
+
+    const looks = Object.entries(f.looks || {});
+    if (looks.length) {
+      const ul = h("ul", { class: "chips" });
+      looks.forEach(([k, v]) => ul.append(h("li", null, h("span", { class: "k", text: k + ": " }), v)));
+      section("Looks", ul);
+    }
+
+    const gear = f.gear || [];
+    if (gear.length) {
+      const ul = h("ul", { class: "gear" });
+      gear.forEach(g => ul.append(h("li", null, h("span", { class: "slot", text: g.slot }), " ",
+        h("span", { class: "q-" + str(g.quality).toLowerCase(), text: g.name }))));
+      section("Wearing", ul);
+    }
+
+    const reps = (f.reputations || []).slice().sort((a, b) => (num(b.tier) * 100000 + num(b.value)) - (num(a.tier) * 100000 + num(a.value))).slice(0, 6);
+    if (reps.length) {
+      const ul = h("ul", { class: "chips" });
+      reps.forEach(r => ul.append(h("li", null, r.faction, h("span", { class: "k", text: " · " + r.standing }))));
+      section("Best friends", ul);
+    }
+
+    const deeds = (f.deeds || []).slice(0, 6);
+    if (deeds.length) {
+      const ul = h("ul", { class: "feed" });
+      deeds.forEach(d => ul.append(h("li", null, h("span", { class: "deed", text: d.name }),
+        h("time", { datetime: new Date(d.at).toISOString(), text: ago(d.at) }))));
+      section("Latest deeds", ul);
+    }
+
+    const profs = m.profs.filter(p => p.skill);
+    if (profs.length) {
+      const ul = h("ul", { class: "chips" });
+      profs.forEach(p => ul.append(h("li", null, p.name, h("span", { class: "k", text: " · " + p.skill }))));
+      section("Crafts", ul);
+    }
+
+    if (!body.children.length) body.append(h("p", { class: "empty-note", style: "margin-top:16px", text: "The Armory knows nothing more about this one. Mysterious." }));
+    if (!card.open) card.showModal();
+    card.scrollTop = 0;
+    history.replaceState(null, "", "#member/" + slugOf(m));
+  }
+  const slugOf = m => fullName(m).toLowerCase().replace(/\s+/g, "-");
+  function openFromHash() {
+    const want = decodeURIComponent(location.hash.replace(/^#member\//, ""));
+    if (want === location.hash || !want) return;
+    const m = state.members.find(x => slugOf(x) === want.toLowerCase());
+    if (m) openCard(m);
+  }
+
+  /* ---------- Wiring ---------- */
+  CLASSES.forEach(c => $("f-class").append(h("option", { value: c.id }, c.id)));
+  ROLES.forEach(r => $("f-role").append(h("option", { value: r }, r)));
+  $("f-role").append(h("option", { value: "none" }, "No role set"));
+  $("q").addEventListener("input", e => { state.filter.q = e.target.value; renderRoster(); });
+  $("f-class").addEventListener("change", e => { state.filter.cls = e.target.value; renderRoster(); });
+  $("f-role").addEventListener("change", e => { state.filter.role = e.target.value; renderRoster(); });
+  $("f-mains").addEventListener("change", e => { state.filter.mainsOnly = e.target.checked; renderRoster(); });
+  $("card-close").addEventListener("click", () => card.close());
+  card.addEventListener("close", () => { if (location.hash.startsWith("#member/")) history.replaceState(null, "", location.pathname + location.search); });
+  window.addEventListener("hashchange", openFromHash);
+  card.addEventListener("click", e => { if (e.target === card) card.close(); });
+  // Keep "3 minutes ago" honest if the tab stays open.
+  setInterval(() => { if (state.members.length) { renderStatus(); } }, 60000);
+
+  load();
+})();
+</script>
+</body>
+</html>

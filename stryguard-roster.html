@@ -1,0 +1,957 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Stryguard roster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Grenze+Gotisch:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  color-scheme: light;
+  --display: "Grenze Gotisch", "UnifrakturMaguntia", "Palatino Linotype", Georgia, serif;
+  --body: "Alegreya Sans", "Gill Sans", "Segoe UI", system-ui, sans-serif;
+  --bg: #E4E8EC;
+  --surface: #F5F7F9;
+  --surface-2: #ECEFF3;
+  --ink: #1A2030;
+  --muted: #566073;
+  --rule: #C3CAD4;
+  --track: #D5DBE2;
+  --focus: #2A57D0;
+  --danger: #9E2525;
+  --swatch-edge: rgba(0,0,0,.35);
+  --banner: #3E4757;
+  --trim: #AEB6C2;
+  --on-banner: #FFFFFF;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+:root[data-faction="alliance"] { --banner: #1E3A7B; --trim: #C9A227; }
+:root[data-faction="horde"] { --banner: #7A1E1E; --trim: #C68A3A; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #11151D; --surface: #191F2A; --surface-2: #202735; --ink: #E8E4DA; --muted: #9AA3B1;
+    --rule: #2D3544; --track: #283040; --focus: #86A9FF; --danger: #E27171; --swatch-edge: rgba(255,255,255,.28);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #11151D; --surface: #191F2A; --surface-2: #202735; --ink: #E8E4DA; --muted: #9AA3B1;
+  --rule: #2D3544; --track: #283040; --focus: #86A9FF; --danger: #E27171; --swatch-edge: rgba(255,255,255,.28);
+}
+*, *::before, *::after { box-sizing: inherit; }
+[hidden] { display: none !important; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--body); font-size: 17px; line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+img, svg { max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.wrap { max-width: 1080px; margin: 0 auto; padding: 28px 20px 72px; }
+
+/* Hero: the hanging banner is the one loud thing on the page */
+.hero { display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; }
+.banner { width: 124px; height: auto; display: block; }
+.banner .cloth { transform-origin: 50% 0; transform-box: fill-box; animation: unfurl 1s cubic-bezier(.2,.75,.25,1) both; }
+@keyframes unfurl { from { transform: scaleY(.12); } to { transform: scaleY(1); } }
+@media (prefers-reduced-motion: reduce) { .banner .cloth { animation: none; } }
+.banner-letter { font-family: var(--display); font-size: 96px; font-weight: 700; }
+h1 {
+  font-family: var(--display); font-weight: 700; margin: 0;
+  font-size: clamp(60px, 12vw, 124px); line-height: .86; letter-spacing: .005em;
+}
+.sub { margin: 10px 0 0; color: var(--muted); }
+.motto { margin: 14px 0 0; min-height: 1.5em; display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: baseline; }
+.motto q { font-style: italic; font-size: 20px; quotes: "“" "”"; }
+.motto input { flex: 1 1 260px; padding: 6px 10px; border: 1px solid var(--rule); border-radius: 4px; background: var(--surface); }
+.tally { display: flex; flex-wrap: wrap; gap: 8px 36px; margin: 22px 0 0; padding: 14px 0 0; border-top: 2px solid var(--trim); }
+.tally div { display: flex; flex-direction: column-reverse; }
+.tally dd { margin: 0; font-family: var(--display); font-size: 40px; line-height: 1; font-weight: 500; }
+.tally dt { color: var(--muted); font-size: 15px; }
+
+.status { margin: 24px 0 0; padding: 10px 14px; border-left: 4px solid var(--trim); background: var(--surface); border-radius: 0 4px 4px 0; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.status:empty { display: none; }
+
+section { margin-top: 56px; }
+h2 { font-family: var(--display); font-weight: 700; font-size: 36px; line-height: 1.05; margin: 0 0 6px; }
+.lede { margin: 0 0 18px; color: var(--muted); max-width: 64ch; }
+h3 { font-size: 17px; font-weight: 700; margin: 0 0 12px; }
+
+.panel { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 18px 20px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+  padding: 8px 14px; border-radius: 4px; border: 1px solid var(--rule);
+  background: var(--surface); font-weight: 500; line-height: 1.2;
+}
+.btn:hover { background: var(--surface-2); }
+.btn.primary { background: var(--banner); color: var(--on-banner); border-color: var(--trim); }
+.btn.primary:hover { filter: brightness(1.12); }
+.btn.quiet { border-color: transparent; background: transparent; color: var(--muted); padding: 4px 6px; text-decoration: underline; text-underline-offset: 3px; }
+.btn.quiet:hover { color: var(--ink); background: transparent; }
+.btn.danger { color: var(--danger); }
+.btn.danger.armed { background: var(--danger); color: #fff; border-color: var(--danger); }
+.btn[disabled] { opacity: .55; cursor: default; }
+
+/* Raid readiness */
+.raid { padding: 16px 0; border-top: 1px solid var(--rule); display: grid; grid-template-columns: minmax(150px, 220px) 1fr; gap: 6px 20px; align-items: center; }
+.raid:first-of-type { border-top: 0; padding-top: 4px; }
+.raid-name { font-family: var(--display); font-size: 26px; font-weight: 500; line-height: 1.1; }
+.raid-size { color: var(--muted); font-size: 15px; }
+.track { height: 14px; background: var(--track); border-radius: 7px; overflow: hidden; }
+.fill { height: 100%; background: var(--banner); border-radius: 7px; box-shadow: inset 0 0 0 1px var(--trim); }
+.raid-note { margin: 6px 0 0; font-size: 15px; color: var(--muted); }
+.raid-note b { color: var(--ink); font-weight: 700; }
+@media (max-width: 560px) { .raid { grid-template-columns: 1fr; } }
+
+/* Makeup */
+.stack { display: flex; height: 22px; border-radius: 4px; overflow: hidden; border: 1px solid var(--swatch-edge); background: var(--track); }
+.stack span { display: block; height: 100%; }
+.legend { list-style: none; padding: 0; margin: 14px 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 6px 14px; font-size: 15px; }
+.legend li { display: flex; align-items: center; gap: 8px; }
+.legend li.zero { color: var(--muted); }
+.legend .count { margin-left: auto; font-weight: 700; }
+.legend li.zero .count { font-weight: 400; }
+.swatch { width: 11px; height: 11px; border-radius: 2px; border: 1px solid var(--swatch-edge); flex: none; display: inline-block; }
+.rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.rows li { display: grid; grid-template-columns: 92px 1fr 34px; gap: 10px; align-items: center; font-size: 15px; }
+.rows .n { text-align: right; font-weight: 700; }
+.hist { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; align-items: end; height: 150px; }
+.hist .col { display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; height: 100%; }
+.hist .bar { background: var(--banner); border-radius: 3px 3px 0 0; min-height: 2px; box-shadow: inset 0 0 0 1px var(--trim); }
+.hist .bar.empty { background: var(--track); box-shadow: none; }
+.hist .v { text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+.hist-labels { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-top: 6px; font-size: 13px; color: var(--muted); text-align: center; }
+
+/* Boards */
+.board { list-style: none; margin: 0; padding: 0; }
+.board li { display: grid; grid-template-columns: 28px 1fr auto; gap: 10px; align-items: baseline; padding: 8px 0; border-top: 1px solid var(--rule); }
+.board li:first-child { border-top: 0; }
+.board .pos { font-family: var(--display); font-size: 22px; color: var(--muted); }
+.board .who { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.board .who span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.board .val { font-weight: 700; }
+.board.crafts li { grid-template-columns: 1fr auto; }
+.small { font-size: 15px; color: var(--muted); }
+.empty-note { color: var(--muted); margin: 0; }
+
+/* Roster */
+.toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }
+.toolbar input[type="search"], .toolbar select {
+  padding: 8px 10px; border: 1px solid var(--rule); border-radius: 4px; background: var(--surface);
+}
+.toolbar input[type="search"] { flex: 1 1 200px; min-width: 0; }
+.toolbar label.check { display: inline-flex; align-items: center; gap: 6px; font-size: 15px; }
+.toolbar .spacer { flex: 1 1 0; }
+.table-scroll { overflow-x: auto; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); }
+table { width: 100%; border-collapse: collapse; min-width: 820px; }
+th { text-align: left; font-weight: 500; color: var(--muted); font-size: 15px; padding: 0; border-bottom: 2px solid var(--rule); white-space: nowrap; }
+th button { all: unset; cursor: pointer; display: block; padding: 10px 12px; }
+th button:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+th[aria-sort="ascending"] button::after { content: " ▲"; font-size: 11px; }
+th[aria-sort="descending"] button::after { content: " ▼"; font-size: 11px; }
+th.num, td.num { text-align: right; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+tbody tr:last-child td { border-bottom: 0; }
+tbody tr:hover td { background: var(--surface-2); }
+td.name { min-width: 190px; }
+.name-btn { all: unset; cursor: pointer; font-weight: 700; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+.name-btn:hover { text-decoration-color: currentColor; }
+.name-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.title-line { display: block; font-style: italic; color: var(--muted); font-size: 15px; }
+.tag { display: inline-block; margin-left: 6px; padding: 0 6px; border: 1px solid var(--rule); border-radius: 3px; font-size: 13px; color: var(--muted); vertical-align: 1px; }
+.cls { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
+.dash { color: var(--muted); }
+.empty-roster { text-align: center; padding: 40px 20px; }
+.empty-roster p { margin: 0 auto 16px; max-width: 46ch; }
+.empty-roster .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+
+/* Dialogs */
+dialog {
+  border: 1px solid var(--rule); border-radius: 8px; padding: 0; background: var(--surface); color: var(--ink);
+  width: min(660px, calc(100vw - 24px)); max-height: calc(100dvh - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+}
+dialog::backdrop { background: rgba(8, 11, 18, .55); }
+.dlg-head { padding: 18px 22px 0; display: flex; align-items: start; gap: 12px; }
+.dlg-head h2 { font-size: 30px; margin: 0; flex: 1; }
+.dlg-body { padding: 14px 22px 4px; }
+.dlg-foot { padding: 14px 22px 20px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.dlg-foot .spacer { flex: 1; }
+.fields { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px 14px; }
+.field { display: flex; flex-direction: column; gap: 4px; grid-column: span 3; }
+.field.s2 { grid-column: span 2; }
+.field.s4 { grid-column: span 4; }
+.field.s6 { grid-column: span 6; }
+.field label, .field .lbl { font-size: 14px; color: var(--muted); font-weight: 500; }
+.field input, .field select, .field textarea {
+  padding: 8px 10px; border: 1px solid var(--rule); border-radius: 4px; background: var(--bg); width: 100%;
+}
+.field textarea { min-height: 72px; resize: vertical; }
+.field.check { flex-direction: row; align-items: center; gap: 8px; align-self: end; padding-bottom: 8px; }
+.field.check input { width: auto; }
+.hint { font-size: 14px; color: var(--muted); margin: 0; }
+.hint.warn { color: var(--danger); }
+.err { color: var(--danger); margin: 0; font-weight: 500; }
+.err:empty { display: none; }
+@media (max-width: 560px) {
+  .field, .field.s2, .field.s4 { grid-column: span 6; }
+  .field.s2.pair { grid-column: span 3; }
+}
+.import-area { width: 100%; min-height: 180px; padding: 10px; border: 1px solid var(--rule); border-radius: 4px; background: var(--bg); font-size: 15px; }
+.preview-list { list-style: none; margin: 10px 0 0; padding: 0; max-height: 240px; overflow: auto; border: 1px solid var(--rule); border-radius: 4px; }
+.preview-list li { padding: 6px 10px; border-top: 1px solid var(--rule); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; font-size: 15px; }
+.preview-list li:first-child { border-top: 0; }
+.preview-list .meta { color: var(--muted); }
+
+@media (max-width: 640px) {
+  .wrap { padding: 20px 16px 56px; }
+  .hero { gap: 16px; }
+  .banner { width: 76px; }
+  .tally { gap: 8px 24px; }
+  .tally dd { font-size: 32px; }
+  h2 { font-size: 30px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero" id="hero">
+    <svg class="banner" viewBox="0 0 124 212" role="img" aria-label="Guild banner">
+      <rect x="0" y="0" width="124" height="10" rx="5" style="fill:var(--trim)"></rect>
+      <g class="cloth">
+        <path d="M10 10 H114 V204 L62 174 L10 204 Z" style="fill:var(--banner)"></path>
+        <path d="M19 10 V188 L62 162 L105 188 V10" style="fill:none;stroke:var(--trim);stroke-width:2.5"></path>
+        <text x="62" y="122" text-anchor="middle" class="banner-letter" style="fill:var(--trim)">S</text>
+      </g>
+    </svg>
+    <div>
+      <h1>Stryguard</h1>
+      <p class="sub" id="sub">World of Warcraft: Forever, RP-PvP ruleset</p>
+      <div class="motto" id="motto"></div>
+      <dl class="tally" id="tally"></dl>
+    </div>
+  </header>
+
+  <div class="status" id="status" role="status" aria-live="polite"></div>
+
+  <section id="raids" aria-labelledby="raids-h">
+    <h2 id="raids-h">Raid readiness</h2>
+    <p class="lede" id="raid-countdown"></p>
+    <div class="panel" id="raid-list"></div>
+  </section>
+
+  <section id="makeup" aria-labelledby="makeup-h">
+    <h2 id="makeup-h">Who rides with us</h2>
+    <p class="lede">Every character on the roster, alts included.</p>
+    <div class="grid-3">
+      <div class="panel" id="class-panel"><h3>Classes</h3><div id="class-chart"></div></div>
+      <div class="panel" id="role-panel"><h3>Roles</h3><div id="role-chart"></div></div>
+      <div class="panel" id="level-panel"><h3>Levels</h3><div id="level-chart"></div></div>
+    </div>
+  </section>
+
+  <section id="boards" aria-labelledby="boards-h">
+    <h2 id="boards-h">Honor and crafts</h2>
+    <div class="grid-2">
+      <div class="panel" id="honor-panel"><h3>Most honorable kills</h3><div id="honor-board"></div></div>
+      <div class="panel" id="craft-panel"><h3>Best crafter per profession</h3><div id="craft-board"></div></div>
+    </div>
+  </section>
+
+  <section id="roster" aria-labelledby="roster-h">
+    <h2 id="roster-h">Roster</h2>
+    <p class="lede" id="roster-lede">Select a name to see or change their details.</p>
+    <div class="toolbar" id="toolbar">
+      <input type="search" id="q" placeholder="Search names, titles, notes" aria-label="Search the roster">
+      <select id="f-class" aria-label="Filter by class"><option value="">All classes</option></select>
+      <select id="f-role" aria-label="Filter by role"><option value="">All roles</option></select>
+      <label class="check"><input type="checkbox" id="f-mains"> Hide alts</label>
+      <span class="spacer"></span>
+      <button class="btn" id="btn-import" type="button">Paste a roster</button>
+      <button class="btn primary" id="btn-add" type="button">Add member</button>
+    </div>
+    <div id="roster-body"></div>
+  </section>
+</div>
+
+<dialog id="member-dlg" aria-labelledby="member-dlg-h">
+  <div class="dlg-head"><h2 id="member-dlg-h">Add member</h2><button class="btn quiet" type="button" data-close>Close</button></div>
+  <div class="dlg-body">
+    <div class="fields">
+      <div class="field"><label for="m-first">First name</label><input id="m-first" autocomplete="off" maxlength="40"></div>
+      <div class="field"><label for="m-last">Last name</label><input id="m-last" autocomplete="off" maxlength="40"></div>
+      <div class="field s6"><label for="m-title">In-character title</label><input id="m-title" maxlength="80" placeholder="Captain of the Lakeshire Watch"></div>
+      <div class="field s2"><label for="m-race">Race</label><select id="m-race"></select></div>
+      <div class="field s2"><label for="m-class">Class</label><select id="m-class"></select></div>
+      <div class="field s2"><label for="m-level">Level</label><input id="m-level" type="number" min="1" max="60" inputmode="numeric"></div>
+      <p class="hint warn s6" id="combo-note" style="grid-column: span 6; display:none"></p>
+      <div class="field s2"><label for="m-role">Role</label><select id="m-role"></select></div>
+      <div class="field s2"><label for="m-rank">Guild rank</label><select id="m-rank"></select></div>
+      <div class="field s2 check"><input type="checkbox" id="m-alt"><label for="m-alt">This is an alt</label></div>
+      <div class="field s4"><label for="m-p1">Profession</label><input id="m-p1" list="prof-list" maxlength="30"></div>
+      <div class="field s2 pair"><label for="m-s1">Skill</label><input id="m-s1" type="number" min="0" inputmode="numeric"></div>
+      <div class="field s4"><label for="m-p2">Second profession</label><input id="m-p2" list="prof-list" maxlength="30"></div>
+      <div class="field s2 pair"><label for="m-s2">Skill</label><input id="m-s2" type="number" min="0" inputmode="numeric"></div>
+      <div class="field s2"><label for="m-hks">Honorable kills</label><input id="m-hks" type="number" min="0" inputmode="numeric"></div>
+      <div class="field s6"><label for="m-notes">Notes</label><textarea id="m-notes" maxlength="2000"></textarea></div>
+    </div>
+    <datalist id="prof-list"></datalist>
+  </div>
+  <div class="dlg-foot">
+    <button class="btn danger" type="button" id="m-delete">Remove from roster</button>
+    <span class="spacer"></span>
+    <p class="err" id="m-err" role="alert"></p>
+    <button class="btn" type="button" data-close>Cancel</button>
+    <button class="btn primary" type="button" id="m-save">Save member</button>
+  </div>
+</dialog>
+
+<dialog id="import-dlg" aria-labelledby="import-dlg-h">
+  <div class="dlg-head"><h2 id="import-dlg-h">Paste a roster</h2><button class="btn quiet" type="button" data-close>Close</button></div>
+  <div class="dlg-body">
+    <p class="hint" style="margin-bottom:10px">One character per line, name first. Race, class, level, role, rank, professions with their skill (like “Mining 300”) and honorable kills (like “412 HK”) can follow in any order, separated by commas or spaces. Names already on the roster get their details updated.</p>
+    <textarea class="import-area" id="import-text" aria-label="Roster lines" placeholder="Maren Holt, Dwarf, Paladin, 60, Healer
+Tobin Ashgrove, Human, Warrior, 54, Tank, Officer
+Lysa Dawnreed Night Elf Druid 38 alt"></textarea>
+    <div id="import-preview"></div>
+  </div>
+  <div class="dlg-foot">
+    <span class="spacer"></span>
+    <p class="err" id="import-err" role="alert"></p>
+    <button class="btn" type="button" data-close>Cancel</button>
+    <button class="btn primary" type="button" id="import-go">Read lines</button>
+  </div>
+</dialog>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- Game reference (WoW: Forever launch) ---------- */
+  const CLASSES = [
+    { id: "Warrior", color: "#C69B6D" }, { id: "Paladin", color: "#F48CBA" },
+    { id: "Hunter", color: "#AAD372" }, { id: "Rogue", color: "#FFF468" },
+    { id: "Priest", color: "#FFFFFF" }, { id: "Shaman", color: "#0070DD" },
+    { id: "Mage", color: "#3FC7EB" }, { id: "Warlock", color: "#8788EE" },
+    { id: "Druid", color: "#FF7C0A" }
+  ];
+  const CLASS_COLOR = Object.fromEntries(CLASSES.map(c => [c.id, c.color]));
+  const RACES = [
+    { id: "Human", faction: "alliance", classes: ["Warrior","Paladin","Hunter","Rogue","Priest","Mage","Warlock"] },
+    { id: "Dwarf", faction: "alliance", classes: ["Warrior","Paladin","Hunter","Rogue","Priest","Shaman"] },
+    { id: "Night Elf", faction: "alliance", classes: ["Warrior","Hunter","Rogue","Priest","Druid"] },
+    { id: "Gnome", faction: "alliance", classes: ["Warrior","Rogue","Priest","Mage","Warlock"] },
+    { id: "High Order Skyborne", faction: "alliance", classes: ["Warrior","Hunter","Rogue","Mage","Druid"] },
+    { id: "Orc", faction: "horde", classes: ["Warrior","Hunter","Rogue","Shaman","Mage","Warlock"] },
+    { id: "Undead", faction: "horde", classes: ["Warrior","Paladin","Rogue","Priest","Mage","Warlock"] },
+    { id: "Tauren", faction: "horde", classes: ["Warrior","Hunter","Shaman","Druid"] },
+    { id: "Troll", faction: "horde", classes: ["Warrior","Hunter","Rogue","Priest","Shaman","Mage","Warlock"] },
+    { id: "Windshaper Skyborne", faction: "horde", classes: ["Warrior","Hunter","Rogue","Shaman","Druid"] }
+  ];
+  const raceInfo = id => RACES.find(r => r.id === id);
+  const ROLES = ["Tank", "Healer", "Damage"];
+  const RANKS = ["Guild Master", "Officer", "Veteran", "Member", "Recruit"];
+  const PRIMARY_PROFS = ["Alchemy","Blacksmithing","Enchanting","Engineering","Herbalism","Leatherworking","Mining","Skinning","Tailoring"];
+  const PROFESSIONS = PRIMARY_PROFS.concat(["Cooking","First Aid","Fishing"]);
+  const RAIDS = [
+    { name: "Barrow Deeps", size: 10 },
+    { name: "Hyjal Summit", size: 20 },
+    { name: "Onyxia’s Lair", size: 40 }
+  ];
+  const RAID_DAY = new Date(2026, 11, 9);
+  const LEVEL_BUCKETS = [[1,9,"1–9"],[10,19,"10–19"],[20,29,"20–29"],[30,39,"30–39"],[40,49,"40–49"],[50,59,"50–59"],[60,60,"60"]];
+
+  const SAMPLE = [
+    ["Maren","Holt","Dwarf","Paladin",60,"Healer","Guild Master",false,"Mining",300,"Blacksmithing",290,412,"Warden of the Stry Gate"],
+    ["Tobin","Ashgrove","Human","Warrior",60,"Tank","Officer",false,"Mining",275,"Engineering",260,803,"Shieldbearer"],
+    ["Lysa","Dawnreed","Night Elf","Druid",60,"Healer","Officer",false,"Herbalism",300,"Alchemy",300,155,"Keeper of the Grove"],
+    ["Edda","Coldbrook","Gnome","Mage",60,"Damage","Veteran",false,"Tailoring",300,"Enchanting",285,1290,""],
+    ["Corran","Vale","Human","Hunter",58,"Damage","Member",false,"Skinning",240,"Leatherworking",230,640,"Outrider"],
+    ["Sefa","Windmere","High Order Skyborne","Mage",57,"Damage","Member",false,"Tailoring",225,"Enchanting",210,98,"Cloudscribe"],
+    ["Bram","Ironvein","Dwarf","Shaman",55,"Healer","Member",false,"Mining",250,"Engineering",220,277,""],
+    ["Ilsa","Marrow","Human","Rogue",60,"Damage","Veteran",false,"Skinning",300,"Leatherworking",280,2104,"Knife of the Watch"],
+    ["Doran","Pike","Gnome","Priest",44,"Healer","Member",false,"Herbalism",200,"Alchemy",180,12,""],
+    ["Hale","Brightwater","Human","Paladin",52,"Tank","Member",false,"Mining",210,"Blacksmithing",205,301,"Squire Errant"],
+    ["Nym","Thistle","Night Elf","Hunter",39,"Damage","Recruit",false,"Skinning",160,"",0,40,""],
+    ["Ostra","Fen","High Order Skyborne","Druid",33,"Tank","Recruit",false,"Herbalism",140,"",0,0,"Gale-touched"],
+    ["Gisla","Holt","Dwarf","Priest",27,"Healer","Member",true,"Cooking",150,"First Aid",150,0,""],
+    ["Varn","Kettle","Gnome","Warlock",60,"Damage","Member",false,"Tailoring",300,"Enchanting",300,987,"Ash-scholar"],
+    ["Mira","Stone","Human","Mage",18,"Damage","Member",true,"Tailoring",90,"",0,0,""],
+    ["Pell","Ashgrove","Human","Warrior",11,"Tank","Member",true,"",0,"",0,0,""]
+  ].map((r, i) => ({
+    id: "sample-" + i, first: r[0], last: r[1], race: r[2], cls: r[3], level: r[4], role: r[5], rank: r[6], alt: r[7],
+    prof1: r[8], skill1: r[9] || null, prof2: r[10], skill2: r[11] || null, hks: r[12], title: r[13], notes: ""
+  }));
+
+  /* ---------- State ---------- */
+  const state = {
+    members: [], loaded: false, slow: false, error: null,
+    noDb: false, readOnly: false, canWrite: null, preview: false,
+    motto: "", editingMotto: false,
+    sort: { key: "level", dir: "desc" },
+    filter: { q: "", cls: "", role: "", mainsOnly: false }
+  };
+  let db = null;
+  let editingId = null;
+  let pendingImport = null;
+
+  const fmt = new Intl.NumberFormat("en");
+  const $ = id => document.getElementById(id);
+  function h(tag, attrs, ...kids) {
+    const el = document.createElement(tag);
+    if (attrs) for (const [k, v] of Object.entries(attrs)) {
+      if (v == null || v === false) continue;
+      if (k === "class") el.className = v;
+      else if (k === "text") el.textContent = v;
+      else if (k.startsWith("on")) el.addEventListener(k.slice(2), v);
+      else el.setAttribute(k, v === true ? "" : String(v));
+    }
+    for (const kid of kids.flat()) {
+      if (kid == null || kid === false) continue;
+      el.append(kid instanceof Node ? kid : document.createTextNode(String(kid)));
+    }
+    return el;
+  }
+  const str = v => (v == null ? "" : String(v));
+  const num = v => { const n = Number(v); return Number.isFinite(n) ? n : 0; };
+  const lvl = m => { const n = Math.round(num(m.level)); return n >= 1 && n <= 60 ? n : 0; };
+  const fullName = m => [str(m.first).trim(), str(m.last).trim()].filter(Boolean).join(" ") || "Unnamed";
+  const classColor = c => CLASS_COLOR[c] || "transparent";
+  const list = () => (state.preview ? SAMPLE : state.members);
+  const canChange = () => !state.preview && !!db && !state.readOnly && state.canWrite !== false;
+  const plural = (n, one, many) => fmt.format(n) + " " + (n === 1 ? one : many);
+  function swatch(cls) { return h("span", { class: "swatch", style: "background:" + classColor(cls), "aria-hidden": "true" }); }
+
+  /* ---------- Rendering ---------- */
+  function render() {
+    renderFaction(); renderStatus(); renderHero(); renderRaids();
+    renderMakeup(); renderBoards(); renderRoster();
+  }
+
+  function guildFaction(ms) {
+    let a = 0, hd = 0;
+    for (const m of ms) { const r = raceInfo(m.race); if (r) r.faction === "alliance" ? a++ : hd++; }
+    return a > hd ? "alliance" : hd > a ? "horde" : "";
+  }
+  function renderFaction() {
+    const f = guildFaction(list());
+    document.documentElement.setAttribute("data-faction", f || "none");
+    $("sub").textContent = "World of Warcraft: Forever, RP-PvP ruleset" + (f ? ", " + (f === "alliance" ? "Alliance" : "Horde") : "");
+  }
+
+  function renderStatus() {
+    const el = $("status"); el.replaceChildren();
+    if (state.preview) {
+      el.append(h("span", { text: "You’re looking at an example roster. Nothing here is saved." }),
+        h("button", { class: "btn", type: "button", onclick: () => { state.preview = false; render(); } }, "Back to your roster"));
+      return;
+    }
+    if (state.noDb) { el.textContent = "Saving isn’t available in this view. Open the page on claude.ai while signed in to keep a shared roster."; return; }
+    if (state.error) { el.textContent = "The roster stopped updating. Reload the page to reconnect."; return; }
+    if (state.slow) {
+      el.textContent = state.loaded ? "Showing the last saved copy. It may be out of date until the connection returns."
+        : "The roster can’t be reached yet. It will appear as soon as the connection returns.";
+      return;
+    }
+    if (!state.loaded) { el.textContent = "Loading the roster…"; return; }
+    if (state.readOnly || state.canWrite === false) { el.textContent = "You can view this roster. Only Contributors and Editors can change it."; }
+  }
+
+  function renderHero() {
+    const ms = list();
+    const leveled = ms.filter(m => lvl(m) > 0);
+    const at60 = ms.filter(m => lvl(m) >= 60).length;
+    const avg = leveled.length ? Math.round(leveled.reduce((s, m) => s + lvl(m), 0) / leveled.length) : null;
+    const hks = ms.reduce((s, m) => s + num(m.hks), 0);
+    const tally = $("tally"); tally.replaceChildren();
+    [[fmt.format(ms.length), ms.length === 1 ? "character" : "characters"],
+     [fmt.format(at60), "at level 60"],
+     [avg == null ? "–" : String(avg), "average level"],
+     [fmt.format(hks), "honorable kills"]].forEach(([v, l]) => tally.append(h("div", null, h("dt", { text: l }), h("dd", { text: v }))));
+
+    const motto = $("motto"); motto.replaceChildren();
+    const text = state.preview ? "We hold the gate so others may sleep." : state.motto;
+    if (state.editingMotto && canChange()) {
+      const input = h("input", { type: "text", maxlength: "120", value: state.motto, "aria-label": "Guild motto" });
+      const err = h("span", { class: "err", role: "alert" });
+      const save = async () => {
+        try {
+          await withRetry(() => db.doc("guild/info").set({ motto: input.value.trim().slice(0, 120), updatedAt: new Date().toISOString() }));
+          state.editingMotto = false; renderHero();
+        } catch (e) { writeError(e, msg => { err.textContent = msg; }); }
+      };
+      input.addEventListener("keydown", e => { if (e.key === "Enter") save(); if (e.key === "Escape") { state.editingMotto = false; renderHero(); } });
+      motto.append(input,
+        h("button", { class: "btn primary", type: "button", onclick: save }, "Save motto"),
+        h("button", { class: "btn", type: "button", onclick: () => { state.editingMotto = false; renderHero(); } }, "Cancel"), err);
+      setTimeout(() => input.focus(), 0);
+      return;
+    }
+    if (text) motto.append(h("q", { text }));
+    if (canChange()) motto.append(h("button", { class: "btn quiet", type: "button", onclick: () => { state.editingMotto = true; renderHero(); } }, text ? "Edit motto" : "Add a guild motto"));
+  }
+
+  function renderRaids() {
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const days = Math.round((RAID_DAY - today) / 86400000);
+    const dayName = RAID_DAY.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
+    $("raid-countdown").textContent =
+      days > 1 ? "The first raids open on " + dayName + ", in " + days + " days. Counting mains at level 60, alts left out." :
+      days === 1 ? "The first raids open tomorrow, " + dayName + ". Counting mains at level 60, alts left out." :
+      days === 0 ? "The first raids open today. Counting mains at level 60, alts left out." :
+      "Raids are open. Counting mains at level 60, alts left out.";
+
+    const ready = list().filter(m => !m.alt && lvl(m) >= 60);
+    const rc = { Tank: 0, Healer: 0, Damage: 0, none: 0 };
+    ready.forEach(m => { ROLES.includes(m.role) ? rc[m.role]++ : rc.none++; });
+    const box = $("raid-list"); box.replaceChildren();
+    RAIDS.forEach(r => {
+      const n = ready.length, pct = Math.min(100, Math.round(n / r.size * 100));
+      const note = h("p", { class: "raid-note" },
+        h("b", { text: fmt.format(n) + " of " + r.size }), " mains at level 60. ",
+        n >= r.size ? "Enough for a full group." : plural(r.size - n, "more needed.", "more needed."));
+      box.append(h("div", { class: "raid" },
+        h("div", null, h("div", { class: "raid-name", text: r.name }), h("div", { class: "raid-size", text: r.size + " players" })),
+        h("div", null,
+          h("div", { class: "track", role: "img", "aria-label": n + " of " + r.size + " ready" }, h("div", { class: "fill", style: "width:" + pct + "%" })),
+          note)));
+    });
+    box.append(h("p", { class: "raid-note", style: "margin-top:12px" },
+      "Among them: ", h("b", { text: plural(rc.Tank, "tank", "tanks") }), ", ",
+      h("b", { text: plural(rc.Healer, "healer", "healers") }), ", ",
+      h("b", { text: fmt.format(rc.Damage) + " damage" }),
+      rc.none ? ", and " + plural(rc.none, "without a role set", "without a role set") : "", "."));
+  }
+
+  function renderMakeup() {
+    const ms = list(), total = ms.length;
+    // Classes
+    const counts = Object.fromEntries(CLASSES.map(c => [c.id, 0]));
+    ms.forEach(m => { if (m.cls in counts) counts[m.cls]++; });
+    const known = Object.values(counts).reduce((a, b) => a + b, 0);
+    const stack = h("div", { class: "stack", role: "img", "aria-label": "Class makeup" });
+    CLASSES.forEach(c => { if (counts[c.id]) stack.append(h("span", { style: "width:" + (counts[c.id] / known * 100) + "%;background:" + c.color, title: c.id + ": " + counts[c.id] })); });
+    const legend = h("ul", { class: "legend" });
+    CLASSES.forEach(c => legend.append(h("li", { class: counts[c.id] ? "" : "zero" }, swatch(c.id), h("span", { text: c.id }), h("span", { class: "count", text: String(counts[c.id]) }))));
+    $("class-chart").replaceChildren(known ? stack : h("p", { class: "empty-note", text: "No classes set yet." }), legend);
+
+    // Roles
+    const roleCounts = ROLES.map(r => [r, ms.filter(m => m.role === r).length]);
+    const none = total - roleCounts.reduce((s, [, n]) => s + n, 0);
+    if (none) roleCounts.push(["Not set", none]);
+    const max = Math.max(1, ...roleCounts.map(([, n]) => n));
+    const rows = h("ul", { class: "rows" });
+    roleCounts.forEach(([r, n]) => rows.append(h("li", null, h("span", { text: r }),
+      h("div", { class: "track" }, h("div", { class: "fill", style: "width:" + (n / max * 100) + "%" + (n ? "" : ";box-shadow:none") })),
+      h("span", { class: "n", text: String(n) }))));
+    $("role-chart").replaceChildren(rows);
+
+    // Levels
+    const b = LEVEL_BUCKETS.map(([lo, hi]) => ms.filter(m => lvl(m) >= lo && lvl(m) <= hi).length);
+    const bmax = Math.max(1, ...b);
+    const hist = h("div", { class: "hist", role: "img", "aria-label": "Characters by level range" });
+    b.forEach(n => hist.append(h("div", { class: "col" }, h("div", { class: "v", text: String(n) }),
+      h("div", { class: "bar" + (n ? "" : " empty"), style: "height:" + Math.max(2, n / bmax * 112) + "px" }))));
+    const labels = h("div", { class: "hist-labels", "aria-hidden": "true" });
+    LEVEL_BUCKETS.forEach(([, , l]) => labels.append(h("span", { text: l })));
+    $("level-chart").replaceChildren(hist, labels);
+  }
+
+  function renderBoards() {
+    const ms = list();
+    const top = ms.filter(m => num(m.hks) > 0).sort((a, b) => num(b.hks) - num(a.hks)).slice(0, 5);
+    if (!top.length) $("honor-board").replaceChildren(h("p", { class: "empty-note", text: "No honorable kills logged yet. Add them on each member’s card." }));
+    else {
+      const ol = h("ol", { class: "board" });
+      top.forEach((m, i) => ol.append(h("li", null, h("span", { class: "pos", text: String(i + 1) }),
+        h("span", { class: "who" }, swatch(m.cls), h("span", { text: fullName(m) })),
+        h("span", { class: "val", text: fmt.format(num(m.hks)) }))));
+      $("honor-board").replaceChildren(ol);
+    }
+
+    const best = {};
+    ms.forEach(m => [[m.prof1, m.skill1], [m.prof2, m.skill2]].forEach(([p, s]) => {
+      p = str(p).trim(); if (!p) return;
+      const key = p.toLowerCase();
+      if (!best[key] || num(s) > num(best[key].skill)) best[key] = { prof: p, skill: num(s), m };
+    }));
+    const entries = Object.values(best).sort((a, b) => a.prof.localeCompare(b.prof));
+    const missing = PRIMARY_PROFS.filter(p => !best[p.toLowerCase()]);
+    const box = $("craft-board"); box.replaceChildren();
+    if (!entries.length) box.append(h("p", { class: "empty-note", text: "No professions logged yet." }));
+    else {
+      const ul = h("ul", { class: "board crafts" });
+      entries.forEach(e => ul.append(h("li", null,
+        h("span", { class: "who" }, h("span", null, h("b", { text: e.prof }), " ", h("span", { class: "small", text: fullName(e.m) }))),
+        h("span", { class: "val", text: e.skill ? String(e.skill) : "–" }))));
+      box.append(ul);
+    }
+    if (missing.length && ms.length) box.append(h("p", { class: "small", style: "margin:12px 0 0", text: "Nobody has " + joinWords(missing) + " yet." }));
+  }
+  function joinWords(a) { return a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + " or " + a[a.length - 1]; }
+
+  const SORTS = {
+    name: m => fullName(m).toLowerCase(),
+    level: m => lvl(m),
+    cls: m => str(m.cls) || "\uFFFF",
+    race: m => str(m.race) || "\uFFFF",
+    role: m => { const i = ROLES.indexOf(m.role); return i < 0 ? 9 : i; },
+    rank: m => { const i = RANKS.indexOf(m.rank); return i < 0 ? 9 : i; },
+    hks: m => num(m.hks)
+  };
+  const COLS = [
+    ["name", "Name"], ["level", "Level", "num"], ["cls", "Class"], ["race", "Race"],
+    ["role", "Role"], ["rank", "Rank"], [null, "Professions"], ["hks", "Honorable kills", "num"]
+  ];
+
+  function renderRoster() {
+    const writable = canChange();
+    $("btn-add").hidden = !writable; $("btn-import").hidden = !writable;
+    const all = list();
+    const body = $("roster-body");
+    $("toolbar").hidden = !all.length;
+
+    if (!all.length) {
+      if (!state.loaded && !state.noDb && !state.preview) { body.replaceChildren(); return; }
+      const wrap = h("div", { class: "panel empty-roster" },
+        h("p", { text: writable ? "The roster is empty. Add members one at a time, or paste a list of names with their race, class and level." : "Nobody has been added to the roster yet." }));
+      const actions = h("div", { class: "actions" });
+      if (writable) actions.append(
+        h("button", { class: "btn primary", type: "button", onclick: () => openMember(null) }, "Add member"),
+        h("button", { class: "btn", type: "button", onclick: openImport }, "Paste a roster"));
+      actions.append(h("button", { class: "btn", type: "button", onclick: () => { state.preview = true; render(); } }, "See an example roster"));
+      wrap.append(actions);
+      body.replaceChildren(wrap);
+      return;
+    }
+
+    const f = state.filter, q = f.q.trim().toLowerCase();
+    let rows = all.filter(m =>
+      (!f.cls || m.cls === f.cls) &&
+      (!f.role || (f.role === "none" ? !ROLES.includes(m.role) : m.role === f.role)) &&
+      (!f.mainsOnly || !m.alt) &&
+      (!q || [fullName(m), m.title, m.notes, m.race, m.cls, m.prof1, m.prof2, m.rank].map(str).join(" ").toLowerCase().includes(q)));
+    const key = SORTS[state.sort.key] || SORTS.level, dir = state.sort.dir === "asc" ? 1 : -1;
+    rows.sort((a, b) => {
+      const x = key(a), y = key(b);
+      const c = typeof x === "number" ? x - y : String(x).localeCompare(String(y));
+      return c ? c * dir : fullName(a).localeCompare(fullName(b));
+    });
+
+    const thead = h("tr");
+    COLS.forEach(([k, label, cls]) => {
+      const th = h("th", { class: cls || null, scope: "col" });
+      if (k) {
+        th.setAttribute("aria-sort", state.sort.key === k ? (state.sort.dir === "asc" ? "ascending" : "descending") : "none");
+        th.append(h("button", { type: "button", onclick: () => {
+          if (state.sort.key === k) state.sort.dir = state.sort.dir === "asc" ? "desc" : "asc";
+          else { state.sort.key = k; state.sort.dir = (k === "level" || k === "hks") ? "desc" : "asc"; }
+          renderRoster();
+        } }, label));
+      } else th.append(h("span", { style: "display:block;padding:10px 12px", text: label }));
+      thead.append(th);
+    });
+    const tbody = h("tbody");
+    rows.forEach(m => {
+      const profs = [[m.prof1, m.skill1], [m.prof2, m.skill2]].filter(([p]) => str(p).trim())
+        .map(([p, s]) => str(p).trim() + (num(s) ? " " + num(s) : "")).join(", ");
+      tbody.append(h("tr", null,
+        h("td", { class: "name", style: "box-shadow: inset 4px 0 0 " + classColor(m.cls) },
+          h("button", { class: "name-btn", type: "button", onclick: () => openMember(m) }, fullName(m)),
+          m.alt ? h("span", { class: "tag", text: "alt" }) : null,
+          str(m.title) ? h("span", { class: "title-line", text: str(m.title) }) : null),
+        h("td", { class: "num", text: lvl(m) ? String(lvl(m)) : "–" }),
+        h("td", null, m.cls ? h("span", { class: "cls" }, swatch(m.cls), str(m.cls)) : h("span", { class: "dash", text: "–" })),
+        h("td", { text: str(m.race) || "–" }),
+        h("td", { text: str(m.role) || "–" }),
+        h("td", { text: str(m.rank) || "–" }),
+        h("td", { text: profs || "–" }),
+        h("td", { class: "num", text: num(m.hks) ? fmt.format(num(m.hks)) : "–" })));
+    });
+    if (!rows.length) tbody.append(h("tr", null, h("td", { colspan: String(COLS.length), class: "dash", text: "No members match these filters." })));
+    body.replaceChildren(h("div", { class: "table-scroll" }, h("table", null, h("thead", null, thead), tbody)));
+    $("roster-lede").textContent = (rows.length === all.length ? plural(all.length, "character", "characters") : rows.length + " of " + plural(all.length, "character", "characters")) +
+      ". Select a name to " + (writable ? "see or change their details." : "see their details.");
+  }
+
+  /* ---------- Member dialog ---------- */
+  const mdlg = $("member-dlg");
+  function fillSelects() {
+    const race = $("m-race"); race.append(h("option", { value: "" }, "Not set"));
+    [["Alliance", "alliance"], ["Horde", "horde"]].forEach(([label, f]) => {
+      const g = h("optgroup", { label });
+      RACES.filter(r => r.faction === f).forEach(r => g.append(h("option", { value: r.id }, r.id)));
+      race.append(g);
+    });
+    const cls = $("m-class"); cls.append(h("option", { value: "" }, "Not set"));
+    CLASSES.forEach(c => { cls.append(h("option", { value: c.id }, c.id)); $("f-class").append(h("option", { value: c.id }, c.id)); });
+    const role = $("m-role"); role.append(h("option", { value: "" }, "Not set"));
+    ROLES.forEach(r => { role.append(h("option", { value: r }, r)); $("f-role").append(h("option", { value: r }, r)); });
+    $("f-role").append(h("option", { value: "none" }, "No role set"));
+    const rank = $("m-rank"); RANKS.forEach(r => rank.append(h("option", { value: r }, r)));
+    const dl = $("prof-list"); PROFESSIONS.forEach(p => dl.append(h("option", { value: p })));
+  }
+  function comboNote() {
+    const r = raceInfo($("m-race").value), c = $("m-class").value, el = $("combo-note");
+    if (r && c && !r.classes.includes(c)) { el.textContent = r.id + " can’t be a " + c + " at launch. Keep it if your guild plays it differently."; el.style.display = ""; }
+    else el.style.display = "none";
+  }
+  function openMember(m) {
+    editingId = m && !state.preview ? m.id : null;
+    const writable = canChange();
+    $("member-dlg-h").textContent = m ? fullName(m) : "Add member";
+    const v = (id, val) => { $(id).value = val == null ? "" : String(val); };
+    v("m-first", m && m.first); v("m-last", m && m.last); v("m-title", m && m.title);
+    v("m-race", m && raceInfo(m.race) ? m.race : ""); v("m-class", m && CLASS_COLOR[m.cls] ? m.cls : "");
+    v("m-level", m && lvl(m) ? lvl(m) : ""); v("m-role", m && ROLES.includes(m.role) ? m.role : "");
+    v("m-rank", m && RANKS.includes(m.rank) ? m.rank : "Member");
+    $("m-alt").checked = !!(m && m.alt);
+    v("m-p1", m && m.prof1); v("m-s1", m && num(m.skill1) ? num(m.skill1) : "");
+    v("m-p2", m && m.prof2); v("m-s2", m && num(m.skill2) ? num(m.skill2) : "");
+    v("m-hks", m && num(m.hks) ? num(m.hks) : ""); v("m-notes", m && m.notes);
+    mdlg.querySelectorAll("input, select, textarea").forEach(el => { el.disabled = !writable; });
+    $("m-save").hidden = !writable; $("m-delete").hidden = !writable || !editingId;
+    $("m-save").textContent = editingId ? "Save changes" : "Add member";
+    disarmDelete(); $("m-err").textContent = ""; comboNote();
+    mdlg.showModal();
+    if (writable) $("m-first").focus();
+  }
+  function readForm() {
+    const int = (id, lo, hi) => { const raw = $(id).value.trim(); if (!raw) return null; const n = Math.round(Number(raw)); return Number.isFinite(n) ? Math.min(hi, Math.max(lo, n)) : null; };
+    return {
+      first: $("m-first").value.trim().slice(0, 40), last: $("m-last").value.trim().slice(0, 40),
+      title: $("m-title").value.trim().slice(0, 80),
+      race: $("m-race").value, cls: $("m-class").value, level: int("m-level", 1, 60),
+      role: $("m-role").value, rank: $("m-rank").value, alt: $("m-alt").checked,
+      prof1: $("m-p1").value.trim().slice(0, 30), skill1: int("m-s1", 0, 999),
+      prof2: $("m-p2").value.trim().slice(0, 30), skill2: int("m-s2", 0, 999),
+      hks: int("m-hks", 0, 9999999), notes: $("m-notes").value.trim().slice(0, 2000),
+      updatedAt: new Date().toISOString()
+    };
+  }
+  async function saveMember() {
+    const rec = readForm();
+    if (!rec.first) { $("m-err").textContent = "Add a first name."; $("m-first").focus(); return; }
+    setBusy(true);
+    try {
+      const ref = editingId ? db.doc("members/" + editingId) : db.collection("members").doc();
+      await withRetry(() => ref.set(rec));
+      mdlg.close();
+    } catch (e) { writeError(e, msg => { $("m-err").textContent = msg; }); }
+    finally { setBusy(false); }
+  }
+  function disarmDelete() { const b = $("m-delete"); b.classList.remove("armed"); b.textContent = "Remove from roster"; }
+  async function deleteMember() {
+    const b = $("m-delete");
+    if (!b.classList.contains("armed")) { b.classList.add("armed"); b.textContent = "Remove for good"; return; }
+    setBusy(true);
+    try { await withRetry(() => db.doc("members/" + editingId).delete()); mdlg.close(); }
+    catch (e) { writeError(e, msg => { $("m-err").textContent = msg; }); }
+    finally { setBusy(false); disarmDelete(); }
+  }
+  function setBusy(on) { ["m-save", "m-delete"].forEach(id => { $(id).disabled = on; }); }
+
+  /* ---------- Writes ---------- */
+  async function withRetry(fn) {
+    try { return await fn(); }
+    catch (e) {
+      if (e && e.code === "unavailable") { await new Promise(r => setTimeout(r, 400 + Math.random() * 600)); return fn(); }
+      throw e;
+    }
+  }
+  function writeError(e, show) {
+    const code = e && e.code;
+    if (code === "invalid_argument" && state.canWrite !== true) {
+      state.readOnly = true; show("You can view this roster but not change it. Ask the owner to make you a Contributor."); render();
+    } else if (code === "quota_exceeded") show("The roster is full. Remove some members before adding more.");
+    else if (code === "resource_exhausted") show("Too many changes at once. Wait a moment and try again.");
+    else show("That change wasn’t saved. Check your connection and try again.");
+  }
+
+  /* ---------- Paste a roster ---------- */
+  const idlg = $("import-dlg");
+  const ALIAS = { race: {}, cls: {}, role: {}, rank: {} };
+  const add = (map, val, ...keys) => keys.forEach(k => { map[k] = val; });
+  add(ALIAS.race, "Human", "human", "humans"); add(ALIAS.race, "Dwarf", "dwarf", "dwarves", "dwarfs");
+  add(ALIAS.race, "Night Elf", "night elf", "nightelf", "nelf", "night-elf"); add(ALIAS.race, "Gnome", "gnome", "gnomes");
+  add(ALIAS.race, "High Order Skyborne", "high order skyborne", "high order", "highorder", "high-order");
+  add(ALIAS.race, "Orc", "orc", "orcs"); add(ALIAS.race, "Undead", "undead", "forsaken");
+  add(ALIAS.race, "Tauren", "tauren"); add(ALIAS.race, "Troll", "troll", "trolls");
+  add(ALIAS.race, "Windshaper Skyborne", "windshaper skyborne", "windshaper", "windshapers");
+  add(ALIAS.race, "", "skyborne");
+  CLASSES.forEach(c => add(ALIAS.cls, c.id, c.id.toLowerCase(), c.id.toLowerCase() + "s"));
+  add(ALIAS.cls, "Paladin", "pally", "pala"); add(ALIAS.cls, "Warlock", "lock"); add(ALIAS.cls, "Warrior", "warr");
+  add(ALIAS.cls, "Shaman", "sham", "shammy");
+  add(ALIAS.role, "Tank", "tank"); add(ALIAS.role, "Healer", "healer", "heal", "heals", "healing");
+  add(ALIAS.role, "Damage", "dps", "damage", "dd");
+  add(ALIAS.rank, "Guild Master", "guild master", "guildmaster", "gm"); add(ALIAS.rank, "Officer", "officer");
+  add(ALIAS.rank, "Veteran", "veteran"); add(ALIAS.rank, "Member", "member"); add(ALIAS.rank, "Recruit", "recruit", "initiate");
+  const PROF_ALIAS = {};
+  PROFESSIONS.forEach(p => { PROF_ALIAS[p.toLowerCase()] = p; PROF_ALIAS[p.toLowerCase().replace(/\s+/g, "")] = p; });
+  const HK_WORDS = ["hk", "hks", "kills"];
+  const has = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
+
+  function matchAt(words, i) {
+    const lead = str(words[i]).toLowerCase().replace(/[.:()]/g, "");
+    if (/^\d{1,7}$/.test(lead) && HK_WORDS.includes(str(words[i + 1]).toLowerCase())) return { field: "hks", value: Number(lead), len: 2 };
+    for (const len of [3, 2, 1]) {
+      if (i + len > words.length) continue;
+      const phrase = words.slice(i, i + len).join(" ").toLowerCase().replace(/[.:()]/g, "");
+      for (const field of ["race", "cls", "role", "rank"]) if (has(ALIAS[field], phrase)) return { field, value: ALIAS[field][phrase], len };
+      if (has(PROF_ALIAS, phrase)) {
+        const after = str(words[i + len]);
+        if (/^\d{1,3}$/.test(after)) return { field: "prof", value: { name: PROF_ALIAS[phrase], skill: Number(after) }, len: len + 1 };
+        return { field: "prof", value: { name: PROF_ALIAS[phrase], skill: null }, len };
+      }
+      if (len === 1) {
+        if (/^(?:lvl|level|l)?\d{1,2}$/.test(phrase)) { const n = Number(phrase.replace(/\D/g, "")); if (n >= 1 && n <= 60) return { field: "level", value: n, len }; }
+        if (phrase === "alt") return { field: "alt", value: true, len };
+        if (phrase === "main") return { field: "alt", value: false, len };
+        if (phrase === "lvl" || phrase === "level") return { field: "skip", len };
+      }
+    }
+    return null;
+  }
+  function parseLine(line) {
+    const parts = line.split(/[,\t;|]/).map(s => s.trim()).filter(Boolean);
+    if (!parts.length) return null;
+    let nameWords, rest;
+    if (parts.length > 1) { nameWords = parts[0].split(/\s+/); rest = parts.slice(1).join(" ").split(/\s+/); }
+    else {
+      const w = parts[0].split(/\s+/); let i = 0; nameWords = [];
+      while (i < w.length && !matchAt(w, i)) nameWords.push(w[i++]);
+      rest = w.slice(i);
+    }
+    nameWords = nameWords.filter(Boolean);
+    if (!nameWords.length || /^(name|character|char)$/i.test(nameWords[0])) return null;
+    const out = { first: nameWords[0].slice(0, 40), last: nameWords.slice(1).join(" ").slice(0, 40) };
+    for (let i = 0; i < rest.length;) {
+      const m = matchAt(rest, i);
+      if (m) {
+        if (m.field === "prof") (out.profs = out.profs || []).push(m.value);
+        else if (m.field !== "skip" && !(m.field === "race" && !m.value)) out[m.field] = m.value;
+        i += m.len;
+      } else i++;
+    }
+    if (out.profs) {
+      const [a, b] = out.profs;
+      out.prof1 = a.name; out.skill1 = a.skill; out.prof2 = b ? b.name : ""; out.skill2 = b ? b.skill : null;
+      delete out.profs;
+    }
+    return out;
+  }
+  function openImport() {
+    pendingImport = null; $("import-text").value = ""; $("import-preview").replaceChildren(); $("import-err").textContent = "";
+    $("import-go").textContent = "Read lines"; $("import-go").disabled = false; $("import-text").disabled = false;
+    idlg.showModal(); $("import-text").focus();
+  }
+  function keyOf(m) { return fullName(m).toLowerCase(); }
+  function readImport() {
+    const lines = $("import-text").value.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+    if (!lines.length) { $("import-err").textContent = "Paste at least one line."; return; }
+    const existing = new Map(state.members.map(m => [keyOf(m), m]));
+    const rows = [], skipped = [];
+    lines.slice(0, 300).forEach(l => { const r = parseLine(l); r ? rows.push(r) : skipped.push(l); });
+    const seen = new Set();
+    pendingImport = rows.filter(r => { const k = keyOf(r); if (seen.has(k)) return false; seen.add(k); return true; })
+      .map(r => ({ row: r, match: existing.get(keyOf(r)) || null }));
+    const ul = h("ul", { class: "preview-list" });
+    pendingImport.forEach(({ row, match }) => ul.append(h("li", null,
+      row.cls ? swatch(row.cls) : null, h("b", { text: fullName(row) }),
+      h("span", { class: "meta", text: [row.level ? "level " + row.level : "", row.race, row.cls, row.role, row.rank, row.alt ? "alt" : "",
+        row.prof1 ? row.prof1 + (row.skill1 != null ? " " + row.skill1 : "") : "", row.prof2 ? row.prof2 + (row.skill2 != null ? " " + row.skill2 : "") : "",
+        row.hks != null ? fmt.format(row.hks) + " HK" : ""].filter(Boolean).join(", ") || "name only" }),
+      match ? h("span", { class: "tag", text: "updates existing" }) : null)));
+    const news = pendingImport.filter(p => !p.match).length, upd = pendingImport.length - news;
+    const summary = h("p", { class: "hint", style: "margin-top:12px" },
+      [news ? plural(news, "new member", "new members") : "", upd ? plural(upd, "update", "updates") : ""].filter(Boolean).join(" and ") + "." +
+      (skipped.length ? " Skipped " + plural(skipped.length, "line", "lines") + " that didn’t start with a name." : "") +
+      (lines.length > 300 ? " Only the first 300 lines were read." : ""));
+    $("import-preview").replaceChildren(summary, ul);
+    $("import-err").textContent = "";
+    if (pendingImport.length) { $("import-go").textContent = "Add to roster"; $("import-text").disabled = true; }
+  }
+  async function applyImport() {
+    const go = $("import-go"); go.disabled = true;
+    let done = 0;
+    try {
+      for (const { row, match } of pendingImport) {
+        go.textContent = "Saving " + (done + 1) + " of " + pendingImport.length + "…";
+        if (match) {
+          const patch = { updatedAt: new Date().toISOString() };
+          ["race", "cls", "level", "role", "rank", "alt", "prof1", "skill1", "prof2", "skill2", "hks"].forEach(k => { if (row[k] !== undefined) patch[k] = row[k]; });
+          await withRetry(() => db.doc("members/" + match.id).update(patch));
+        } else {
+          await withRetry(() => db.collection("members").doc().set({
+            first: row.first, last: row.last || "", title: "", race: row.race || "", cls: row.cls || "",
+            level: row.level || null, role: row.role || "", rank: row.rank || "Member", alt: !!row.alt,
+            prof1: row.prof1 || "", skill1: row.skill1 != null ? row.skill1 : null, prof2: row.prof2 || "", skill2: row.skill2 != null ? row.skill2 : null,
+            hks: row.hks != null ? row.hks : null, notes: "", updatedAt: new Date().toISOString()
+          }));
+        }
+        done++;
+      }
+      idlg.close();
+    } catch (e) {
+      writeError(e, msg => { $("import-err").textContent = (done ? "Saved " + done + " before stopping. " : "") + msg; });
+      go.textContent = "Add to roster"; go.disabled = false;
+      pendingImport = pendingImport.slice(done);
+    }
+  }
+
+  /* ---------- Wiring ---------- */
+  fillSelects();
+  document.querySelectorAll("dialog [data-close]").forEach(b => b.addEventListener("click", () => b.closest("dialog").close()));
+  $("m-race").addEventListener("change", comboNote); $("m-class").addEventListener("change", comboNote);
+  $("m-save").addEventListener("click", saveMember);
+  $("m-delete").addEventListener("click", deleteMember);
+  mdlg.addEventListener("close", disarmDelete);
+  $("btn-add").addEventListener("click", () => openMember(null));
+  $("btn-import").addEventListener("click", openImport);
+  $("import-go").addEventListener("click", () => (pendingImport && pendingImport.length && $("import-text").disabled ? applyImport() : readImport()));
+  $("q").addEventListener("input", e => { state.filter.q = e.target.value; renderRoster(); });
+  $("f-class").addEventListener("change", e => { state.filter.cls = e.target.value; renderRoster(); });
+  $("f-role").addEventListener("change", e => { state.filter.role = e.target.value; renderRoster(); });
+  $("f-mains").addEventListener("change", e => { state.filter.mainsOnly = e.target.checked; renderRoster(); });
+
+  render();
+
+  (async function connect() {
+    const c = window.claude;
+    if (!c || typeof c.use !== "function") { state.noDb = true; state.loaded = true; render(); return; }
+    const [dbNs, user] = await Promise.all([c.use("db"), c.use("user")]);
+    if (!dbNs) { state.noDb = true; state.loaded = true; render(); return; }
+    db = dbNs;
+    if (user) { try { state.canWrite = await user.can("data.write"); } catch (_) { state.canWrite = null; } }
+    let timer = setTimeout(() => { state.slow = true; render(); }, 10000);
+    db.collection("members").onSnapshot(snap => {
+      if (!snap.metadata.fromCache) { clearTimeout(timer); state.slow = false; }
+      state.members = snap.docs.map(d => Object.assign({}, d.data(), { id: d.id }));
+      state.loaded = true; render();
+    }, err => {
+      clearTimeout(timer); state.slow = false; state.loaded = true;
+      state.error = err && err.code === "revoked" ? null : (err && err.code) || "error";
+      if (err && err.code === "revoked") state.readOnly = true;
+      render();
+    });
+    db.doc("guild/info").onSnapshot(s => {
+      const d = s.exists ? s.data() : null;
+      state.motto = d && typeof d.motto === "string" ? d.motto : "";
+      if (!state.editingMotto) renderHero();
+    }, () => {});
+    render();
+  })();
+})();
+</script>
+</body>
+</html>
