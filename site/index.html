@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Stryguard</title>
-<meta name="description" content="The Stryguard guild of World of Warcraft: Forever: roster, raid readiness and a hall of oddities.">
+<meta name="description" content="The Stryguard guild of World of Warcraft: Forever: roster, hall of oddities, trophies and more.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 2h24v28l-12-7-12 7z' fill='%231E3A7B'/%3E%3Cpath d='M7 2v23l9-5 9 5V2' fill='none' stroke='%23C9A227' stroke-width='2'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -69,7 +69,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 64px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body {
   margin: 0; background: var(--bg); color: var(--ink);
-  font-family: var(--body); font-size: 17px; line-height: 1.5;
+  font-family: var(--body); font-size: 19px; line-height: 1.5;
   font-variant-numeric: tabular-nums;
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
@@ -78,7 +78,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 a { color: inherit; }
 
-.wrap { max-width: 1080px; margin: 0 auto; padding: 8px 20px 72px; }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 8px 20px 72px; }
 
 /* ---------- Hero band: the guild's colours, wall to wall ---------- */
 .band {
@@ -91,7 +91,7 @@ a { color: inherit; }
   border-bottom: 3px solid var(--trim);
   padding-top: env(safe-area-inset-top, 0px);
 }
-.band-inner { max-width: 1080px; margin: 0 auto; padding: 0 20px 26px; display: grid; grid-template-columns: auto 1fr; gap: 30px; align-items: start; }
+.band-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px 26px; display: grid; grid-template-columns: auto 1fr; gap: 30px; align-items: start; }
 .banner { width: 128px; height: auto; display: block; filter: drop-shadow(0 10px 12px rgba(0,0,0,.35)); }
 .banner .cloth { transform-origin: 50% 0; transform-box: fill-box; animation: unfurl 1s cubic-bezier(.2,.75,.25,1) both; }
 @keyframes unfurl { from { transform: scaleY(.12); } to { transform: scaleY(1); } }
@@ -106,11 +106,11 @@ h1 {
 .sub { margin: 12px 0 0; color: var(--band-muted); letter-spacing: .02em; }
 .motto { margin: 12px 0 0; }
 .motto:empty { display: none; }
-.motto q { font-style: italic; font-size: 21px; quotes: "“" "”"; }
+.motto q { font-style: italic; font-size: 23px; quotes: "“" "”"; }
 .tally { display: flex; flex-wrap: wrap; gap: 10px 40px; margin: 22px 0 0; padding: 16px 0 0; border-top: 1px solid color-mix(in srgb, var(--trim) 70%, transparent); }
 .tally div { display: flex; flex-direction: column-reverse; }
 .tally dd { margin: 0; font-family: var(--display); font-size: 42px; line-height: 1; font-weight: 500; }
-.tally dt { color: var(--band-muted); font-size: 15px; margin-top: 2px; }
+.tally dt { color: var(--band-muted); font-size: 17px; margin-top: 2px; }
 
 /* ---------- Sticky section bar ---------- */
 .jump {
@@ -119,12 +119,12 @@ h1 {
   -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--rule);
 }
-.jump-inner { max-width: 1080px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 22px; overflow-x: auto; scrollbar-width: none; white-space: nowrap; }
+.jump-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 22px; overflow-x: auto; scrollbar-width: none; white-space: nowrap; }
 .jump-inner::-webkit-scrollbar { display: none; }
-.jump a { display: block; padding: 13px 0 11px; color: var(--muted); text-decoration: none; font-size: 15px; font-weight: 500; border-bottom: 2px solid transparent; }
+.jump a { display: block; padding: 13px 0 11px; color: var(--muted); text-decoration: none; font-size: 17px; font-weight: 500; border-bottom: 2px solid transparent; }
 .jump a:hover { color: var(--ink); border-bottom-color: var(--trim); }
-.jump a.home { font-family: var(--display); font-size: 21px; font-weight: 700; color: var(--ink); padding: 8px 0 6px; border: 0; }
-.live { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); }
+.jump a.home { font-family: var(--display); font-size: 23px; font-weight: 700; color: var(--ink); padding: 8px 0 6px; border: 0; }
+.live { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; font-size: 16px; color: var(--muted); }
 .live::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--live); box-shadow: 0 0 0 3px color-mix(in srgb, var(--live) 25%, transparent); }
 .live.stale::before { background: var(--stale); box-shadow: 0 0 0 3px color-mix(in srgb, var(--stale) 25%, transparent); }
 .live:empty { display: none; }
@@ -136,12 +136,12 @@ h1 {
 /* ---------- Sections ---------- */
 section { margin-top: 64px; }
 h2 {
-  font-family: var(--display); font-weight: 700; font-size: 38px; line-height: 1.05; margin: 0 0 6px;
+  font-family: var(--display); font-weight: 700; font-size: 44px; line-height: 1.05; margin: 0 0 8px;
   display: flex; align-items: center; gap: 16px;
 }
 h2::after { content: ""; flex: 1; height: 1px; min-width: 24px; background: linear-gradient(to right, var(--trim), transparent); }
 .lede { margin: 0 0 20px; color: var(--muted); max-width: 64ch; }
-h3 { font-size: 13px; font-weight: 700; margin: 0 0 12px; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
+h3 { font-size: 15px; font-weight: 700; margin: 0 0 12px; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
 
 .panel { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 18px 20px; box-shadow: var(--shadow); }
 .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
@@ -157,7 +157,7 @@ h3 { font-size: 13px; font-weight: 700; margin: 0 0 12px; letter-spacing: .09em;
 .btn.quiet:hover { color: var(--ink); background: transparent; }
 
 /* ---------- Hall of oddities ---------- */
-.awards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+.awards { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 16px; }
 .award {
   background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; box-shadow: var(--shadow);
   padding: 16px 18px 14px; display: flex; flex-direction: column; gap: 8px; position: relative; overflow: hidden;
@@ -169,73 +169,62 @@ h3 { font-size: 13px; font-weight: 700; margin: 0 0 12px; letter-spacing: .09em;
 }
 .award-head { display: flex; align-items: center; gap: 12px; }
 .seal {
-  flex: none; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font-size: 22px; line-height: 1;
+  flex: none; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; font-size: 24px; line-height: 1;
   background: radial-gradient(circle at 34% 28%, color-mix(in srgb, var(--banner) 65%, white), var(--banner) 70%);
   box-shadow: inset 0 0 0 2px var(--trim), 0 2px 5px rgba(0,0,0,.25);
 }
-.award-title { font-family: var(--display); font-size: 25px; line-height: 1.02; font-weight: 700; }
+.award-title { font-family: var(--display); font-size: 28px; line-height: 1.02; font-weight: 700; }
 .award-feat { line-height: 1.25; }
-.award-feat b { white-space: nowrap; font-family: var(--display); font-size: 30px; font-weight: 500; line-height: 1; color: var(--accent); margin-right: 2px; }
+.award-feat b { white-space: nowrap; font-family: var(--display); font-size: 34px; font-weight: 500; line-height: 1; color: var(--accent); margin-right: 2px; }
 .award-who { font-weight: 700; display: flex; flex-wrap: wrap; align-items: center; gap: 2px 8px; }
 .award-who .winner { white-space: nowrap; }
 .award-who .winner .swatch { margin-right: 4px; vertical-align: -1px; }
-.award-rest { font-size: 14px; color: var(--muted); margin-top: auto; padding-top: 9px; border-top: 1px dashed var(--rule); }
+.award-rest { font-size: 16px; color: var(--muted); margin-top: auto; padding-top: 9px; border-top: 1px dashed var(--rule); }
+
+.shelf + .shelf { margin-top: 40px; }
+.shelf-head { display: flex; align-items: center; gap: 14px; margin: 0 0 16px; }
+.shelf-icon { flex: none; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; font-size: 28px; background: var(--surface); border: 1px solid var(--rule); box-shadow: var(--shadow); }
+.shelf-title { font-family: var(--display); font-size: 32px; font-weight: 700; line-height: 1; margin: 0; letter-spacing: 0; text-transform: none; color: var(--ink); }
+.shelf-blurb { margin: 4px 0 0; color: var(--muted); }
 
 /* ---------- Guild totals ---------- */
-.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin: 0; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin: 0; }
 .tiles div { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; box-shadow: var(--shadow); padding: 14px 16px 12px; display: flex; flex-direction: column-reverse; border-bottom: 3px solid color-mix(in srgb, var(--trim) 70%, transparent); }
 .tiles dd { margin: 0; font-family: var(--display); font-size: 36px; line-height: 1; font-weight: 500; color: var(--accent); }
-.tiles dt { color: var(--muted); font-size: 15px; margin-top: 5px; line-height: 1.25; }
+.tiles dt { color: var(--muted); font-size: 17px; margin-top: 5px; line-height: 1.25; }
 
-/* ---------- Raid readiness ---------- */
-.road-wrap { margin-bottom: 8px; }
-.road { position: relative; margin: 6px 8px 0; }
-.road-line { position: absolute; left: 0; right: 0; bottom: 22px; height: 6px; border-radius: 3px; background: var(--track); }
-.road-line::after { content: ""; position: absolute; right: -2px; top: -7px; width: 4px; height: 20px; border-radius: 2px; background: var(--trim); }
-.road-tick { position: absolute; bottom: 0; transform: translateX(-50%); font-size: 12px; color: var(--muted); }
-.road-tick:last-of-type { transform: translateX(-100%); color: var(--ink); font-weight: 700; }
-.road-dot {
+/* ---------- Bars ---------- */
   all: unset; cursor: pointer; position: absolute; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%;
   border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--swatch-edge), 0 1px 3px rgba(0,0,0,.3);
   transition: transform .12s ease;
 }
-.road-dot:hover, .road-dot:focus-visible { transform: scale(1.35); z-index: 2; }
-.road-dot:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
-.road-note { margin: 8px 0 0; font-size: 15px; color: var(--muted); }
-.road-note b { color: var(--ink); }
-.raid { padding: 14px 0; border-top: 1px solid var(--rule); display: grid; grid-template-columns: minmax(150px, 220px) 1fr; gap: 6px 20px; align-items: center; }
-.raid-name { font-family: var(--display); font-size: 26px; font-weight: 500; line-height: 1.1; }
-.raid-size { color: var(--muted); font-size: 15px; }
 .track { height: 12px; background: var(--track); border-radius: 6px; overflow: hidden; }
 .fill { height: 100%; background: var(--banner); border-radius: 6px; box-shadow: inset 0 0 0 1px var(--trim); }
-.raid-note { margin: 6px 0 0; font-size: 15px; color: var(--muted); }
-.raid-note b { color: var(--ink); font-weight: 700; }
-@media (max-width: 560px) { .raid { grid-template-columns: 1fr; } }
 
 /* ---------- Makeup ---------- */
 .stack { display: flex; height: 22px; border-radius: 4px; overflow: hidden; border: 1px solid var(--swatch-edge); background: var(--track); }
 .stack span { display: block; height: 100%; }
-.legend { list-style: none; padding: 0; margin: 14px 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 6px 14px; font-size: 15px; }
+.legend { list-style: none; padding: 0; margin: 14px 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 6px 14px; font-size: 17px; }
 .legend li { display: flex; align-items: center; gap: 8px; }
 .legend li.zero { color: var(--muted); }
 .legend .count { margin-left: auto; font-weight: 700; }
 .legend li.zero .count { font-weight: 400; }
 .swatch { width: 11px; height: 11px; border-radius: 2px; border: 1px solid var(--swatch-edge); flex: none; display: inline-block; }
 .rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-.rows li { display: grid; grid-template-columns: 92px 1fr 34px; gap: 10px; align-items: center; font-size: 15px; }
+.rows li { display: grid; grid-template-columns: 92px 1fr 34px; gap: 10px; align-items: center; font-size: 17px; }
 .rows .n { text-align: right; font-weight: 700; }
 .hist { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; align-items: end; height: 150px; }
 .hist .col { display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch; height: 100%; }
 .hist .bar { background: var(--banner); border-radius: 3px 3px 0 0; min-height: 2px; box-shadow: inset 0 0 0 1px var(--trim); }
 .hist .bar.empty { background: var(--track); box-shadow: none; }
-.hist .v { text-align: center; font-size: 14px; font-weight: 700; margin-bottom: 3px; }
-.hist-labels { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-top: 6px; font-size: 13px; color: var(--muted); text-align: center; }
+.hist .v { text-align: center; font-size: 16px; font-weight: 700; margin-bottom: 3px; }
+.hist-labels { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-top: 6px; font-size: 15px; color: var(--muted); text-align: center; }
 
 /* ---------- Boards ---------- */
 .board { list-style: none; margin: 0; padding: 0; }
 .board li { display: grid; grid-template-columns: 28px 1fr auto; gap: 10px; align-items: baseline; padding: 8px 0; border-top: 1px solid var(--rule); }
 .board li:first-child { border-top: 0; padding-top: 0; }
-.board .pos { font-family: var(--display); font-size: 22px; color: var(--muted); }
+.board .pos { font-family: var(--display); font-size: 24px; color: var(--muted); }
 .board li:nth-child(1) .pos { color: var(--trim); }
 .board .who { display: flex; align-items: center; gap: 8px; min-width: 0; }
 .board .who > span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -243,7 +232,7 @@ h3 { font-size: 13px; font-weight: 700; margin: 0 0 12px; letter-spacing: .09em;
 .board.plain li { grid-template-columns: 1fr auto; }
 .board.crafts li { grid-template-columns: minmax(0, 1fr) 72px 36px; align-items: center; }
 .board.crafts .track { height: 8px; }
-.small { font-size: 15px; color: var(--muted); }
+.small { font-size: 17px; color: var(--muted); }
 .empty-note { color: var(--muted); margin: 0; }
 
 /* Reputation */
@@ -251,8 +240,8 @@ h3 { font-size: 13px; font-weight: 700; margin: 0 0 12px; letter-spacing: .09em;
 .reps li { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-top: 1px solid var(--rule); min-width: 0; }
 .reps .who { flex: 1; min-width: 0; line-height: 1.25; }
 .reps .who b { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.reps .who span { font-size: 14px; color: var(--muted); }
-.pill { --c: var(--st-neutral); flex: none; font-size: 13px; font-weight: 700; padding: 1px 9px; border-radius: 999px; color: var(--c); background: color-mix(in srgb, var(--c) 13%, transparent); border: 1px solid color-mix(in srgb, var(--c) 40%, transparent); }
+.reps .who span { font-size: 16px; color: var(--muted); }
+.pill { --c: var(--st-neutral); flex: none; font-size: 15px; font-weight: 700; padding: 1px 9px; border-radius: 999px; color: var(--c); background: color-mix(in srgb, var(--c) 13%, transparent); border: 1px solid color-mix(in srgb, var(--c) 40%, transparent); }
 .st-hated, .st-hostile { --c: var(--st-hated); } .st-unfriendly { --c: var(--st-unfriendly); } .st-neutral { --c: var(--st-neutral); }
 .st-friendly { --c: var(--st-friendly); } .st-honored { --c: var(--st-honored); } .st-revered { --c: var(--st-revered); } .st-exalted { --c: var(--st-exalted); }
 
@@ -260,9 +249,9 @@ h3 { font-size: 13px; font-weight: 700; margin: 0 0 12px; letter-spacing: .09em;
 .feed { list-style: none; margin: 0; padding: 0; }
 .feed li { display: grid; grid-template-columns: auto 1fr auto; gap: 4px 12px; padding: 9px 0; border-top: 1px solid var(--rule); align-items: center; }
 .feed li:first-child { border-top: 0; padding-top: 0; }
-.feed .ico { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-size: 15px; background: var(--surface-2); border: 1px solid var(--rule); }
+.feed .ico { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-size: 17px; background: var(--surface-2); border: 1px solid var(--rule); }
 .feed .deed { font-style: italic; }
-.feed time { color: var(--muted); font-size: 14px; white-space: nowrap; }
+.feed time { color: var(--muted); font-size: 16px; white-space: nowrap; }
 
 /* ---------- Trophy wall ---------- */
 .trophies { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
@@ -271,12 +260,12 @@ h3 { font-size: 13px; font-weight: 700; margin: 0 0 12px; letter-spacing: .09em;
   padding: 18px 16px 16px; text-align: center; position: relative;
 }
 .plaque::before { content: ""; position: absolute; inset: 6px; border: 1px solid color-mix(in srgb, var(--trim) 75%, transparent); border-radius: 4px; pointer-events: none; }
-.plaque .crest { font-size: 20px; line-height: 1; opacity: .9; }
-.plaque .boss { font-family: var(--display); font-size: 25px; font-weight: 700; line-height: 1.05; margin-top: 6px; }
-.plaque .where { color: var(--muted); font-size: 14px; margin-top: 3px; letter-spacing: .02em; }
+.plaque .crest { font-size: 22px; line-height: 1; opacity: .9; }
+.plaque .boss { font-family: var(--display); font-size: 28px; font-weight: 700; line-height: 1.05; margin-top: 6px; }
+.plaque .where { color: var(--muted); font-size: 16px; margin-top: 3px; letter-spacing: .02em; }
 .plaque .count { margin-top: 10px; }
 .plaque .count b { font-family: var(--display); font-size: 32px; font-weight: 500; line-height: 1; color: var(--accent); }
-.plaque .top { font-size: 14px; color: var(--muted); margin-top: 4px; }
+.plaque .top { font-size: 16px; color: var(--muted); margin-top: 4px; }
 
 /* ---------- Roster ---------- */
 .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }
@@ -284,10 +273,10 @@ h3 { font-size: 13px; font-weight: 700; margin: 0 0 12px; letter-spacing: .09em;
   padding: 9px 12px; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface);
 }
 .toolbar input[type="search"] { flex: 1 1 200px; min-width: 0; }
-.toolbar label.check { display: inline-flex; align-items: center; gap: 6px; font-size: 15px; }
+.toolbar label.check { display: inline-flex; align-items: center; gap: 6px; font-size: 17px; }
 .table-scroll { overflow-x: auto; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); box-shadow: var(--shadow); }
-table { width: 100%; border-collapse: collapse; min-width: 900px; }
-th { text-align: left; font-weight: 700; color: var(--muted); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; padding: 0; border-bottom: 2px solid var(--rule); white-space: nowrap; background: var(--surface-2); }
+table { width: 100%; border-collapse: collapse; min-width: 980px; }
+th { text-align: left; font-weight: 700; color: var(--muted); font-size: 15px; letter-spacing: .06em; text-transform: uppercase; padding: 0; border-bottom: 2px solid var(--rule); white-space: nowrap; background: var(--surface-2); }
 th button { all: unset; cursor: pointer; display: block; padding: 11px 12px; }
 th button:hover { color: var(--ink); }
 th button:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
@@ -295,7 +284,7 @@ th[aria-sort="ascending"] button::after { content: " ▲"; font-size: 10px; }
 th[aria-sort="descending"] button::after { content: " ▼"; font-size: 10px; }
 th.num, td.num { text-align: right; }
 td { padding: 9px 12px; border-bottom: 1px solid var(--rule); vertical-align: middle; white-space: nowrap; }
-td.wrap-ok { white-space: normal; font-size: 15px; color: var(--muted); min-width: 170px; }
+td.wrap-ok { white-space: normal; font-size: 17px; color: var(--muted); min-width: 170px; }
 tbody tr:last-child td { border-bottom: 0; }
 tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--surface-2) 55%, transparent); }
 tbody tr:hover td { background: var(--surface-2); }
@@ -303,8 +292,8 @@ td.name { min-width: 200px; }
 .name-btn { all: unset; cursor: pointer; font-weight: 700; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
 .name-btn:hover { text-decoration-color: currentColor; }
 .name-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
-.title-line { display: block; font-style: italic; color: var(--muted); font-size: 14px; white-space: normal; }
-.tag { display: inline-block; margin-left: 6px; padding: 0 6px; border: 1px solid var(--rule); border-radius: 3px; font-size: 12px; color: var(--muted); vertical-align: 1px; font-weight: 400; }
+.title-line { display: block; font-style: italic; color: var(--muted); font-size: 16px; white-space: normal; }
+.tag { display: inline-block; margin-left: 6px; padding: 0 6px; border: 1px solid var(--rule); border-radius: 3px; font-size: 14px; color: var(--muted); vertical-align: 1px; font-weight: 400; }
 .cls { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
 .dash { color: var(--muted); }
 
@@ -328,7 +317,7 @@ dialog::backdrop { background: rgba(8, 11, 18, .6); -webkit-backdrop-filter: blu
 .portrait span { font-family: var(--display); font-size: 48px; color: var(--trim); line-height: 1; }
 .card-head h2 { font-size: 36px; margin: 0; }
 .card-head h2::after { display: none; }
-.card-head .meta { color: var(--band-muted); font-size: 15px; margin: 3px 0 0; }
+.card-head .meta { color: var(--band-muted); font-size: 17px; margin: 3px 0 0; }
 .card-head .ic-title { font-style: italic; margin: 2px 0 0; }
 .card-head .btn.quiet { color: var(--band-muted); align-self: start; }
 .card-head .btn.quiet:hover { color: var(--band-ink); }
@@ -336,21 +325,21 @@ dialog::backdrop { background: rgba(8, 11, 18, .6); -webkit-backdrop-filter: blu
 .card-body h3 { margin: 22px 0 10px; }
 .facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; margin: 0; }
 .facts div { display: flex; flex-direction: column-reverse; background: var(--surface-2); border: 1px solid var(--rule); border-radius: 6px; padding: 8px 10px; }
-.facts dt { color: var(--muted); font-size: 13px; line-height: 1.25; }
-.facts dd { margin: 0; font-family: var(--display); font-weight: 500; font-size: 24px; line-height: 1.1; color: var(--accent); }
-.facts dd.word { font-family: var(--body); font-weight: 700; font-size: 17px; color: var(--ink); }
+.facts dt { color: var(--muted); font-size: 15px; line-height: 1.25; }
+.facts dd { margin: 0; font-family: var(--display); font-weight: 500; font-size: 26px; line-height: 1.1; color: var(--accent); }
+.facts dd.word { font-family: var(--body); font-weight: 700; font-size: 19px; color: var(--ink); }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; }
-.chips li { border: 1px solid var(--rule); border-radius: 999px; padding: 2px 11px; font-size: 15px; background: var(--surface-2); }
+.chips li { border: 1px solid var(--rule); border-radius: 999px; padding: 2px 11px; font-size: 17px; background: var(--surface-2); }
 .chips li .k { color: var(--muted); }
-.gear { list-style: none; margin: 0; padding: 0; columns: 2 220px; column-gap: 24px; font-size: 15px; }
+.gear { list-style: none; margin: 0; padding: 0; columns: 2 220px; column-gap: 24px; font-size: 17px; }
 .gear li { break-inside: avoid; padding: 3px 0; border-bottom: 1px dotted var(--rule); }
-.gear .slot { color: var(--muted); font-size: 13px; display: inline-block; min-width: 76px; }
+.gear .slot { color: var(--muted); font-size: 15px; display: inline-block; min-width: 76px; }
 .q-poor { color: var(--q-poor); } .q-uncommon { color: var(--q-uncommon); } .q-rare { color: var(--q-rare); }
 .q-epic { color: var(--q-epic); } .q-legendary { color: var(--q-legendary); }
 .notes { white-space: pre-wrap; margin: 0; }
 
-footer { margin-top: 72px; padding-top: 18px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 14px; text-align: center; }
-footer .emblem { font-family: var(--display); font-size: 26px; color: var(--ink); display: block; margin-bottom: 4px; }
+footer { margin-top: 72px; padding-top: 18px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 16px; text-align: center; }
+footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink); display: block; margin-bottom: 4px; }
 
 @media (max-width: 640px) {
   .wrap { padding: 4px 16px 56px; }
@@ -361,14 +350,14 @@ footer .emblem { font-family: var(--display); font-size: 26px; color: var(--ink)
   .tally dd { font-size: 32px; }
   .jump-inner { padding: 0 16px; gap: 18px; }
   .live { display: none; }
-  h2 { font-size: 31px; }
+  h2 { font-size: 34px; }
   section { margin-top: 52px; }
   .card-head { grid-template-columns: auto 1fr; padding: 16px; gap: 14px; }
   .card-head .btn { grid-column: 1 / -1; grid-row: 1; justify-self: end; margin-bottom: -8px; }
   .card-body { padding: 4px 16px 18px; }
   .portrait { width: 68px; height: 68px; }
   .facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .facts dd { font-size: 21px; }
+  .facts dd { font-size: 23px; }
   .card-head h2 { font-size: 30px; }
 }
 @media (min-width: 641px) { .status.fresh { display: none; } }
@@ -401,7 +390,6 @@ footer .emblem { font-family: var(--display); font-size: 26px; color: var(--ink)
     <a href="#oddities">Oddities</a>
     <a href="#deeds">Deeds</a>
     <a href="#trophies">Trophies</a>
-    <a href="#raids">Raids</a>
     <a href="#friends">Friends</a>
     <a href="#makeup">Makeup</a>
     <a href="#roster">Roster</a>
@@ -414,8 +402,8 @@ footer .emblem { font-family: var(--display); font-size: 26px; color: var(--ink)
 
   <section id="oddities" aria-labelledby="oddities-h" hidden>
     <h2 id="oddities-h">Hall of oddities</h2>
-    <p class="lede">The guild’s book of records, kept honestly by the Armory. Glory to the winners, condolences to the critters.</p>
-    <div class="awards" id="awards"></div>
+    <p class="lede">The guild’s book of records, kept honestly by the Armory and refreshed every hour. Glory to the winners, condolences to the critters.</p>
+    <div id="awards"></div>
   </section>
 
   <section id="totals" aria-labelledby="totals-h" hidden>
@@ -434,15 +422,6 @@ footer .emblem { font-family: var(--display); font-size: 26px; color: var(--ink)
     <h2 id="trophies-h">Trophy wall</h2>
     <p class="lede" id="trophies-lede">Dungeon bosses who met Stryguard and regretted it.</p>
     <div class="trophies" id="trophy-wall"></div>
-  </section>
-
-  <section id="raids" aria-labelledby="raids-h" hidden>
-    <h2 id="raids-h">Raid readiness</h2>
-    <p class="lede" id="raid-countdown"></p>
-    <div class="panel">
-      <div class="road-wrap"><h3>The road to 60</h3><div class="road" id="road"></div><p class="road-note" id="road-note"></p></div>
-      <div id="raid-list"></div>
-    </div>
   </section>
 
   <section id="friends" aria-labelledby="friends-h" hidden>
@@ -522,12 +501,6 @@ footer .emblem { font-family: var(--display); font-size: 26px; color: var(--ink)
   const ROLES = ["Tank", "Healer", "Damage"];
   const PRIMARY_PROFS = ["Alchemy","Blacksmithing","Enchanting","Engineering","Herbalism","Leatherworking","Mining","Skinning","Tailoring"];
   const SECONDARY_PROFS = ["Cooking","First Aid","Fishing"];
-  const RAIDS = [
-    { name: "Barrow Deeps", size: 10 },
-    { name: "Hyjal Summit", size: 20 },
-    { name: "Onyxia’s Lair", size: 40 }
-  ];
-  const RAID_DAY = new Date(2026, 11, 9);
   const LEVEL_BUCKETS = [[1,9,"1–9"],[10,19,"10–19"],[20,29,"20–29"],[30,39,"30–39"],[40,49,"40–49"],[50,59,"50–59"],[60,60,"60"]];
   const PORTRAIT_HOST = "https://render.worldofwarcraft.com/";
 
@@ -638,7 +611,7 @@ footer .emblem { font-family: var(--display); font-size: 26px; color: var(--ink)
   /* ---------- Rendering ---------- */
   function render() {
     renderFaction(); renderStatus(); renderHero(); renderAwards(); renderTotals(); renderDeeds();
-    renderTrophies(); renderRaids(); renderFriends(); renderMakeup(); renderBoards(); renderRoster(); renderFooter();
+    renderTrophies(); renderFriends(); renderMakeup(); renderBoards(); renderRoster(); renderFooter();
   }
 
   function renderFaction() {
@@ -680,67 +653,128 @@ footer .emblem { font-family: var(--display); font-size: 26px; color: var(--ink)
   }
 
   /* ---------- Hall of oddities ---------- */
-  // Each award: the statistic(s) it counts, a title, an icon, and how to say the number.
-  function awards() {
+  // Awards sit on themed shelves. Each one counts statistics (stats) or works its number out (value),
+  // and says the number in words. low: true crowns the smallest number instead; eligible narrows the field.
+  const deeds = m => (m.fun && m.fun.deeds) || [];
+  const letters = m => fullName(m).replace(/[^\p{L}]/gu, "").length;
+  const per = (n, one, many) => [fmt.format(n), n === 1 ? one : many];
+  // A low award only counts people the Armory has numbers for, so a blank record can't win.
+  const hasStat = (m, s) => !!(m.fun && m.fun.stats && s in m.fun.stats);
+
+  function shelves() {
+    const enemy = state.enemy;
     return [
-      { stats: ["Deaths from falling"], title: "Gravity’s Favourite", icon: "🪂", say: n => ["fell to their doom ", times(n)] },
-      { stats: ["Deaths from drowning"], title: "Sleeps with the Fishes", icon: "🫧", say: n => ["drowned ", times(n)] },
-      { stats: ["Deaths from fire and lava"], title: "Moth to the Flame", icon: "🔥", say: n => ["burned to a crisp ", times(n)] },
-      { stats: ["Deaths from fatigue"], title: "Swam Too Far", icon: "🌊", say: n => ["lost to fatigue ", times(n)] },
-      { stats: ["Food eaten"], title: "Bottomless Stomach", icon: "🍗", say: n => [fmt.format(n), n === 1 ? " meal eaten" : " meals eaten"] },
-      { stats: ["Beverages consumed"], title: "Always Thirsty", icon: "🍺", say: n => [fmt.format(n), n === 1 ? " drink downed" : " drinks downed"] },
-      { stats: ["Health potions consumed", "Mana potions consumed"], title: "Potion Sommelier", icon: "🧪", say: n => [fmt.format(n), n === 1 ? " potion quaffed" : " potions quaffed"] },
-      { stats: ["Critters killed"], title: "Bane of Squirrels", icon: "🐿️", say: n => [fmt.format(n), n === 1 ? " innocent critter" : " innocent critters"] },
-      { stats: ["Times camped"], title: "Happy Camper", icon: "🏕️", say: n => ["made camp ", times(n)] },
-      { stats: ["Number of times hearthed"], title: "Homebody", icon: "🏠", say: n => ["hearthed home ", times(n)] },
-      { stats: ["Flight paths taken"], title: "Frequent Flyer", icon: "🦅", say: n => [fmt.format(n), n === 1 ? " flight taken" : " flights taken"] },
-      { stats: ["Number of hugs"], title: "Free Hugs", icon: "🤗", say: n => [fmt.format(n), n === 1 ? " hug given" : " hugs given"] },
-      { stats: ["Total waves"], title: "Friendly Wave", icon: "👋", say: n => ["waved ", times(n)] },
-      { stats: ["Total cheers"], title: "Head Cheerleader", icon: "📣", say: n => ["cheered ", times(n)] },
-      { stats: ["Total times LOL'd"], title: "Laughs at Everything", icon: "😂", say: n => ["LOL’d ", times(n)] },
-      { stats: ["Total facepalms"], title: "Deeply Disappointed", icon: "🤦", say: n => ["facepalmed ", times(n)] },
-      { stats: ["Greed rolls made on loot"], title: "Greedy Goblin", icon: "💰", say: n => [fmt.format(n), " greed rolls"] },
-      { stats: ["Quests abandoned"], title: "Commitment Issues", icon: "📜", say: n => [fmt.format(n), n === 1 ? " quest abandoned" : " quests abandoned"] },
-      { stats: ["Total deaths from opposite faction"], title: "Favourite Target", icon: "🎯", say: n => ["slain by the " + state.enemy + " ", times(n)] },
-      { stats: ["Total deaths"], title: "Professional Corpse", icon: "💀", say: n => [fmt.format(n), n === 1 ? " death" : " deaths"] },
-      { stats: RAISED, title: "Back from the Dead", icon: "✨", say: n => ["raised by friends ", times(n)] },
-      { stats: ["Duels lost"], title: "Gracious Loser", icon: "🤺", say: n => [fmt.format(n), n === 1 ? " duel lost" : " duels lost"] },
-      { stats: ["Fish caught"], title: "Master Angler", icon: "🎣", say: n => [fmt.format(n), " fish landed"] },
-      { stats: ["Bandages used"], title: "Field Medic", icon: "🩹", say: n => [fmt.format(n), n === 1 ? " bandage tied" : " bandages tied"] }
+      { name: "Ways to die", icon: "💀", blurb: "Azeroth is dangerous. Some of us prove it daily.", awards: [
+        { stats: ["Deaths from falling"], title: "Gravity’s Favourite", icon: "🪂", say: n => ["fell to their doom ", times(n)] },
+        { stats: ["Deaths from drowning"], title: "Sleeps with the Fishes", icon: "🫧", say: n => ["drowned ", times(n)] },
+        { stats: ["Deaths from fire and lava"], title: "Moth to the Flame", icon: "🔥", say: n => ["burned to a crisp ", times(n)] },
+        { stats: ["Deaths from fatigue"], title: "Swam Too Far", icon: "🌊", say: n => ["lost to fatigue ", times(n)] },
+        { stats: ["Total deaths in 5-player dungeons"], title: "Wipe Magnet", icon: "🕳️", say: n => ["died in dungeons ", times(n)] },
+        { stats: ["Total deaths"], title: "Professional Corpse", icon: "⚰️", say: n => per(n, " death", " deaths") },
+        { stats: RAISED, title: "Back from the Dead", icon: "✨", say: n => ["raised by friends ", times(n)] },
+        { stats: ["Total deaths"], low: true, eligible: m => lvl(m) >= 25, title: "The Cockroach", icon: "🪳", say: n => ["level 25 or more, and only ", plural(n, "death", "deaths")] }
+      ] },
+      { name: "Appetites", icon: "🍗", blurb: "An army marches on its stomach. Ours mostly sits on it.", awards: [
+        { stats: ["Food eaten"], title: "Bottomless Stomach", icon: "🍗", say: n => per(n, " meal eaten", " meals eaten") },
+        { stats: ["Beverages consumed"], title: "Always Thirsty", icon: "🍺", say: n => per(n, " drink downed", " drinks downed") },
+        { stats: ["Health potions consumed", "Mana potions consumed"], title: "Potion Sommelier", icon: "🧪", say: n => per(n, " potion quaffed", " potions quaffed") },
+        { stats: ["Elixirs consumed"], title: "Elixir Enthusiast", icon: "⚗️", say: n => per(n, " elixir gulped", " elixirs gulped") },
+        { stats: ["Healthstones used"], title: "Cookie Monster", icon: "🍪", say: n => per(n, " healthstone munched", " healthstones munched") },
+        { stats: ["Bandages used"], title: "Field Medic", icon: "🩹", say: n => per(n, " bandage tied", " bandages tied") }
+      ] },
+      { name: "Travels", icon: "🧭", blurb: "Long roads, short attention spans.", awards: [
+        { stats: ["Flight paths taken"], title: "Frequent Flyer", icon: "🦅", say: n => per(n, " flight taken", " flights taken") },
+        { stats: ["Number of times hearthed"], title: "Homebody", icon: "🏠", say: n => ["hearthed home ", times(n)] },
+        { stats: ["Times camped"], title: "Happy Camper", icon: "🏕️", say: n => ["made camp ", times(n)] },
+        { value: m => deeds(m).filter(d => /^explore /i.test(d.name)).length, title: "Cartographer", icon: "🗺️", say: n => per(n, " land explored", " lands explored") },
+        { stats: ["Total 5-player dungeons entered"], title: "Dungeon Crawler", icon: "🕯️", say: n => per(n, " dungeon delve", " dungeon delves") },
+        { value: m => ((m.fun && m.fun.bosses) || []).length, title: "Dungeon Tourist", icon: "🗝️", say: n => per(n, " different boss slain", " different bosses slain") },
+        { stats: ["Summons accepted"], title: "Too Lazy to Walk", icon: "🌀", say: n => ["accepted a summons ", times(n)] }
+      ] },
+      { name: "Manners", icon: "🤝", blurb: "The finest emotes in the realm, counted.", awards: [
+        { stats: ["Number of hugs"], title: "Free Hugs", icon: "🤗", say: n => per(n, " hug given", " hugs given") },
+        { stats: ["Total waves"], title: "Friendly Wave", icon: "👋", say: n => ["waved ", times(n)] },
+        { stats: ["Total cheers"], title: "Head Cheerleader", icon: "📣", say: n => ["cheered ", times(n)] },
+        { stats: ["Total times LOL'd"], title: "Laughs at Everything", icon: "😂", say: n => ["LOL’d ", times(n)] },
+        { stats: ["Total facepalms"], title: "Deeply Disappointed", icon: "🤦", say: n => ["facepalmed ", times(n)] },
+        { value: m => ((m.fun && m.fun.reputations) || []).filter(r => num(r.tier) >= 5).length, title: "Social Butterfly", icon: "🦋", say: n => per(n, " faction at Honored or better", " factions at Honored or better") }
+      ] },
+      { name: "Loot and quests", icon: "💰", blurb: "Need, greed and the quest log of shame.", awards: [
+        { stats: ["Greed rolls made on loot"], title: "Greedy Goblin", icon: "💰", say: n => per(n, " greed roll", " greed rolls") },
+        { stats: ["Need rolls made on loot"], title: "Needs It More", icon: "🙏", say: n => per(n, " need roll", " need rolls") },
+        { stats: ["Quests completed"], title: "Questaholic", icon: "📖", say: n => per(n, " quest completed", " quests completed") },
+        { stats: ["Quests abandoned"], title: "Commitment Issues", icon: "📜", say: n => per(n, " quest abandoned", " quests abandoned") },
+        { stats: ["Items disenchanted"], title: "Disenchanted with Everything", icon: "💎", say: n => per(n, " item disenchanted", " items disenchanted") },
+        { value: m => ((m.fun && m.fun.gear) || []).filter(g => str(g.quality).toLowerCase() === "poor").length, title: "Dressed in Rags", icon: "🧦", say: n => per(n, " piece of grey junk worn", " pieces of grey junk worn") }
+      ] },
+      { name: "Battle", icon: "⚔️", blurb: "Blood, honour and a great many small animals.", awards: [
+        { stats: ["Total deaths from opposite faction"], title: "Favourite Target", icon: "🎯", say: n => ["slain by the " + enemy + " ", times(n)] },
+        { stats: ["Total Honorable Kills"], title: "Thorn in Their Side", icon: "🛡️", say: n => per(n, " honorable kill", " honorable kills") },
+        { stats: ["Total Killing Blows"], title: "Finishing Touch", icon: "🗡️", say: n => per(n, " killing blow", " killing blows") },
+        { stats: ["Creatures killed"], title: "Menace to Wildlife", icon: "🐺", say: n => per(n, " creature slain", " creatures slain") },
+        { stats: ["Critters killed"], title: "Bane of Squirrels", icon: "🐿️", say: n => per(n, " innocent critter", " innocent critters") },
+        { stats: ["Duels won"], title: "Duel Champion", icon: "🏆", say: n => per(n, " duel won", " duels won") },
+        { stats: ["Duels lost"], title: "Gracious Loser", icon: "🤺", say: n => per(n, " duel lost", " duels lost") },
+        { stats: ["Battlegrounds played"], title: "Battleground Regular", icon: "🚩", say: n => per(n, " battleground fought", " battlegrounds fought") },
+        { stats: ["Deaths in Arathi Basin", "Deaths in Warsong Gulch"], title: "Cannon Fodder", icon: "🪦", say: n => ["fell in battlegrounds ", times(n)] }
+      ] },
+      { name: "Curiosities", icon: "🔮", blurb: "Records nobody asked for, kept anyway.", awards: [
+        { stats: ["Fish caught"], title: "Master Angler", icon: "🎣", say: n => per(n, " fish landed", " fish landed") },
+        { value: m => Math.max(0, stat(m, "Fish and other things caught") - stat(m, "Fish caught")), title: "Fished Up Rubbish", icon: "🥾", say: n => per(n, " thing that wasn’t a fish", " things that weren’t fish") },
+        { value: m => ((m.fun && m.fun.pets) || []).length, title: "Crazy Critter Keeper", icon: "🐾", say: n => per(n, " companion", " companions") },
+        { value: m => Math.max(stat(m, "Mounts owned"), ((m.fun && m.fun.mounts) || []).length), title: "Stable Master", icon: "🐎", say: n => per(n, " mount", " mounts") },
+        { stats: ["Cooking Recipes known"], title: "Cookbook Collector", icon: "📚", say: n => per(n, " recipe known", " recipes known") },
+        { value: m => deeds(m).length, title: "Overachiever", icon: "🏅", say: n => per(n, " achievement", " achievements") },
+        { value: letters, title: "Hardest to Spell", icon: "✍️", say: n => [fmt.format(n), " letters to spell"] }
+      ] }
     ];
   }
 
-  function ranking(stats) {
-    return state.members.map(m => ({ m, n: statSum(m, stats) })).filter(x => x.n > 0)
-      .sort((a, b) => b.n - a.n || fullName(a.m).localeCompare(fullName(b.m)));
+  function ranking(a) {
+    let rows = state.members.filter(m => !a.eligible || a.eligible(m))
+      .map(m => ({ m, n: a.value ? num(a.value(m)) : statSum(m, a.stats) }));
+    rows = a.low ? rows.filter(x => !a.stats || a.stats.some(s => hasStat(x.m, s))) : rows.filter(x => x.n > 0);
+    const dir = a.low ? 1 : -1;
+    return rows.sort((x, y) => (x.n - y.n) * dir || fullName(x.m).localeCompare(fullName(y.m)));
+  }
+
+  function awardCard(a) {
+    const ranked = ranking(a);
+    if (!ranked.length) return null;
+    const best = ranked[0].n;
+    const winners = ranked.filter(x => x.n === best);
+    const rest = ranked.filter(x => x.n !== best).slice(0, 2);
+    const [lead, tail] = a.say(best);
+    const who = h("div", { class: "award-who" });
+    const shown = winners.slice(0, 3), extra = winners.length - shown.length;
+    shown.forEach((x, i) => {
+      if (i && i === shown.length - 1 && !extra) who.append(h("span", { class: "small", text: "and" }));
+      const comma = (i < shown.length - 2) || (extra && i < shown.length - 1) ? "," : "";
+      who.append(h("span", { class: "winner" }, swatch(x.m.cls), " ", nameButton(x.m), comma));
+    });
+    if (extra) who.append(h("span", { class: "small", text: "and " + plural(extra, "other", "others") }));
+    // Put the number in the big face, whichever side of the phrase it sits on.
+    const feat = /^\d/.test(lead) ? h("div", { class: "award-feat" }, h("b", { text: lead }), tail)
+                                  : h("div", { class: "award-feat" }, lead, h("b", { text: tail }));
+    return h("article", { class: "award" },
+      h("div", { class: "award-head" }, h("span", { class: "seal", "aria-hidden": "true", text: a.icon }), h("div", { class: "award-title", text: a.title })),
+      who, feat,
+      rest.length ? h("div", { class: "award-rest", text: "Close behind: " + rest.map(x => fullName(x.m) + " (" + fmt.format(x.n) + ")").join(", ") }) : null);
   }
 
   function renderAwards() {
     const box = $("awards"); box.replaceChildren();
-    awards().forEach(a => {
-      const ranked = ranking(a.stats);
-      if (!ranked.length) return;
-      const best = ranked[0].n;
-      const winners = ranked.filter(x => x.n === best);
-      const rest = ranked.filter(x => x.n < best).slice(0, 2);
-      const [lead, tail] = a.say(best);
-      const who = h("div", { class: "award-who" });
-      const shown = winners.slice(0, 3), extra = winners.length - shown.length;
-      shown.forEach((x, i) => {
-        if (i && i === shown.length - 1 && !extra) who.append(h("span", { class: "small", text: "and" }));
-        const comma = (i < shown.length - 2) || (extra && i < shown.length - 1) ? "," : "";
-        who.append(h("span", { class: "winner" }, swatch(x.m.cls), " ", nameButton(x.m), comma));
-      });
-      if (extra) who.append(h("span", { class: "small", text: "and " + plural(extra, "other", "others") }));
-      // Put the number in the big face, whichever side of the phrase it sits on.
-      const feat = /^\d/.test(lead) ? h("div", { class: "award-feat" }, h("b", { text: lead }), tail)
-                                    : h("div", { class: "award-feat" }, lead, h("b", { text: tail }));
-      box.append(h("article", { class: "award" },
-        h("div", { class: "award-head" }, h("span", { class: "seal", "aria-hidden": "true", text: a.icon }), h("div", { class: "award-title", text: a.title })),
-        who, feat,
-        rest.length ? h("div", { class: "award-rest", text: "Close behind: " + rest.map(x => fullName(x.m) + " (" + fmt.format(x.n) + ")").join(", ") }) : null));
+    let count = 0;
+    shelves().forEach(s => {
+      const cards = s.awards.map(awardCard).filter(Boolean);
+      if (!cards.length) return;
+      count += cards.length;
+      box.append(h("div", { class: "shelf" },
+        h("div", { class: "shelf-head" }, h("span", { class: "shelf-icon", "aria-hidden": "true", text: s.icon }),
+          h("div", null, h("h3", { class: "shelf-title", text: s.name }), h("p", { class: "shelf-blurb", text: s.blurb }))),
+        h("div", { class: "awards" }, cards)));
     });
-    if (!box.children.length) box.append(h("p", { class: "empty-note", text: "No records yet. Go and fall off something." }));
+    if (!count) box.append(h("p", { class: "empty-note", text: "No records yet. Go and fall off something." }));
   }
 
   /* ---------- Guild totals ---------- */
@@ -825,73 +859,6 @@ footer .emblem { font-family: var(--display); font-size: 26px; color: var(--ink)
     $("trophies-lede").textContent = list.length
       ? plural(list.length, "dungeon boss has", "dungeon bosses have") + " met Stryguard and regretted it."
       : "No bosses have fallen yet.";
-  }
-
-  /* ---------- Raid readiness ---------- */
-  function renderRaids() {
-    const today = new Date(); today.setHours(0, 0, 0, 0);
-    const days = Math.round((RAID_DAY - today) / 86400000);
-    const dayName = RAID_DAY.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
-    $("raid-countdown").textContent =
-      days > 1 ? "The first raids open on " + dayName + ", in " + days + " days. Counting mains at level 60, alts left out." :
-      days === 1 ? "The first raids open tomorrow, " + dayName + ". Counting mains at level 60, alts left out." :
-      days === 0 ? "The first raids open today. Counting mains at level 60, alts left out." :
-      "Raids are open. Counting mains at level 60, alts left out.";
-
-    const ready = state.members.filter(m => !m.alt && lvl(m) >= 60);
-    const rc = { Tank: 0, Healer: 0, Damage: 0, none: 0 };
-    ready.forEach(m => { ROLES.includes(m.role) ? rc[m.role]++ : rc.none++; });
-    const box = $("raid-list"); box.replaceChildren();
-    RAIDS.forEach(r => {
-      const n = ready.length, pct = Math.min(100, Math.round(n / r.size * 100));
-      box.append(h("div", { class: "raid" },
-        h("div", null, h("div", { class: "raid-name", text: r.name }), h("div", { class: "raid-size", text: r.size + " players" })),
-        h("div", null,
-          h("div", { class: "track", role: "img", "aria-label": n + " of " + r.size + " ready" }, h("div", { class: "fill", style: "width:" + pct + "%" })),
-          h("p", { class: "raid-note" }, h("b", { text: fmt.format(n) + " of " + r.size }), " mains at level 60. ",
-            n >= r.size ? "Enough for a full group." : fmt.format(r.size - n) + " more needed."))));
-    });
-    renderRoad();
-    if (ready.length) {
-      box.append(h("p", { class: "raid-note", style: "margin-top:12px" },
-        "Among them: ", h("b", { text: plural(rc.Tank, "tank", "tanks") }), ", ",
-        h("b", { text: plural(rc.Healer, "healer", "healers") }), ", ",
-        h("b", { text: fmt.format(rc.Damage) + " damage" }),
-        rc.none ? ", and " + fmt.format(rc.none) + " without a role set" : "", "."));
-    }
-  }
-
-  // Every main as a dot on the way from level 1 to 60; dots at the same level stack up.
-  function renderRoad() {
-    const mains = state.members.filter(m => !m.alt && lvl(m) > 0).sort((a, b) => lvl(b) - lvl(a) || fullName(a).localeCompare(fullName(b)));
-    const road = $("road"); road.replaceChildren();
-    const stacks = {};
-    let tallest = 1;
-    mains.forEach(m => { const l = lvl(m); stacks[l] = (stacks[l] || 0) + 1; tallest = Math.max(tallest, stacks[l]); });
-    const seen = {};
-    const pos = l => ((l - 1) / 59 * 100) + "%";
-    road.style.height = (40 + tallest * 15) + "px";
-    road.setAttribute("role", "group");
-    road.setAttribute("aria-label", "Each main character placed by level, from 1 to 60");
-    road.append(h("div", { class: "road-line" }));
-    [1, 10, 20, 30, 40, 50, 60].forEach(l => road.append(h("span", { class: "road-tick", style: "left:" + pos(l), text: String(l) })));
-    mains.forEach(m => {
-      const l = lvl(m), i = seen[l] = (seen[l] || 0) + 1;
-      road.append(h("button", {
-        class: "road-dot", type: "button", title: fullName(m) + ", level " + l,
-        "aria-label": fullName(m) + ", level " + l,
-        style: "left:" + pos(l) + ";bottom:" + (17 + i * 15 - 15) + "px;background:" + classColor(m.cls),
-        onclick: () => openCard(m)
-      }));
-    });
-    const lead = mains.slice(0, 3);
-    const note = $("road-note"); note.replaceChildren();
-    if (lead.length && lvl(lead[0]) < 60) {
-      note.append("Leading the way: ", ...lead.flatMap((m, i) => [i ? (i === lead.length - 1 ? " and " : ", ") : "", h("b", { text: fullName(m) }), " (" + lvl(m) + ")"]),
-        ". " + (60 - lvl(lead[0])) + " levels to go for the front runner.");
-    } else if (lead.length) {
-      note.append(plural(mains.filter(m => lvl(m) >= 60).length, "main has", "mains have"), " reached 60. Select a dot to see who.");
-    }
   }
 
   /* ---------- Friends and companions ---------- */

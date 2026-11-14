@@ -3,7 +3,7 @@
 A self-updating website for **Stryguard**, an Alliance guild on World of Warcraft: Forever (EU, RP-PvP).
 Live at **<https://stryguard.github.io>**.
 
-It shows the roster, raid readiness and a hall of oddities: who fell to their doom the most, who eats the most,
+It shows the roster and a hall of oddities: who fell to their doom the most, who eats the most,
 who the Horde loves to kill, which bosses we have humbled, and more.
 
 ## How it works
@@ -21,7 +21,7 @@ GitHub Actions (every hour)          GitHub Pages
   and the site rebuilds in a minute or two:
   - `motto`: the guild motto under the banner
   - `ranks`: guild rank names by rank number (0 is the Guild Master)
-  - `members`: per character, `role` (Tank, Healer or Damage), `alt` (true or false), an in-character `title`, and `notes`.
+  - `members`: per character, `role` (Tank, Healer or Damage), `alt` (true or false; alts get a tag and can be hidden in the roster), an in-character `title`, and `notes`.
     New characters appear on the site automatically; add them here only to set these fields.
 - `fetch_roster.py` is the data script. Python 3.8+, standard library only.
 

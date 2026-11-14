@@ -1,5 +1,5 @@
 {
-  "_help": "Things the Blizzard API does not know. Edit on GitHub (pencil icon) and commit; the site rebuilds in a minute or two. role: Tank, Healer or Damage (or empty). alt: true for alts (alts do not count toward raid readiness). title: in-character title. notes: anything. ranks: the guild rank names by rank number (0 is the Guild Master). New members show up automatically; add them here only to set these fields.",
+  "_help": "Things the Blizzard API does not know. Edit on GitHub (pencil icon) and commit; the site rebuilds in a minute or two. role: Tank, Healer or Damage (or empty). alt: true for alts (they get an alt tag and the Hide alts filter skips them). title: in-character title. notes: anything. ranks: the guild rank names by rank number (0 is the Guild Master). New members show up automatically; add them here only to set these fields.",
   "motto": "",
   "ranks": {
     "0": "Guild Master",
