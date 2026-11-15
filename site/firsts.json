@@ -220,7 +220,12 @@
    "state": "open"
   },
   "flights-100": {
-   "state": "open"
+   "state": "claimed",
+   "who": [
+    "Old Iron"
+   ],
+   "at": 1794700858528,
+   "before_records": false
   },
   "flights-250": {
    "state": "open"
@@ -229,7 +234,12 @@
    "state": "open"
   },
   "camped-150": {
-   "state": "open"
+   "state": "claimed",
+   "who": [
+    "Old Iron"
+   ],
+   "at": 1794700858528,
+   "before_records": false
   },
   "fish-1000": {
    "state": "open"
@@ -238,7 +248,12 @@
    "state": "open"
   },
   "quests-500": {
-   "state": "open"
+   "state": "claimed",
+   "who": [
+    "Leandros Bloodshot"
+   ],
+   "at": 1794700858528,
+   "before_records": false
   },
   "quests-1000": {
    "state": "open"
