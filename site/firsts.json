@@ -67,7 +67,12 @@
    "before_records": true
   },
   "skill-skinning-225": {
-   "state": "open"
+   "state": "claimed",
+   "who": [
+    "Fam Ily"
+   ],
+   "at": 1794791442538,
+   "before_records": false
   },
   "skill-skinning-300": {
    "state": "open"
