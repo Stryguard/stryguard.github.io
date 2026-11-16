@@ -103,7 +103,7 @@ They said "fun stuff, not meta things, more of a whimsy vibe". Nothing below has
 - Favourite pet on each member card, and mounts once people have them.
 - Reputation fun, like who is best loved in each city, plus Darkmoon Faire standing.
 - A "recent deeds" feed built from achievement `recent_events`.
-- A trophy wall of dungeon bosses the guild has defeated.
+- Boss kill counts, hiscore style: a table per boss and a boss log per character (replaced the trophy wall, 16 Nov 2026).
 - Silly gear names and named hairstyles on member cards.
 - Head chef and best angler awards from the secondary professions. Silas Moonwhisper has Cooking 300 and Fishing 226.
 - Portraits, which need the extra asset work described above.

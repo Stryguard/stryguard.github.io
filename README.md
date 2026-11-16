@@ -29,7 +29,7 @@ GitHub Actions (every hour)          GitHub Pages
   whenever someone crosses a line; don't edit it by hand unless you're correcting a mistake.
   Achievement firsts (levels, crafts, exploration, dungeons) need no ledger: the Armory dates them exactly.
 - `site/history.json` keeps one snapshot of everyone a day (the last 15 days). It feeds the levelling race,
-  stolen crowns and the Town Crier, which comes out every Sunday from 22 November 2026. The hourly job adds
+  stolen crowns, the week's boss kills and the Town Crier, which comes out every Sunday from 22 November 2026. The hourly job adds
   the day's snapshot on its first run after midnight (UTC) and commits it.
 - `fetch_roster.py` is the data script. Python 3.8+, standard library only.
 

@@ -355,15 +355,51 @@ h3 { font-size: 14px; font-weight: 700; margin: 0 0 12px; letter-spacing: .08em;
 .feed .deed { font-style: italic; }
 .feed time { color: var(--muted); font-size: 15px; white-space: nowrap; }
 
-/* ---------- Trophy wall ---------- */
-.trophies { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
-.plaque { background: var(--surface); border: 1px solid var(--rule); border-top: 4px solid var(--trim); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; text-align: center; }
-.plaque .crest { font-size: 20px; line-height: 1; }
-.plaque .boss { font-family: var(--heading); font-size: 22px; font-weight: 700; line-height: 1.15; margin-top: 6px; }
-.plaque .where { color: var(--muted); font-size: 16px; margin-top: 2px; }
-.plaque .count { margin-top: 10px; }
-.plaque .count b { font-size: 28px; font-weight: 700; line-height: 1; color: var(--accent); }
-.plaque .top { font-size: 15px; color: var(--muted); margin-top: 4px; }
+/* ---------- Boss kill counts ---------- */
+.kc { display: grid; grid-template-columns: minmax(240px, 300px) minmax(0, 1fr); gap: 24px; align-items: start; }
+.kc-list { list-style: none; margin: 0; padding: 0; position: sticky; top: 76px; max-height: calc(100vh - 96px); overflow-y: auto; overscroll-behavior: contain; }
+.kc-tier { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding: 16px 12px 6px; }
+.kc-tier:first-child { padding-top: 2px; }
+.kc-pick { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; text-align: left; padding: 8px 12px; border: 1px solid transparent; border-radius: var(--radius); background: none; color: var(--ink); cursor: pointer; font: inherit; line-height: 1.3; }
+.kc-pick:hover { background: var(--surface-2); }
+.kc-pick[aria-pressed="true"] { background: var(--surface); border-color: var(--rule); box-shadow: inset 3px 0 0 var(--accent); }
+.kc-pick .nm { font-weight: 700; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kc-pick .sub { grid-column: 1; color: var(--muted); font-size: 15px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kc-pick .n { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.kc-head { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; padding-bottom: 16px; border-bottom: 1px solid var(--rule); }
+.kc-crest { flex: none; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; font-size: 26px; background: var(--surface-2); border: 1px solid var(--rule); }
+.kc-title { font-family: var(--heading); font-size: 30px; line-height: 1.1; font-weight: 700; margin: 0; text-transform: none; letter-spacing: 0; color: var(--ink); }
+.kc-sub { color: var(--muted); }
+.kc-stats { display: flex; gap: 24px; margin: 0 0 0 auto; }
+.kc-stats div { display: flex; flex-direction: column-reverse; text-align: right; }
+.kc-stats dd { margin: 0; font-size: 26px; font-weight: 700; line-height: 1.1; color: var(--accent); font-variant-numeric: tabular-nums; }
+.kc-stats dt { font-size: 14px; color: var(--muted); }
+table.kc-table { width: 100%; min-width: 0; border-collapse: collapse; }
+.kc-table th { text-align: left; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding: 12px 8px 8px; }
+.kc-table td { padding: 8px; border-top: 1px solid var(--rule); border-bottom: 0; vertical-align: middle; white-space: normal; }
+.kc-table .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.kc-table .rank { width: 4.5em; white-space: nowrap; color: var(--muted); font-variant-numeric: tabular-nums; }
+.kc-table .medal { display: inline-block; width: 1.4em; }
+.kc-table .barcell { width: 36%; }
+.kc-table .kc-n { font-weight: 700; }
+.kc-table .up { color: var(--st-friendly); font-weight: 700; }
+.kc-table tr.kc-none td { color: var(--muted); }
+.kc-wk { display: none; font-size: 14px; }
+.kc-table tr.kc-group th { padding-top: 20px; }
+@media (max-width: 760px) {
+  .kc { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .kc-list { position: static; max-height: none; display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; }
+  .kc-list li { flex: none; }
+  .kc-tier { display: none; }
+  .kc-pick { width: auto; max-width: 15em; border-color: var(--rule); background: var(--surface); }
+  .kc-table .barcell, .kc-table .wk { display: none; }
+  .kc-wk { display: inline; }
+  .kc-board { padding: 14px 12px; }
+  .kc-table th, .kc-table td { padding-left: 6px; padding-right: 6px; }
+  .kc-stats { margin-left: 0; width: 100%; }
+  .kc-stats div { text-align: left; }
+  .kc-title { font-size: 26px; }
+}
 
 /* ---------- Roster ---------- */
 .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }
@@ -500,12 +536,11 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
 [data-look="codex"] h2 { font-size: 40px; font-weight: 700; font-style: italic; }
 [data-look="codex"] h2::before { content: "✦ "; color: var(--accent); font-style: normal; font-size: .55em; vertical-align: .3em; }
 [data-look="codex"] .lede { font-style: italic; }
-[data-look="codex"] .award-title, [data-look="codex"] .fc-title, [data-look="codex"] .plaque .boss { font-size: 23px; }
+[data-look="codex"] .award-title, [data-look="codex"] .fc-title { font-size: 23px; }
 [data-look="codex"] .seal, [data-look="codex"] .fc-icon { border-radius: 50%; background: var(--surface-2); }
 [data-look="codex"] .tab { border-radius: 0; border: 0; border-bottom: 2px solid transparent; background: none; padding: 8px 6px; font-style: italic; }
 [data-look="codex"] .tab[aria-selected="true"] { background: none; color: var(--accent); border-bottom-color: var(--accent); }
 /* Plain cards: one hairline, no second frame, no coloured caps. */
-[data-look="codex"] .plaque { border-top-width: 1px; border-top-color: var(--rule); }
 /* Guild totals read as a ledger, not a wall of boxes. */
 [data-look="codex"] .tiles { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0 24px; }
 [data-look="codex"] .tiles div { background: none; border: 0; border-top: 1px solid var(--rule); border-radius: 0; padding: 10px 0 12px; }
@@ -526,7 +561,6 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
   [data-look="codex"] .row-deeds { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
   [data-look="codex"] .row-side { display: flex; flex-direction: column; gap: 80px; min-width: 0; }
   [data-look="codex"] #makeup .grid-3 { grid-template-columns: 1fr; }
-  [data-look="codex"] .trophies { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
   [data-look="codex"] table.roster, [data-look="codex"] .ftable { min-width: 0; }
 }
 
@@ -661,7 +695,7 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
     <a href="#firsts">Firsts</a>
     <a href="#race">Race</a>
     <a href="#deeds">Deeds</a>
-    <a href="#trophies">Trophies</a>
+    <a href="#trophies">Kill counts</a>
     <a href="#friends">Friends</a>
     <a href="#roster">Roster</a>
     </div>
@@ -731,9 +765,9 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
   </div>
 
   <section id="trophies" aria-labelledby="trophies-h" hidden>
-    <h2 id="trophies-h">Trophy wall</h2>
+    <h2 id="trophies-h">Boss kill counts</h2>
     <p class="lede" id="trophies-lede">Dungeon bosses who met Stryguard and regretted it.</p>
-    <div class="trophies" id="trophy-wall"></div>
+    <div id="kc-body"></div>
   </section>
 
   <section id="friends" aria-labelledby="friends-h" hidden>
@@ -1684,31 +1718,149 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
     $("deeds").hidden = !all.length;
   }
 
-  /* ---------- Trophy wall ---------- */
-  function renderTrophies() {
+  /* ---------- Boss kill counts ---------- */
+  // Hiscores the old-school way: pick a boss for its kill-count table, or an adventurer for their
+  // boss log. Dungeons run early to late (classic levels; for anything else, the lowest level of
+  // anyone who has killed it). The week's gains come from the daily snapshots.
+  const DUNGEON_LEVEL = { "Ragefire Chasm": 13, "Wailing Caverns": 17, "Deadmines": 17, "Shadowfang Keep": 22,
+    "Blackfathom Deeps": 24, "Stormwind Stockade": 24, "The Stockade": 24, "Gnomeregan": 29, "Razorfen Kraul": 29,
+    "Scarlet Monastery": 34, "Razorfen Downs": 37, "Uldaman": 41, "Zul'Farrak": 44, "Maraudon": 46,
+    "Temple of Atal'Hakkar": 50, "Sunken Temple": 50, "Blackrock Depths": 52, "Blackrock Spire": 55,
+    "Lower Blackrock Spire": 55, "Upper Blackrock Spire": 55, "Dire Maul": 55, "Scholomance": 58, "Stratholme": 58 };
+  const KC_TIERS = [["Early dungeons", 0], ["Midway dungeons", 25], ["Late dungeons", 45]];
+  let kcBoss = null, kcWho = null;
+
+  function bossBook() {
     const map = new Map();
     state.members.forEach(m => ((m.fun && m.fun.bosses) || []).forEach(b => {
-      const key = b.boss + "|" + b.dungeon;
-      const e = map.get(key) || { boss: b.boss, dungeon: b.dungeon, kills: 0, slayers: [] };
-      e.kills += num(b.kills); e.slayers.push({ m, n: num(b.kills) });
+      if (!b || !b.boss || !(num(b.kills) > 0)) return;
+      const key = b.boss + "|" + str(b.dungeon);
+      const e = map.get(key) || { key, boss: b.boss, dungeon: str(b.dungeon), kills: 0, week: 0, rows: [] };
+      e.kills += num(b.kills); e.rows.push({ m, n: num(b.kills), week: 0 });
       map.set(key, e);
     }));
-    const list = [...map.values()].sort((a, b) => b.kills - a.kills || a.boss.localeCompare(b.boss));
-    const wall = $("trophy-wall"); wall.replaceChildren();
-    list.forEach(e => {
-      e.slayers.sort((a, b) => b.n - a.n);
-      const top = e.slayers[0];
-      wall.append(h("div", { class: "plaque" },
-        h("div", { class: "crest", "aria-hidden": "true", text: "⚔️" }),
-        h("div", { class: "boss", text: e.boss }),
-        h("div", { class: "where", text: e.dungeon }),
-        h("div", { class: "count" }, "Slain ", h("b", { text: fmt.format(e.kills) }), " ", e.kills === 1 ? "time" : "times"),
-        h("div", { class: "top", text: e.slayers.length === 1 ? "by " + fullName(top.m) + ", alone."
-          : "by " + e.slayers.length + " of us." + (top.n > 1 ? " Most often by " + fullName(top.m) + " (" + fmt.format(top.n) + ")." : "") })));
+    // Gains since the oldest snapshot in the past week that kept boss kills.
+    const cutoff = (state.fetchedAt || Date.now()) - 7 * DAY;
+    const base = histDays().find(d => dayMs(d.date) >= cutoff && Object.values(d.members).some(x => x && x.bosses));
+    const bosses = [...map.values()];
+    bosses.forEach(e => {
+      e.rows.sort((a, b) => b.n - a.n || fullName(a.m).localeCompare(fullName(b.m)));
+      e.rows.forEach(r => {
+        r.rank = 1 + e.rows.filter(x => x.n > r.n).length;
+        const then = base && base.members[fullName(r.m)];
+        if (then && then.bosses) { r.week = Math.max(0, r.n - num(then.bosses[e.key])); e.week += r.week; }
+      });
+      e.level = e.dungeon in DUNGEON_LEVEL ? DUNGEON_LEVEL[e.dungeon] : Math.min(...e.rows.map(r => lvl(r.m) || 99));
     });
-    $("trophies-lede").textContent = list.length
-      ? plural(list.length, "dungeon boss has", "dungeon bosses have") + " met Stryguard and regretted it."
+    bosses.sort((a, b) => a.level - b.level || a.dungeon.localeCompare(b.dungeon) || a.boss.localeCompare(b.boss));
+    return { bosses, since: base ? dayLabel(dayMs(base.date)) : null };
+  }
+
+  const kcTier = e => KC_TIERS.filter(t => e.level >= t[1]).pop()[0];
+
+  // A list of things to pick (bosses or adventurers), grouped, with one pressed at a time.
+  function kcPicker(label, groups, isOn, onPick) {
+    const ul = h("ul", { class: "kc-list", "aria-label": label });
+    const btns = [];
+    groups.forEach(([title, items]) => {
+      if (!items.length) return;
+      if (title) ul.append(h("li", { class: "kc-tier", text: title }));
+      items.forEach(it => {
+        const b = h("button", { type: "button", class: "kc-pick", "aria-pressed": String(isOn(it.ref)),
+          onclick: () => { onPick(it.ref); btns.forEach(x => x.b.setAttribute("aria-pressed", String(isOn(x.ref)))); } },
+          h("span", { class: "nm" }, it.name), h("span", { class: "sub", text: it.sub }), h("span", { class: "n", text: it.n }));
+        btns.push({ b, ref: it.ref });
+        ul.append(h("li", null, b));
+      });
+    });
+    return ul;
+  }
+  const kcStat = (label, value) => h("div", null, h("dt", { text: label }), h("dd", { text: value }));
+  const medal = r => h("span", { class: "medal", "aria-hidden": "true", text: r === 1 ? "🥇" : r === 2 ? "🥈" : r === 3 ? "🥉" : "" });
+
+  function renderTrophies() {
+    const { bosses, since } = bossBook();
+    const box = $("kc-body"); box.replaceChildren();
+    $("trophies-lede").textContent = bosses.length
+      ? plural(bosses.length, "dungeon boss has", "dungeon bosses have") + " met Stryguard and regretted it. Pick a boss for its hiscores, or an adventurer for their boss log."
       : "No bosses have fallen yet.";
+    if (!bosses.length) return;
+    const people = state.members.map(m => {
+      const mine = bosses.map(e => e.rows.find(r => r.m === m)).filter(Boolean);
+      return { m, total: mine.reduce((t, r) => t + r.n, 0), slain: mine.length, week: mine.reduce((t, r) => t + r.week, 0), firsts: mine.filter(r => r.rank === 1).length };
+    }).filter(p => p.total > 0).sort((a, b) => b.total - a.total || b.slain - a.slain || fullName(a.m).localeCompare(fullName(b.m)));
+    if (!bosses.some(e => e.key === kcBoss)) kcBoss = bosses.slice().sort((a, b) => b.kills - a.kills)[0].key;
+    if (!people.some(p => p.m === kcWho)) kcWho = people[0].m;
+    // The week's gains get their own column; on phones they tuck in beside the kills instead.
+    const weekCol = label => since ? h("th", { scope: "col", class: "num wk", text: label }) : null;
+    const weekCell = n => since ? h("td", { class: "num up wk", text: n > 0 ? "+" + fmt.format(n) : "" }) : null;
+    const killsCell = (n, wk) => h("td", { class: "num kc-n" }, n == null ? "–" : fmt.format(n),
+      since && wk > 0 ? h("span", { class: "up kc-wk", text: " +" + fmt.format(wk) }) : null);
+
+    // By boss: one hiscore table.
+    const bossBoard = h("div", { class: "panel kc-board" });
+    const drawBoss = () => {
+      const e = bosses.find(x => x.key === kcBoss), top = e.rows[0].n;
+      bossBoard.replaceChildren(
+        h("div", { class: "kc-head" },
+          h("div", { class: "kc-crest", "aria-hidden": "true", text: "💀" }),
+          h("div", null, h("h3", { class: "kc-title", text: e.boss }), h("div", { class: "kc-sub", text: e.dungeon })),
+          h("dl", { class: "kc-stats" }, kcStat("kills", fmt.format(e.kills)), kcStat(e.rows.length === 1 ? "slayer" : "slayers", fmt.format(e.rows.length)),
+            since ? kcStat("since " + since, "+" + fmt.format(e.week)) : null)),
+        h("table", { class: "kc-table" },
+          h("thead", null, h("tr", null, h("th", { scope: "col", text: "Rank" }), h("th", { scope: "col", text: "Adventurer" }),
+            h("th", { class: "barcell", "aria-hidden": "true" }), h("th", { scope: "col", class: "num", text: "Kills" }), weekCol("This week"))),
+          h("tbody", null, e.rows.map(r => h("tr", null,
+            h("td", { class: "rank" }, medal(r.rank), String(r.rank)),
+            h("td", null, h("span", { class: "winner" }, swatch(r.m.cls), " ", nameButton(r.m))),
+            h("td", { class: "barcell", "aria-hidden": "true" }, h("div", { class: "track" }, h("div", { class: "fill", style: "width:" + (r.n / top * 100) + "%" }))),
+            killsCell(r.n, r.week),
+            weekCell(r.week))))));
+    };
+    const bossItem = e => ({ ref: e.key, name: e.boss, sub: e.dungeon, n: fmt.format(e.kills) });
+    const bossList = kcPicker("Bosses", KC_TIERS.map(([t]) => [t, bosses.filter(e => kcTier(e) === t).map(bossItem)]),
+      key => key === kcBoss, key => { kcBoss = key; drawBoss(); });
+    drawBoss();
+
+    // By adventurer: everyone's boss log, with the bosses they haven't met greyed out.
+    const whoBoard = h("div", { class: "panel kc-board" });
+    const drawWho = () => {
+      const p = people.find(x => x.m === kcWho), m = p.m;
+      const rows = [];
+      KC_TIERS.forEach(([t]) => {
+        const list = bosses.filter(e => kcTier(e) === t);
+        if (!list.length) return;
+        rows.push(h("tr", { class: "kc-group" }, h("th", { scope: "colgroup", colspan: since ? 5 : 4, text: t })));
+        list.forEach(e => {
+          const r = e.rows.find(x => x.m === m);
+          rows.push(h("tr", { class: r ? "" : "kc-none" },
+            h("td", null, h("b", { text: e.boss }), h("div", { class: "small", text: e.dungeon })),
+            killsCell(r ? r.n : null, r ? r.week : 0),
+            h("td", { class: "rank" }, r ? medal(r.rank) : "", r ? "#" + r.rank + " of " + e.rows.length : "not yet"),
+            h("td", { class: "barcell", "aria-hidden": "true" }, r ? h("div", { class: "track" }, h("div", { class: "fill", style: "width:" + (r.n / e.rows[0].n * 100) + "%" })) : ""),
+            weekCell(r ? r.week : 0)));
+        });
+      });
+      whoBoard.replaceChildren(
+        h("div", { class: "kc-head" },
+          h("div", { class: "kc-crest", "aria-hidden": "true", text: "🛡️" }),
+          h("div", null, h("h3", { class: "kc-title" }, swatch(m.cls), " ", nameButton(m)),
+            h("div", { class: "kc-sub", text: ["Level " + lvl(m), m.cls].filter(Boolean).join(" ") })),
+          h("dl", { class: "kc-stats" }, kcStat("kills", fmt.format(p.total)), kcStat("bosses", p.slain + " of " + bosses.length),
+            kcStat("top spots", fmt.format(p.firsts)), since ? kcStat("since " + since, "+" + fmt.format(p.week)) : null)),
+        h("table", { class: "kc-table" },
+          h("thead", null, h("tr", null, h("th", { scope: "col", text: "Boss" }), h("th", { scope: "col", class: "num", text: "Kills" }),
+            h("th", { scope: "col", text: "Rank" }), h("th", { class: "barcell", "aria-hidden": "true" }), weekCol("This week"))),
+          h("tbody", null, rows)));
+    };
+    const whoList = kcPicker("Adventurers", [["", people.map((p, i) => ({ ref: p.m, name: [swatch(p.m.cls), " ", (i + 1) + ". " + fullName(p.m)],
+      sub: plural(p.slain, "boss", "bosses") + " slain", n: fmt.format(p.total) }))]],
+      m => m === kcWho, m => { kcWho = m; drawWho(); });
+    drawWho();
+
+    box.append(tabbed("kc", "Kill counts", [
+      { name: "By boss", icon: "💀", count: bosses.length, panel: h("div", { class: "kc" }, bossList, bossBoard) },
+      { name: "By adventurer", icon: "🛡️", count: people.length, panel: h("div", { class: "kc" }, whoList, whoBoard) }]));
   }
 
   /* ---------- Friends and companions ---------- */
@@ -2120,10 +2272,10 @@ footer .emblem { font-family: var(--display); font-size: 28px; color: var(--ink)
   // Norwegian. The same again, or the button in the corner, brings it back. Remembered per browser.
   const NORSK = {
     "Oddities": "Rariteter", "Crier": "Utroper", "Firsts": "Først", "Race": "Løpet", "Deeds": "Bragder",
-    "Trophies": "Trofeer", "Friends": "Venner", "Makeup": "Laget", "Roster": "Medlemmer",
+    "Kill counts": "Drapstall", "Friends": "Venner", "Makeup": "Laget", "Roster": "Medlemmer",
     "Hall of oddities": "Rariteteskabinettet", "The Stryguard Town Crier": "Stryguard-utroperen",
     "Guild firsts": "Først til mølla", "The levelling race": "Det store nivåløpet", "Between us": "Dugnadsånd",
-    "Recent deeds": "Siste bragder", "Trophy wall": "Troféveggen", "Friends and companions": "Venner og turkamerater",
+    "Recent deeds": "Siste bragder", "Boss kill counts": "Bossdrap, talt opp", "By boss": "Per boss", "By adventurer": "Per eventyrer", "Friends and companions": "Venner og turkamerater",
     "Who rides with us": "Hvem er med på tur", "Honor and crafts": "Ære og husflid",
     "The guild’s book of records, kept honestly by the Armory and refreshed every hour. Glory to the winners, condolences to the critters.":
       "Laugets rekordbok, ført ærlig av Armory og oppdatert hver time. Ære til vinnerne, kondolerer til smådyrene.",

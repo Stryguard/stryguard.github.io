@@ -482,6 +482,7 @@ def update_history(members, path, keep_days=15):
             "stats": fun.get("stats") or {}, "skills": {name: s for name, s in r.get("professions") or [] if s},
             "pets": len(fun.get("pets") or []), "mounts": len(fun.get("mounts") or []),
             "deeds": len(fun.get("deeds") or []),
+            "bosses": {f"{b['boss']}|{b['dungeon']}": b["kills"] for b in fun.get("bosses") or [] if b.get("boss")},
         }
     days.append({"date": today, "at": int(time.time() * 1000), "members": snap})
     del days[:-keep_days]
