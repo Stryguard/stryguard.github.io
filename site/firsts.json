@@ -262,7 +262,12 @@
    "before_records": false
   },
   "fish-1000": {
-   "state": "open"
+   "state": "claimed",
+   "who": [
+    "Crimson Cassius"
+   ],
+   "at": 1794949644397,
+   "before_records": false
   },
   "fish-2500": {
    "state": "open"
@@ -302,7 +307,12 @@
    "state": "open"
   },
   "pets-5": {
-   "state": "open"
+   "state": "claimed",
+   "who": [
+    "Crimson Cassius"
+   ],
+   "at": 1794949644397,
+   "before_records": false
   }
  }
 }
