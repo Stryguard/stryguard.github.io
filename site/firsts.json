@@ -236,7 +236,12 @@
    "state": "open"
   },
   "waves-50": {
-   "state": "open"
+   "state": "claimed",
+   "who": [
+    "Crimson Cassius"
+   ],
+   "at": 1795003092257,
+   "before_records": false
   },
   "cheers-50": {
    "state": "open"
