@@ -18,7 +18,12 @@
    "before_records": true
   },
   "level-40": {
-   "state": "open"
+   "state": "claimed",
+   "who": [
+    "Silas Moonwhisper"
+   ],
+   "at": 1794970778882,
+   "before_records": false
   },
   "level-50": {
    "state": "open"
@@ -33,7 +38,12 @@
    "before_records": true
   },
   "skill-mining-225": {
-   "state": "open"
+   "state": "claimed",
+   "who": [
+    "Old Iron"
+   ],
+   "at": 1794970778882,
+   "before_records": false
   },
   "skill-mining-300": {
    "state": "open"
