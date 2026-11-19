@@ -196,7 +196,12 @@
    "state": "open"
   },
   "food-500": {
-   "state": "open"
+   "state": "claimed",
+   "who": [
+    "Arektanel Briskfarer"
+   ],
+   "at": 1795089350109,
+   "before_records": false
   },
   "food-1000": {
    "state": "open"
