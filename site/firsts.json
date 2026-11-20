@@ -249,7 +249,12 @@
    "before_records": false
   },
   "cheers-50": {
-   "state": "open"
+   "state": "claimed",
+   "who": [
+    "Sigvald Gormundson"
+   ],
+   "at": 1795141680323,
+   "before_records": false
   },
   "lol-25": {
    "state": "open"
