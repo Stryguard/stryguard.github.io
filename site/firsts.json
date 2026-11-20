@@ -326,7 +326,12 @@
    "state": "open"
   },
   "dungeons-50": {
-   "state": "open"
+   "state": "claimed",
+   "who": [
+    "Crimson Cassius"
+   ],
+   "at": 1795206872927,
+   "before_records": false
   },
   "duels-10": {
    "state": "open"
