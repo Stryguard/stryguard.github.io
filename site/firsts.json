@@ -232,7 +232,12 @@
    "state": "open"
   },
   "creatures-10000": {
-   "state": "open"
+   "state": "claimed",
+   "who": [
+    "Leandros Bloodshot"
+   ],
+   "at": 1795228462203,
+   "before_records": false
   },
   "hugs-10": {
    "state": "open"
