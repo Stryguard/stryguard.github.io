@@ -170,7 +170,12 @@
    "before_records": true
   },
   "deaths-250": {
-   "state": "open"
+   "state": "claimed",
+   "who": [
+    "Arektanel Briskfarer"
+   ],
+   "at": 1795386996484,
+   "before_records": false
   },
   "deaths-500": {
    "state": "open"
