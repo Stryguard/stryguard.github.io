@@ -325,7 +325,12 @@
    "before_records": false
   },
   "hk-500": {
-   "state": "open"
+   "state": "claimed",
+   "who": [
+    "Imperiel Thornblade"
+   ],
+   "at": 1795307433817,
+   "before_records": false
   },
   "hk-1000": {
    "state": "open"
