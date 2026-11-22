@@ -262,7 +262,12 @@
    "before_records": false
   },
   "lol-25": {
-   "state": "open"
+   "state": "claimed",
+   "who": [
+    "Leandros Bloodshot"
+   ],
+   "at": 1795335285972,
+   "before_records": false
   },
   "flights-100": {
    "state": "claimed",
