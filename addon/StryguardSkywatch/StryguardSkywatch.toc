@@ -1,0 +1,18 @@
+## Interface: 16001
+## Title: Stryguard Skywatch
+## Notes: A tower defence campaign to play on long flights. /skywatch to open.
+## Author: Stryguard
+## Version: 3.0.0
+## IconTexture: Interface\Icons\INV_BannerPVP_02
+## SavedVariables: SkywatchDB
+## AddonCompartmentFunc: StryguardSkywatch_OnAddonCompartmentClick
+
+Maps.lua
+Data.lua
+Foes.lua
+Levels.lua
+Deeds.lua
+Meta.lua
+Game.lua
+UI.lua
+Core.lua
