@@ -26,7 +26,12 @@
    "before_records": false
   },
   "level-50": {
-   "state": "open"
+   "state": "claimed",
+   "who": [
+    "Arektanel Briskfarer"
+   ],
+   "at": 1795691339090,
+   "before_records": false
   },
   "skill-mining-150": {
    "state": "claimed",
