@@ -354,7 +354,12 @@
    "before_records": false
   },
   "duels-10": {
-   "state": "open"
+   "state": "claimed",
+   "who": [
+    "Aulë Ill"
+   ],
+   "at": 1795658002992,
+   "before_records": false
   },
   "pets-5": {
    "state": "claimed",
