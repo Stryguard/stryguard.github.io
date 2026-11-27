@@ -225,7 +225,12 @@
    "before_records": true
   },
   "drinks-2500": {
-   "state": "open"
+   "state": "claimed",
+   "who": [
+    "Arektanel Briskfarer"
+   ],
+   "at": 1795817449238,
+   "before_records": false
   },
   "potions-100": {
    "state": "claimed",
