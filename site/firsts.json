@@ -320,7 +320,12 @@
    "before_records": false
   },
   "fish-2500": {
-   "state": "open"
+   "state": "claimed",
+   "who": [
+    "Crimson Cassius"
+   ],
+   "at": 1795838573604,
+   "before_records": false
   },
   "quests-500": {
    "state": "claimed",
@@ -334,7 +339,13 @@
    "state": "open"
   },
   "abandoned-100": {
-   "state": "open"
+   "state": "claimed",
+   "who": [
+    "Silas Moonwhisper",
+    "Arektanel Briskfarer"
+   ],
+   "at": 1795838573604,
+   "before_records": false
   },
   "greed-250": {
    "state": "claimed",
